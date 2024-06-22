@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"my0521.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="__new__与  __ init __ __init__是初始化方法，创建对象后，就立刻被默认调用了，可接收参数 __new__至少要有一个参数 cls，代表当前类，此参数在实例化时由 Python 解释器自动识别 __new__必须要有返回值，返回实例化出来的实例，这点在自己实现__new__时要特别注意，可以 return 父类（通过 super(当前类名, cls)）__new__出来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 知识点">
+<meta property="og:url" content="https://my0521.github.io/2020/07/01/Python%20%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
+<meta property="og:site_name" content="miracle">
+<meta property="og:description" content="__new__与  __ init __ __init__是初始化方法，创建对象后，就立刻被默认调用了，可接收参数 __new__至少要有一个参数 cls，代表当前类，此参数在实例化时由 Python 解释器自动识别 __new__必须要有返回值，返回实例化出来的实例，这点在自己实现__new__时要特别注意，可以 return 父类（通过 super(当前类名, cls)）__new__出来">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-01T12:00:48.000Z">
+<meta property="article:modified_time" content="2024-06-22T08:41:20.866Z">
+<meta property="article:author" content="my">
+<meta property="article:tag" content="Python3">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://my0521.github.io/2020/07/01/Python%20%E7%9F%A5%E8%AF%86%E7%82%B9/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://my0521.github.io/2020/07/01/Python%20%E7%9F%A5%E8%AF%86%E7%82%B9/","path":"2020/07/01/Python 知识点/","title":"Python 知识点"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python 知识点 | miracle</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">miracle</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-happy"><a href="/happy/" rel="section"><i class="fa fa-th fa-fw"></i>happy</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#new-%E4%B8%8E-init"><span class="nav-number">1.</span> <span class="nav-text">__new__与  __ init __</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E5%85%B8"><span class="nav-number">2.</span> <span class="nav-text">字典</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#re"><span class="nav-number">3.</span> <span class="nav-text">re</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">多线程</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my0521.github.io/2020/07/01/Python%20%E7%9F%A5%E8%AF%86%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="miracle">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Python 知识点 | miracle">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python 知识点
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-01 20:00:48" itemprop="dateCreated datePublished" datetime="2020-07-01T20:00:48+08:00">2020-07-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-22 16:41:20" itemprop="dateModified" datetime="2024-06-22T16:41:20+08:00">2024-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Python3/" itemprop="url" rel="index"><span itemprop="name">Python3</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><span id="more"></span>
+
+<h1 id="new-与-init"><a href="#new-与-init" class="headerlink" title="__new__与  __ init __"></a><code>__new__</code>与  <code>__ init __</code></h1><ol>
+<li>__init__是初始化方法，创建对象后，就立刻被默认调用了，可接收参数</li>
+<li>__new__至少要有一个参数 cls，代表当前类，此参数在实例化时由 Python 解释器自动识<br>别</li>
+<li>__new__必须要有返回值，返回实例化出来的实例，这点在自己实现__new__时要特别注<br>意，可以 return 父类（通过 super(当前类名, cls)）__new__出来的实例，或者直接是 object<br>的__new__出来的实例</li>
+<li>__init__有一个参数 self，就是这个__new__返回的实例，__init__在__new__的基础上可<br>以完成一些其它初始化的动作，__init__不需要返回值</li>
+<li>如果__new__创建的是当前类的实例，会自动调用__init__函数，通过 return 语句里面调<br>用的__new__函数的第一个参数是 cls 来保证是当前类实例，如果是其他类的类名，；那么实<br>际创建返回的就是其他类的实例，其实就不会调用当前类的__init__函数，也不会调用其他<br>类的__init__函数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span>  <span class="title class_">A</span>:</span><br><span class="line">    def <span class="title function_">__init__</span>(self, name, color):</span><br><span class="line">        self.<span class="property">name</span> = name</span><br><span class="line">        self.<span class="property">color</span> = color</span><br><span class="line">        <span class="title function_">print</span>(<span class="string">&quot;__init__  A&quot;</span>)</span><br><span class="line"></span><br><span class="line">    def <span class="title function_">test</span>(self):</span><br><span class="line">        <span class="title function_">print</span>(<span class="string">&quot;test A&quot;</span>)</span><br><span class="line"></span><br><span class="line">    def <span class="title function_">__new__</span>(cls, *args, **kwargs):</span><br><span class="line">        <span class="title function_">print</span>(<span class="string">&quot;__new__ &quot;</span>)</span><br><span class="line">        # <span class="keyword">return</span> object.<span class="title function_">__new__</span>(cls)</span><br><span class="line">        <span class="keyword">return</span> object.<span class="title function_">__new__</span>(B)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>:</span><br><span class="line">    def <span class="title function_">__init__</span>(self, name, color):</span><br><span class="line">        self.<span class="property">name</span> = name</span><br><span class="line">        self.<span class="property">color</span> = color</span><br><span class="line">        <span class="title function_">print</span>(<span class="string">&quot;__init__  B&quot;</span>)</span><br><span class="line"></span><br><span class="line">    def <span class="title function_">test</span>(self):</span><br><span class="line">        <span class="title function_">print</span>(<span class="string">&quot;test B&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># __new__</span><br><span class="line"># __init__  A</span><br><span class="line"># test A</span><br><span class="line">__new__ </span><br><span class="line"><span class="keyword">test </span>B</span><br></pre></td></tr></table></figure>
+
+<h1 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h1><ol>
+<li>排序</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dict = &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;my&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">20</span>, <span class="string">&quot;city&quot;</span>: <span class="string">&quot;上海&quot;</span>,<span class="string">&quot;tel&quot;</span>:<span class="string">&quot;13600000000&quot;</span>&#125;</span><br><span class="line">dict = <span class="title function_">sorted</span>(dict.<span class="title function_">items</span>(),key=lambda <span class="attr">i</span>:i[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;my&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">20</span>, <span class="string">&#x27;city&#x27;</span>: <span class="string">&#x27;上海&#x27;</span>, <span class="string">&#x27;tel&#x27;</span>: <span class="string">&#x27;13600000000&#x27;</span>&#125;</span><br><span class="line">[(<span class="string">&#x27;age&#x27;</span>, <span class="number">20</span>), (<span class="string">&#x27;city&#x27;</span>, <span class="string">&#x27;上海&#x27;</span>), (<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;my&#x27;</span>), (<span class="string">&#x27;tel&#x27;</span>, <span class="string">&#x27;13600000000&#x27;</span>)]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>合并</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict1.<span class="title function_">update</span>(dict2)</span><br></pre></td></tr></table></figure>
+
+<h1 id="re"><a href="#re" class="headerlink" title="re"></a>re</h1><ol>
+<li>字符串中提取值 ，提取值用()包裹<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">str =<span class="string">&#x27;&lt;div class=&quot;nam&quot;&gt;中国&lt;/div&gt;&#x27;</span></span><br><span class="line">res = re.<span class="title function_">findall</span>(r<span class="string">&#x27;&lt;div class=&quot;.*&quot;&gt;(.*?)&lt;/div&gt;&#x27;</span>, str)</span><br><span class="line"><span class="title function_">print</span>(res)</span><br></pre></td></tr></table></figure>
+输出: [‘中国’]</li>
+</ol>
+<p>#（.<em>）是贪婪匹配，会把满足正则的尽可能多的往后匹配<br>#（.</em>?）是非贪婪匹配，会把满足正则的尽可能少匹配</p>
+<ol start="2">
+<li>匹配数字 和英文<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;not 404 found 张三 99 深圳&quot;</span></span><br><span class="line">    li = a.<span class="title function_">split</span>(<span class="string">&quot; &quot;</span>)</span><br><span class="line">    <span class="title function_">print</span>(li)</span><br><span class="line">    res = re.<span class="title function_">findall</span>(<span class="string">&#x27;\d+|[a-zA-Z]+&#x27;</span>, a)  # \d 匹配数字，|[]中匹配单词，+连接多个匹配方式</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="attr">res</span>:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">in</span> <span class="attr">li</span>:</span><br><span class="line">            li.<span class="title function_">remove</span>(i)</span><br><span class="line">    new_str = <span class="string">&quot; &quot;</span>.<span class="title function_">join</span>(li)</span><br><span class="line">    <span class="title function_">print</span>(res)</span><br><span class="line">    <span class="title function_">print</span>(new_str)</span><br></pre></td></tr></table></figure>
+输出：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;not&#x27;</span>, <span class="string">&#x27;404&#x27;</span>, <span class="string">&#x27;found&#x27;</span>, <span class="string">&#x27;张三&#x27;</span>, <span class="string">&#x27;99&#x27;</span>, <span class="string">&#x27;深圳&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;not&#x27;</span>, <span class="string">&#x27;404&#x27;</span>, <span class="string">&#x27;found&#x27;</span>, <span class="string">&#x27;99&#x27;</span>]</span><br><span class="line">张三 深圳</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>替换</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;张明 98 分&quot;</span></span><br><span class="line">ret = re.<span class="title function_">sub</span>(r<span class="string">&quot;\d+&quot;</span>, <span class="string">&quot;100&quot;</span>, a)</span><br><span class="line"><span class="title function_">print</span>(ret)</span><br></pre></td></tr></table></figure>
+
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line">from time import <span class="keyword">sleep</span>,ctime</span><br><span class="line"></span><br><span class="line">def talk(content, <span class="built_in">count</span>):</span><br><span class="line">    <span class="keyword">for</span> i in <span class="built_in">range</span>(<span class="built_in">count</span>):</span><br><span class="line">        <span class="keyword">print</span>(<span class="keyword">f</span><span class="string">&#x27;start to talk&#123;content, ctime()&#125;&#x27;</span>)</span><br><span class="line">    <span class="keyword">sleep</span>(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">def <span class="keyword">write</span>(content,<span class="built_in">count</span>):</span><br><span class="line">    <span class="keyword">for</span> i in <span class="built_in">range</span>(<span class="built_in">count</span>):</span><br><span class="line">        <span class="keyword">print</span>(<span class="keyword">f</span><span class="string">&#x27;start to write&#123;content, ctime()&#125;&#x27;</span>)</span><br><span class="line">    <span class="keyword">sleep</span>(<span class="number">2</span>)</span><br><span class="line">threads = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    t1 = threading.Thread(target=talk, <span class="keyword">args</span>=(<span class="string">&#x27;hello world&#x27;</span>, <span class="number">10</span>))</span><br><span class="line">    threads.<span class="keyword">append</span>(t1)</span><br><span class="line">    t2 = threading.Thread(target=<span class="keyword">write</span>, <span class="keyword">args</span>=(<span class="string">&#x27;oh my god&#x27;</span>, <span class="number">10</span>))</span><br><span class="line">    threads.<span class="keyword">append</span>(t2)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> thread in threads:</span><br><span class="line">        thread.start()</span><br><span class="line">    <span class="keyword">for</span> thread in threads:</span><br><span class="line">        thread.<span class="keyword">join</span>()  # <span class="keyword">join</span> 方法作用是主线程等待调用 <span class="keyword">join</span> 方法的子线 程终止后再往下执行</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python3/" rel="tag"># Python3</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/01/Solr/" rel="prev" title="Solr">
+                  <i class="fa fa-angle-left"></i> Solr
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/01/Python%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" rel="next" title="Python 多路复用">
+                  Python 多路复用 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">my</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

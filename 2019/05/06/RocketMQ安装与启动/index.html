@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"my0521.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="记录RocketMQ安装及爬坑的一些问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RocketMQ安装与启动">
+<meta property="og:url" content="https://my0521.github.io/2019/05/06/RocketMQ%E5%AE%89%E8%A3%85%E4%B8%8E%E5%90%AF%E5%8A%A8/index.html">
+<meta property="og:site_name" content="miracle">
+<meta property="og:description" content="记录RocketMQ安装及爬坑的一些问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-06T12:00:48.000Z">
+<meta property="article:modified_time" content="2024-06-22T08:41:20.866Z">
+<meta property="article:author" content="my">
+<meta property="article:tag" content="RocketMQ">
+<meta property="article:tag" content="centOS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://my0521.github.io/2019/05/06/RocketMQ%E5%AE%89%E8%A3%85%E4%B8%8E%E5%90%AF%E5%8A%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://my0521.github.io/2019/05/06/RocketMQ%E5%AE%89%E8%A3%85%E4%B8%8E%E5%90%AF%E5%8A%A8/","path":"2019/05/06/RocketMQ安装与启动/","title":"RocketMQ安装与启动"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RocketMQ安装与启动 | miracle</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">miracle</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-happy"><a href="/happy/" rel="section"><i class="fa fa-th fa-fw"></i>happy</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#rocketM%E4%BE%9D%E8%B5%96%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">rocketM依赖环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-number">4.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF"><span class="nav-number">6.</span> <span class="nav-text">错误</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my0521.github.io/2019/05/06/RocketMQ%E5%AE%89%E8%A3%85%E4%B8%8E%E5%90%AF%E5%8A%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="miracle">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="RocketMQ安装与启动 | miracle">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RocketMQ安装与启动
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-06 20:00:48" itemprop="dateCreated datePublished" datetime="2019-05-06T20:00:48+08:00">2019-05-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-22 16:41:20" itemprop="dateModified" datetime="2024-06-22T16:41:20+08:00">2024-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MQ/" itemprop="url" rel="index"><span itemprop="name">MQ</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>记录RocketMQ安装及爬坑的一些问题</p>
+<span id="more"></span>
+
+<p>RocketMQ 官网： <a target="_blank" rel="noopener" href="http://rocketmq.apache.org/">http://rocketmq.apache.org</a></p>
+<h2 id="rocketM依赖环境"><a href="#rocketM依赖环境" class="headerlink" title="rocketM依赖环境"></a>rocketM依赖环境</h2><ul>
+<li>JAVA JDK1.8</li>
+</ul>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><ol>
+<li><p>下载</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="regexp">/tmp/</span></span><br><span class="line">wget <span class="attr">http:</span><span class="comment">//mirrors.tuna.tsinghua.edu.cn/apache/rocketmq/4.7.1/rocketmq-all-4.7.1-bin-release.zip</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压到安装目录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install unzip</span><br><span class="line">unzip <span class="operator">/</span>tmp<span class="operator">/</span>rocketmq<span class="operator">-</span><span class="keyword">all</span><span class="number">-4.7</span><span class="number">.1</span><span class="operator">-</span>bin<span class="operator">-</span>release.zip <span class="operator">-</span>d <span class="operator">/</span>usr<span class="operator">/</span><span class="keyword">local</span><span class="operator">/</span></span><br><span class="line">mv rocketmq<span class="operator">-</span><span class="keyword">all</span><span class="number">-4.7</span><span class="number">.1</span><span class="operator">-</span>bin<span class="operator">-</span><span class="keyword">release</span><span class="operator">/</span> rocketmq<span class="operator">/</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
+<li>配置JAVA环境变量<br>rocketMQ服务启动有2个基本脚本runserver.sh与runbroker.sh，默认的启动一般会报错，一般是JAVA环境变量与内存溢出错误，即使系统环境变量正常，在此处脚本中还是需要配置JAVA_HOME,本机在一个1G内存的服务器上搭建，使用配置如下;</li>
+</ol>
+<ul>
+<li>runserver.sh 修改之处<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[ ! -e <span class="string">&quot;<span class="variable">$JAVA_HOME</span>/bin/java&quot;</span> ] &amp;&amp; JAVA_HOME=<span class="variable">$HOME</span>/java/jdk1.8.0_251</span><br><span class="line"><span class="comment">#[ ! -e &quot;$JAVA_HOME/bin/java&quot; ] &amp;&amp; JAVA_HOME=/usr/java</span></span><br><span class="line"><span class="comment">#[ ! -e &quot;$JAVA_HOME/bin/java&quot; ] &amp;&amp; error_exit &quot;Please set the JAVA_HOME variable in your environment, We need java(x64)!&quot;</span></span><br><span class="line">DIR_SIZE_IN_MB=60</span><br><span class="line">JAVA_OPT=<span class="string">&quot;<span class="variable">$&#123;JAVA_OPT&#125;</span> -server -Xms32m -Xmx64m -Xmn32m -XX:MetaspaceSize=32m -XX:MaxMetaspaceSize=64m&quot;</span></span><br><span class="line">JAVA_OPT=<span class="string">&quot;<span class="variable">$&#123;JAVA_OPT&#125;</span> -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>runbroker.sh 修改之处<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[ ! -e <span class="string">&quot;<span class="variable">$JAVA_HOME</span>/bin/java&quot;</span> ] &amp;&amp; JAVA_HOME=<span class="variable">$HOME</span>/java/jdk1.8.0_251</span><br><span class="line"><span class="comment">#[ ! -e &quot;$JAVA_HOME/bin/java&quot; ] &amp;&amp; JAVA_HOME=/usr/java</span></span><br><span class="line"><span class="comment">#[ ! -e &quot;$JAVA_HOME/bin/java&quot; ] &amp;&amp; error_exit &quot;Please set the JAVA_HOME variable in your environment, We need java(x64)!&quot;</span></span><br><span class="line">DIR_SIZE_IN_MB=60</span><br><span class="line">JAVA_OPT=<span class="string">&quot;<span class="variable">$&#123;JAVA_OPT&#125;</span> -server -Xms32m -Xmx64m -Xmn32m&quot;</span></span><br><span class="line">JAVA_OPT=<span class="string">&quot;<span class="variable">$&#123;JAVA_OPT&#125;</span> -XX:+UseG1GC -XX:G1HeapRegionSize=32m -XX:G1ReservePercent=25 -XX:InitiatingHeapOccupancyPercent=30 -XX:SoftRefLRUPolicyMSPerMB=0&quot;</span></span><br><span class="line">JAVA_OPT=<span class="string">&quot;<span class="variable">$&#123;JAVA_OPT&#125;</span> -XX:MaxDirectMemorySize=32m&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>vim &#x2F;etc&#x2F;profile添加<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">export</span> NAMESRV_ADDR=<span class="number">127.0.0.1:9876</span></span><br></pre></td></tr></table></figure></li>
+<li>tools.sh 修改<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[ ! -<span class="keyword">e</span> <span class="string">&quot;$JAVA_HOME/bin/java&quot;</span> ] &amp;&amp; JAVA_HOME=<span class="variable">$HOME</span>/java/jdk1.8.0_251</span><br><span class="line">#[ ! -<span class="keyword">e</span> <span class="string">&quot;$JAVA_HOME/bin/java&quot;</span> ] &amp;&amp; JAVA_HOME=/usr/java</span><br><span class="line">#[ ! -<span class="keyword">e</span> <span class="string">&quot;$JAVA_HOME/bin/java&quot;</span> ] &amp;&amp; error_exit <span class="string">&quot;Please set the JAVA_HOME variable in your environment, We need java(x64)!&quot;</span></span><br><span class="line">JAVA_OPT=<span class="string">&quot;$&#123;JAVA_OPT&#125; -server -Xms32m -Xmx32m -Xmn64m -XX:MetaspaceSize=32m -XX:MaxMetaspaceSize=32m&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><ol>
+<li>进入rocketmq目录  <code>cd /usr/local/rocketmq</code></li>
+<li>启动mqnamesrv   <code>nohup sh bin/mqnamesrv &amp;</code><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">执行命令后,重新开启一个终端，查看`nohup.out`出现`The Name Server boot success. serializeType=JSON` ，服务启动成功</span><br></pre></td></tr></table></figure></li>
+<li>启动broker <code>nohup sh bin/mqbroker -n localhost:9876 &amp;</code><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The broker[hecs-x-medium<span class="number">-2</span>-linux<span class="number">-20200606090800</span>, <span class="number">192.168</span><span class="number">.0</span><span class="number">.186</span>:<span class="number">10911</span>] boot success. serializeType=JSON <span class="keyword">and</span> name <span class="built_in">server</span> <span class="keyword">is</span> localhost:<span class="number">9876</span></span><br></pre></td></tr></table></figure></li>
+<li>查看启动后进程  <code>jps</code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">15556 NamesrvStartup</span><br><span class="line">15740 Jps</span><br><span class="line">15583 BrokerStartup</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol>
+<li>生产消息<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/tools org<span class="selector-class">.apache</span><span class="selector-class">.rocketmq</span><span class="selector-class">.example</span><span class="selector-class">.quickstart</span>.Producer</span><br></pre></td></tr></table></figure></li>
+<li>消费消息<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/tools org<span class="selector-class">.apache</span><span class="selector-class">.rocketmq</span><span class="selector-class">.example</span><span class="selector-class">.quickstart</span>.Consumer</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>说明<br>如果服务正常，会出现发送消息与接收消息的打印日志，如下：</li>
+</ul>
+<ol>
+<li><code>SendResult [sendStatus=SEND_OK, msgId=C0A800BA47FC6D6F6E285120A91D03E7, offsetMsgId=792440C500002A9F0000000000092BAB, messageQueue=MessageQueue [topic=TopicTest, brokerName=broker-a, queueId=2], queueOffset=740]</code> </li>
+<li><code>ConsumeMessageThread_1 Receive New Messages: [MessageExt [brokerName=broker-a, queueId=0, storeSize=203, queueOffset=488, sysFlag=0, bornTimestamp=1594893231158, bornHost=/121.36.64.197:41676, storeTimestamp=1594893231159, storeHost=/121.36.64.197:10911, msgId=792440C500002A9F0000000000060CC9, commitLogOffset=396489, bodyCRC=684865321, reconsumeTimes=0, preparedTransactionOffset=0, toString()=Message&#123;topic=&#39;TopicTest&#39;, flag=0, properties=&#123;MIN_OFFSET=0, MAX_OFFSET=491, CONSUME_START_TIME=1594893303537, UNIQ_KEY=C0A800BA476D6D6F6E285116883603DF, CLUSTER=DefaultCluster, WAIT=true, TAGS=TagA&#125;, body=[72, 101, 108, 108, 111, 32, 82, 111, 99, 107, 101, 116, 77, 81, 32, 57, 57, 49], transactionId=&#39;null&#39;&#125;]]</code></li>
+</ol>
+<h2 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h2><ol>
+<li><p>Address already in use<br>服务已经启动或者端口被占用</p>
+</li>
+<li><p>*JAVA_HOME&#x2F;bin&#x2F;java: No such file or directory<br>无法找到java命令路径，这里的路径指向JAVA_HOME&#x2F;bin&#x2F;java，将脚本中的JAVA_HOME变量修改为本地JDK根目录即可。</p>
+</li>
+<li><p>[NettyClientSelector_1] INFO  RocketmqRemoting - closeChannel: close the connection to remote address[] result: true<br>这个问题是无法连接到服务造成的，原因可能是系统防火墙拦截、系统的端口未开放（注意有2个端口，一个namesrv：10911，一个broker：9876，当时因为10911端口未开放，瞎折腾半天）</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/RocketMQ/" rel="tag"># RocketMQ</a>
+              <a href="/tags/centOS/" rel="tag"># centOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/05/06/RocketMQ%E6%B6%88%E6%81%AF%E5%8F%91%E5%B8%83%E4%B8%8E%E8%AE%A2%E9%98%85/" rel="prev" title="RocketMQ消息发布与订阅">
+                  <i class="fa fa-angle-left"></i> RocketMQ消息发布与订阅
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/05/06/RocketMQ%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7/" rel="next" title="RocketMQ可视化工具">
+                  RocketMQ可视化工具 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">my</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

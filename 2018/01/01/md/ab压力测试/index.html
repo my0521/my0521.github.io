@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"my0521.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="ab测试工具安装、参数的介绍以及使用方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ab压力测试">
+<meta property="og:url" content="https://my0521.github.io/2018/01/01/md/ab%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="miracle">
+<meta property="og:description" content="ab测试工具安装、参数的介绍以及使用方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-01-01T12:00:48.000Z">
+<meta property="article:modified_time" content="2024-06-22T08:41:03.418Z">
+<meta property="article:author" content="my">
+<meta property="article:tag" content="ab">
+<meta property="article:tag" content="测试">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://my0521.github.io/2018/01/01/md/ab%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://my0521.github.io/2018/01/01/md/ab%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/","path":"2018/01/01/md/ab压力测试/","title":"ab压力测试"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ab压力测试 | miracle</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">miracle</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-happy"><a href="/happy/" rel="section"><i class="fa fa-th fa-fw"></i>happy</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">使用</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my0521.github.io/2018/01/01/md/ab%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="miracle">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ab压力测试 | miracle">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ab压力测试
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-01 20:00:48" itemprop="dateCreated datePublished" datetime="2018-01-01T20:00:48+08:00">2018-01-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-22 16:41:03" itemprop="dateModified" datetime="2024-06-22T16:41:03+08:00">2024-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>ab测试工具安装、参数的介绍以及使用方法</p>
+<span id="more"></span>
+
+<p>Apache Benchmark(简称ab) 是Apache安装包中自带的压力测试工具 ，简单易用</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="operator">-</span>y install httpd<span class="operator">-</span>tools</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>查看安装路径 <code>which ab</code></p>
+</li>
+<li><p>查看版本 <code>ab -V</code></p>
+</li>
+</ul>
+<h2 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h2><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">-<span class="language-ruby">n	即requests，用于指定压力测试总共的执行次数。</span></span><br><span class="line">-<span class="language-ruby">c	即concurrency，用于指定的并发数。</span></span><br><span class="line">-<span class="language-ruby">t	即timelimit，等待响应的最大时间(单位：秒)。</span></span><br><span class="line">-<span class="language-ruby">b	即windowsize，<span class="variable constant_">TCP</span>发送/接收的缓冲大小(单位：字节)。</span></span><br><span class="line">-<span class="language-ruby">p	即postfile，发送<span class="variable constant_">POST</span>请求时需要上传的文件，此外还必须设置-T参数。</span></span><br><span class="line">-<span class="language-ruby">u	即putfile，发送<span class="variable constant_">PUT</span>请求时需要上传的文件，此外还必须设置-T参数。</span></span><br><span class="line">-<span class="language-ruby">T	即content-type，用于设置<span class="title class_">Content</span>-<span class="title class_">Type</span>请求头信息，例如：application/x-www-form-urlencoded，默认值为text/plain。</span></span><br><span class="line">-<span class="language-ruby">v	即verbosity，指定打印帮助信息的冗余级别。</span></span><br><span class="line">-<span class="language-ruby">w	以<span class="variable constant_">HTML</span>表格形式打印结果。</span></span><br><span class="line">-<span class="language-ruby">i	使用<span class="variable constant_">HEAD</span>请求代替<span class="variable constant_">GET</span>请求。</span></span><br><span class="line">-<span class="language-ruby">x	插入字符串作为table标签的属性。</span></span><br><span class="line">-<span class="language-ruby">y	插入字符串作为tr标签的属性。</span></span><br><span class="line">-<span class="language-ruby">z	插入字符串作为td标签的属性。</span></span><br><span class="line">-<span class="language-ruby">C	添加cookie信息，例如：<span class="string">&quot;Apache=1234&quot;</span>(可以重复该参数选项以添加多个)。</span></span><br><span class="line">-<span class="language-ruby">H	添加任意的请求头，例如：<span class="string">&quot;Accept-Encoding: gzip&quot;</span>，请求头将会添加在现有的多个请求头之后(可以重复该参数选项以添加多个)。</span></span><br><span class="line">-<span class="language-ruby">A	添加一个基本的网络认证信息，用户名和密码之间用英文冒号隔开。</span></span><br><span class="line">-<span class="language-ruby">P	添加一个基本的代理认证信息，用户名和密码之间用英文冒号隔开。</span></span><br><span class="line">-<span class="language-ruby">X	指定使用的和端口号，例如<span class="symbol">:<span class="string">&quot;121.36.64.197:88&quot;</span></span>。</span></span><br><span class="line">-<span class="language-ruby">V	打印版本号并退出。</span></span><br><span class="line">-<span class="language-ruby">k	使用<span class="variable constant_">HTTP</span>的<span class="title class_">KeepAlive</span>特性。</span></span><br><span class="line">-<span class="language-ruby">d	不显示百分比。</span></span><br><span class="line">-<span class="language-ruby">S	不显示预估和警告信息。</span></span><br><span class="line">-<span class="language-ruby">g	输出结果信息到gnuplot格式的文件中。</span></span><br><span class="line">-<span class="language-ruby">e	输出结果信息到<span class="variable constant_">CSV</span>格式的文件中。</span></span><br><span class="line">-<span class="language-ruby">r	指定接收到错误信息时不退出程序。</span></span><br><span class="line">-<span class="language-ruby">h	显示用法信息，其实就是ab -help。</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
+<li>模拟100个用户并发请求，总共请求10000次</li>
+<li>命令模板：<br><code>ab -c 100 -n 10000 http://121.36.64.197/</code></li>
+<li>测试结果</li>
+</ol>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">This is ApacheBench, Version <span class="number">2.3</span> &lt;<span class="attr">$Revision:</span> <span class="number">1430300</span> $&gt;</span><br><span class="line">Copyright <span class="number">1996</span> Adam Twiss, Zeus Technology Ltd, <span class="attr">http:</span><span class="comment">//www.zeustech.net/</span></span><br><span class="line">Licensed to The Apache Software Foundation, <span class="attr">http:</span><span class="comment">//www.apache.org/</span></span><br><span class="line"></span><br><span class="line">Benchmarking <span class="number">121.36</span><span class="number">.64</span><span class="number">.197</span> (be patient)</span><br><span class="line">Completed <span class="number">1000</span> requests</span><br><span class="line">Completed <span class="number">2000</span> requests</span><br><span class="line">Completed <span class="number">3000</span> requests</span><br><span class="line">Completed <span class="number">4000</span> requests</span><br><span class="line">Completed <span class="number">5000</span> requests</span><br><span class="line">Completed <span class="number">6000</span> requests</span><br><span class="line">Completed <span class="number">7000</span> requests</span><br><span class="line">Completed <span class="number">8000</span> requests</span><br><span class="line">Completed <span class="number">9000</span> requests</span><br><span class="line">Completed <span class="number">10000</span> requests</span><br><span class="line">Finished <span class="number">10000</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Server <span class="attr">Software:</span>        nginx/<span class="number">1.18</span><span class="number">.0</span></span><br><span class="line">Server <span class="attr">Hostname:</span>        <span class="number">121.36</span><span class="number">.64</span><span class="number">.197</span></span><br><span class="line">Server <span class="attr">Port:</span>            <span class="number">80</span></span><br><span class="line"></span><br><span class="line">Document <span class="attr">Path:</span>          /</span><br><span class="line">Document <span class="attr">Length:</span>        <span class="number">125985</span> bytes</span><br><span class="line"></span><br><span class="line">Concurrency <span class="attr">Level:</span>      <span class="number">100</span></span><br><span class="line">Time taken <span class="keyword">for</span> <span class="attr">tests:</span>   <span class="number">166.068</span> seconds</span><br><span class="line">Complete <span class="attr">requests:</span>      <span class="number">10000</span></span><br><span class="line">Failed <span class="attr">requests:</span>        <span class="number">2</span> (失败的请求数)</span><br><span class="line">   (<span class="attr">Connect:</span> <span class="number">0</span>, <span class="attr">Receive:</span> <span class="number">0</span>, <span class="attr">Length:</span> <span class="number">2</span>, <span class="attr">Exceptions:</span> <span class="number">0</span>)</span><br><span class="line">Write <span class="attr">errors:</span>           <span class="number">0</span></span><br><span class="line">Total <span class="attr">transferred:</span>      <span class="number">1262173510</span> bytes</span><br><span class="line">HTML <span class="attr">transferred:</span>       <span class="number">1259793510</span> bytes</span><br><span class="line">Requests per <span class="attr">second:</span>    <span class="number">60.22</span> [#/sec] (mean)[吞吐率]</span><br><span class="line">Time per <span class="attr">request:</span>       <span class="number">1660.681</span> [ms] (mean)</span><br><span class="line">Time per <span class="attr">request:</span>       <span class="number">16.607</span> [ms] (mean, across all concurrent requests)</span><br><span class="line">Transfer <span class="attr">rate:</span>          <span class="number">7422.21</span> [Kbytes/sec] received</span><br><span class="line"></span><br><span class="line">Connection Times (ms)</span><br><span class="line">              min  mean[+/-sd] median   max</span><br><span class="line"><span class="attr">Connect:</span>        <span class="number">0</span>  <span class="number">494</span> <span class="number">1206.2</span>      <span class="number">2</span>   <span class="number">31076</span></span><br><span class="line"><span class="attr">Processing:</span>    <span class="number">11</span>  <span class="number">568</span> <span class="number">3350.6</span>    <span class="number">223</span>  <span class="number">149818</span></span><br><span class="line"><span class="attr">Waiting:</span>        <span class="number">2</span>   <span class="number">54</span> <span class="number">457.2</span>      <span class="number">2</span>   <span class="number">30089</span></span><br><span class="line"><span class="attr">Total:</span>         <span class="number">13</span> <span class="number">1063</span> <span class="number">3579.6</span>    <span class="number">287</span>  <span class="number">149821</span></span><br><span class="line"></span><br><span class="line">Percentage of the requests served within a certain time (ms)</span><br><span class="line">  <span class="number">50</span>%    <span class="number">287</span></span><br><span class="line">  <span class="number">66</span>%   <span class="number">1026</span></span><br><span class="line">  <span class="number">75</span>%   <span class="number">1229</span></span><br><span class="line">  <span class="number">80</span>%   <span class="number">1258</span></span><br><span class="line">  <span class="number">90</span>%   <span class="number">2096</span></span><br><span class="line">  <span class="number">95</span>%   <span class="number">3241</span></span><br><span class="line">  <span class="number">98</span>%   <span class="number">6027</span></span><br><span class="line">  <span class="number">99</span>%   <span class="number">8724</span></span><br><span class="line"> <span class="number">100</span>%  <span class="number">149821</span> (longest request)</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ab/" rel="tag"># ab</a>
+              <a href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag"># 测试</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/01/01/md/centos%E6%9B%B4%E6%96%B0yum%E6%BA%90/" rel="prev" title="CentOS更新yum源">
+                  <i class="fa fa-angle-left"></i> CentOS更新yum源
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/01/01/md/ThreadLocal%E7%90%86%E8%A7%A3/" rel="next" title="ThreadLocal理解">
+                  ThreadLocal理解 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">my</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

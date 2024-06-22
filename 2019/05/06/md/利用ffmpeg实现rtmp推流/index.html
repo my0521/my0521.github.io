@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"my0521.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在已有的nginx搭建的rtmp服务器上做视频推流拉流">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用ffmpeg实现rtmp推流">
+<meta property="og:url" content="https://my0521.github.io/2019/05/06/md/%E5%88%A9%E7%94%A8ffmpeg%E5%AE%9E%E7%8E%B0rtmp%E6%8E%A8%E6%B5%81/index.html">
+<meta property="og:site_name" content="miracle">
+<meta property="og:description" content="在已有的nginx搭建的rtmp服务器上做视频推流拉流">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-06T12:00:48.000Z">
+<meta property="article:modified_time" content="2024-06-22T08:41:03.419Z">
+<meta property="article:author" content="my">
+<meta property="article:tag" content="ffmpeg">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://my0521.github.io/2019/05/06/md/%E5%88%A9%E7%94%A8ffmpeg%E5%AE%9E%E7%8E%B0rtmp%E6%8E%A8%E6%B5%81/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://my0521.github.io/2019/05/06/md/%E5%88%A9%E7%94%A8ffmpeg%E5%AE%9E%E7%8E%B0rtmp%E6%8E%A8%E6%B5%81/","path":"2019/05/06/md/利用ffmpeg实现rtmp推流/","title":"利用ffmpeg实现rtmp推流"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>利用ffmpeg实现rtmp推流 | miracle</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">miracle</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-happy"><a href="/happy/" rel="section"><i class="fa fa-th fa-fw"></i>happy</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E9%A2%91%E6%8E%A8%E6%B5%81"><span class="nav-number">2.</span> <span class="nav-text">视频推流</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my0521.github.io/2019/05/06/md/%E5%88%A9%E7%94%A8ffmpeg%E5%AE%9E%E7%8E%B0rtmp%E6%8E%A8%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="miracle">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="利用ffmpeg实现rtmp推流 | miracle">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用ffmpeg实现rtmp推流
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-06 20:00:48" itemprop="dateCreated datePublished" datetime="2019-05-06T20:00:48+08:00">2019-05-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-22 16:41:03" itemprop="dateModified" datetime="2024-06-22T16:41:03+08:00">2024-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ffmpeg/" itemprop="url" rel="index"><span itemprop="name">ffmpeg</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在已有的nginx搭建的rtmp服务器上做视频推流拉流</p>
+<span id="more"></span>
+
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ol>
+<li>查看电脑设备<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -list_devices <span class="literal">true</span> -f dshow -i dummy</span><br></pre></td></tr></table></figure>
+显示一个video ，一个audio <figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">[dshow @ 063c4ec0] DirectShow video devices (some may be both video and audio devices)</span><br><span class="line">[dshow @ 063c4ec0]  <span class="string">&quot;USB2.0 VGA UVC WebCam&quot;</span></span><br><span class="line">[dshow @ 063c4ec0]     Alternative name <span class="string">&quot;@device_pnp_\\?\usb#vid_04f2&amp;pid_b48c&amp;mi_00#6&amp;5aaffc2&amp;0&amp;0000#&#123;65e8773d-8f56-11d0-a3b9-00a0c9223196&#125;\global&quot;</span></span><br><span class="line"></span><br><span class="line">[dshow @ 063c4ec0] DirectShow audio devices</span><br><span class="line">[dshow @ 063c4ec0]  <span class="string">&quot;楹﹀厠椋?(Conexant SmartAudio HD)&quot;</span></span><br><span class="line">[dshow @ 063c4ec0]     Alternative name <span class="string">&quot;@device_cm_&#123;33D9A762-90C8-11D0-BD43-00A0C911CE86&#125;\wave_&#123;B42C58AF-7EB1-4FAA-B3BE-D63B5C1D9F84&#125;&quot;</span></span><br><span class="line">dummy: Immediate exit requested</span><br></pre></td></tr></table></figure></li>
+<li>测试视频设备是否可用<br>2种方式都可以，弹出播放窗口显示设备正常</li>
+</ol>
+<ul>
+<li><code>fffplay -f dshow -i video=&quot;USB2.0 VGA UVC WebCam&quot;</code></li>
+<li><code>ffplay -f vfwcap -i 0</code></li>
+</ul>
+<ol start="3">
+<li>查看设备信息</li>
+</ol>
+<ul>
+<li>查看摄像头信息<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -list_options <span class="literal">true</span> -f dshow -i video=<span class="string">&quot;USB2.0 VGA UVC WebCam&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>查看麦克风信息<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -list_options <span class="literal">true</span> -f dshow -i audio=<span class="string">&quot;麦克风 (Conexant SmartAudio HD)&quot;</span> </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="视频推流"><a href="#视频推流" class="headerlink" title="视频推流"></a>视频推流</h2><ol>
+<li>本地视频推流（点播）<br>将视频文件放<code>1.2预测失效原因.mp4</code>在&#x2F;tmp的目录下，在vlc中：媒体-打开网络串流-网络，输入<br><code>rtmp://121.36.64.197:1993/my/1.2预测失效原因.mp4</code>,点击播放<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rtmp &#123;</span><br><span class="line">    server&#123;</span><br><span class="line">        <span class="keyword">listen</span> <span class="number">1993</span>;</span><br><span class="line">        application <span class="keyword">my</span> &#123;</span><br><span class="line">            play /tmp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>直播视频配置</li>
+</ol>
+<ul>
+<li>rtmp 添加一个application live<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">rtmp &#123;</span><br><span class="line">    server&#123;</span><br><span class="line">        listen <span class="number">1993</span>;</span><br><span class="line">        <span class="built_in">application</span> <span class="keyword">my</span> &#123;</span><br><span class="line">            play /tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">application</span> live &#123;</span><br><span class="line">            live <span class="keyword">on</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>http &gt;server添加2个location<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">        <span class="attribute">server_name</span>  localhost;</span><br><span class="line"></span><br><span class="line">        <span class="comment">#charset koi8-r;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">#access_log  logs/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">        <span class="section">location</span> /stat &#123;     <span class="comment">#first location field</span></span><br><span class="line">            <span class="attribute">rtmp_stat</span> all;</span><br><span class="line">            <span class="attribute">rtmp_stat_stylesheet</span> stat.xsl;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="section">location</span> /stat.xsl &#123; <span class="comment">#second location field</span></span><br><span class="line">            <span class="attribute">root</span> /usr/local/src/nginx-rtmp-module/;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>浏览器访问  <a target="_blank" rel="noopener" href="http://121.36.64.197/stat">http://121.36.64.197/stat</a></li>
+<li>ffmpeg推流 <code>ffmpeg.exe -re -i 1.2预测失效原因.mp4 -f flv rtmp://121.36.64.197:1993/live/123</code></li>
+</ul>
+<ol start="3">
+<li>视频回看服务器配置</li>
+</ol>
+<ul>
+<li>nginx.conf<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rtmp &#123;</span><br><span class="line">    server&#123;</span><br><span class="line">        listen <span class="number">1993</span>;</span><br><span class="line">        <span class="built_in">application</span> <span class="keyword">my</span> &#123;</span><br><span class="line">            play /tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">application</span> live &#123;</span><br><span class="line">            live <span class="keyword">on</span>;</span><br><span class="line"></span><br><span class="line">	    hls <span class="keyword">on</span>;    <span class="comment">#这个参数把直播服务器改造成实时回放服务器。</span></span><br><span class="line">            wait_key <span class="keyword">on</span>;  <span class="comment">#对视频切片进行保护，这样就不会产生马赛克了。</span></span><br><span class="line">            hls_path /tmp/hls;  <span class="comment">#切片视频文件存放位置。</span></span><br><span class="line">            hls_fragment <span class="number">10</span>s;     <span class="comment">#每个视频切片的时长。</span></span><br><span class="line">            hls_playlist_length <span class="number">60</span>s;  <span class="comment">#总共可以回看的事件，这里设置的是1分钟。</span></span><br><span class="line">            hls_continuous <span class="keyword">on</span>; <span class="comment">#连续模式。</span></span><br><span class="line">            hls_cleanup <span class="keyword">on</span>;    <span class="comment">#对多余的切片进行删除。</span></span><br><span class="line">            hls_nested <span class="keyword">on</span>;     <span class="comment">#嵌套模式。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  <span class="built_in">application</span>/octet-stream;</span><br><span class="line"></span><br><span class="line">    sendfile        <span class="keyword">on</span>;</span><br><span class="line">    keepalive_timeout  <span class="number">65</span>;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       <span class="number">80</span>;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">       </span><br><span class="line">        location /stat &#123;     <span class="comment">#first location field</span></span><br><span class="line">            rtmp_stat all;</span><br><span class="line">            rtmp_stat_stylesheet stat.xsl;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /stat.xsl &#123; <span class="comment">#second location field</span></span><br><span class="line">            root /usr/<span class="keyword">local</span>/src/nginx-rtmp-module/;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        location /live &#123;</span><br><span class="line">            types &#123;</span><br><span class="line">                <span class="built_in">application</span>/vnd.apple.mpegurl m3u8;</span><br><span class="line">                video/mp2t ts;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">alias</span> /tmp/hls;    <span class="comment"># 视频存放路径</span></span><br><span class="line">            expires <span class="number">-1</span>;</span><br><span class="line">            add_header Cache-Control no-cache;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        error_page   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  /<span class="number">50</span>x.html;</span><br><span class="line">        location = /<span class="number">50</span>x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><code>chmod 777 /tmp/hls/</code></li>
+<li><code>http://121.36.64.197/live/test/index.m3u8</code><br>index.m3u8 是目录</li>
+</ul>
+<ol start="4">
+<li>录制flv视频服务器的配置</li>
+</ol>
+<ul>
+<li>nginx.conf<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rtmp &#123;</span><br><span class="line">    server&#123;</span><br><span class="line">        listen <span class="number">1993</span>;</span><br><span class="line">        <span class="built_in">application</span> <span class="keyword">my</span> &#123;</span><br><span class="line">            play /tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">application</span> live &#123;</span><br><span class="line">            live <span class="keyword">on</span>;</span><br><span class="line"></span><br><span class="line">	    hls <span class="keyword">on</span>;    <span class="comment">#这个参数把直播服务器改造成实时回放服务器。</span></span><br><span class="line">            wait_key <span class="keyword">on</span>;  <span class="comment">#对视频切片进行保护，这样就不会产生马赛克了。</span></span><br><span class="line">            hls_path /tmp/hls;  <span class="comment">#切片视频文件存放位置。</span></span><br><span class="line">            hls_fragment <span class="number">10</span>s;     <span class="comment">#每个视频切片的时长。</span></span><br><span class="line">            hls_playlist_length <span class="number">60</span>s;  <span class="comment">#总共可以回看的事件，这里设置的是1分钟。</span></span><br><span class="line">            hls_continuous <span class="keyword">on</span>; <span class="comment">#连续模式。</span></span><br><span class="line">            hls_cleanup <span class="keyword">on</span>;    <span class="comment">#对多余的切片进行删除。</span></span><br><span class="line">            hls_nested <span class="keyword">on</span>;     <span class="comment">#嵌套模式。</span></span><br><span class="line"></span><br><span class="line">	    <span class="built_in">record</span> all;    <span class="comment">#record flv</span></span><br><span class="line">            record_path /tmp/hls;</span><br><span class="line">            record_suffix -%d-%b-%y-%T.flv;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  <span class="built_in">application</span>/octet-stream;</span><br><span class="line"></span><br><span class="line">    sendfile        <span class="keyword">on</span>;</span><br><span class="line">    keepalive_timeout  <span class="number">65</span>;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       <span class="number">80</span>;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">       </span><br><span class="line">        location /stat &#123;     <span class="comment">#first location field</span></span><br><span class="line">            rtmp_stat all;</span><br><span class="line">            rtmp_stat_stylesheet stat.xsl;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /stat.xsl &#123; <span class="comment">#second location field</span></span><br><span class="line">            root /usr/<span class="keyword">local</span>/src/nginx-rtmp-module/;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        location /live &#123;</span><br><span class="line">            types &#123;</span><br><span class="line">                <span class="built_in">application</span>/vnd.apple.mpegurl m3u8;</span><br><span class="line">                video/mp2t ts;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">alias</span> /tmp/hls;    <span class="comment"># 视频存放路径</span></span><br><span class="line">            expires <span class="number">-1</span>;</span><br><span class="line">            add_header Cache-Control no-cache;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        error_page   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  /<span class="number">50</span>x.html;</span><br><span class="line">        location = /<span class="number">50</span>x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/05/06/md/%E9%87%8D%E8%BD%BDnew%E8%BF%90%E7%AE%97%E7%AC%A6%E6%A3%80%E6%B5%8B%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/" rel="prev" title="重载new和delete检测程序内存泄露">
+                  <i class="fa fa-angle-left"></i> 重载new和delete检测程序内存泄露
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/05/06/md/%E5%8E%8B%E7%BC%A9%E3%80%81%E8%A7%A3%E5%8E%8B%E7%BC%A9/" rel="next" title="压缩、解压缩">
+                  压缩、解压缩 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">my</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

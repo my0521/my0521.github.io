@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"my0521.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="SpringBoot 集成 WebSocket案例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot使用websocket">
+<meta property="og:url" content="https://my0521.github.io/2018/01/01/SpringBoot%E4%BD%BF%E7%94%A8websocket/index.html">
+<meta property="og:site_name" content="miracle">
+<meta property="og:description" content="SpringBoot 集成 WebSocket案例">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-01-01T12:00:48.000Z">
+<meta property="article:modified_time" content="2024-06-22T08:41:20.868Z">
+<meta property="article:author" content="my">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="WebSocket">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://my0521.github.io/2018/01/01/SpringBoot%E4%BD%BF%E7%94%A8websocket/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://my0521.github.io/2018/01/01/SpringBoot%E4%BD%BF%E7%94%A8websocket/","path":"2018/01/01/SpringBoot使用websocket/","title":"SpringBoot使用websocket"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SpringBoot使用websocket | miracle</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">miracle</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-happy"><a href="/happy/" rel="section"><i class="fa fa-th fa-fw"></i>happy</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5POM%E4%BE%9D%E8%B5%96"><span class="nav-number">1.</span> <span class="nav-text">导入POM依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">属性配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocketConfig"><span class="nav-number">3.</span> <span class="nav-text">WebSocketConfig</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebSocketServer"><span class="nav-number">4.</span> <span class="nav-text">WebSocketServer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Controller"><span class="nav-number">5.</span> <span class="nav-text">Controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95HTML%E9%A1%B5%E9%9D%A2"><span class="nav-number">6.</span> <span class="nav-text">测试HTML页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">7.</span> <span class="nav-text">测试</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my0521.github.io/2018/01/01/SpringBoot%E4%BD%BF%E7%94%A8websocket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="miracle">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SpringBoot使用websocket | miracle">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringBoot使用websocket
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-01 20:00:48" itemprop="dateCreated datePublished" datetime="2018-01-01T20:00:48+08:00">2018-01-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-22 16:41:20" itemprop="dateModified" datetime="2024-06-22T16:41:20+08:00">2024-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>SpringBoot 集成 WebSocket案例</p>
+<span id="more"></span>
+
+<h2 id="导入POM依赖"><a href="#导入POM依赖" class="headerlink" title="导入POM依赖"></a>导入POM依赖</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org<span class="selector-class">.springframework</span>.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org<span class="selector-class">.springframework</span>.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-websocket&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- https:<span class="comment">//mvnrepository.com/artifact/org.apache.commons/commons-lang3 --&gt;</span></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org<span class="selector-class">.apache</span>.commons&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;<span class="number">3.11</span>&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!-- https:<span class="comment">//mvnrepository.com/artifact/com.alibaba/fastjson --&gt;</span></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;fastjson&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;<span class="number">1.2</span>.<span class="number">73</span>&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!-- freemarker --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org<span class="selector-class">.springframework</span>.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-freemarker&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="属性配置"><a href="#属性配置" class="headerlink" title="属性配置"></a>属性配置</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: <span class="number">8080</span></span><br><span class="line">  servlet:</span><br><span class="line">      context-path: /demo</span><br><span class="line">spring:</span><br><span class="line">    http:</span><br><span class="line">      encoding:</span><br><span class="line">        force: true</span><br><span class="line">        charset: UTF-<span class="number">8</span></span><br><span class="line">    application:</span><br><span class="line">        name: websocket</span><br><span class="line">    freemarker:</span><br><span class="line">        request-context-attribute: request</span><br><span class="line">        <span class="selector-id">#prefix</span>: /templates/</span><br><span class="line">        suffix: <span class="selector-class">.html</span></span><br><span class="line">        <span class="attribute">content</span>-type: text/html</span><br><span class="line">        enabled: true</span><br><span class="line">        cache: false</span><br><span class="line">        charset: UTF-<span class="number">8</span></span><br><span class="line">        allow-request-override: false</span><br><span class="line">        expose-request-attributes: true</span><br><span class="line">        expose-session-attributes: true</span><br><span class="line">        expose-spring-macro-helpers: true</span><br><span class="line">        <span class="selector-id">#template-loader-path</span>: classpath:/templates/</span><br></pre></td></tr></table></figure>
+
+<h2 id="WebSocketConfig"><a href="#WebSocketConfig" class="headerlink" title="WebSocketConfig"></a>WebSocketConfig</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import org<span class="selector-class">.springframework</span><span class="selector-class">.context</span><span class="selector-class">.annotation</span>.Bean;</span><br><span class="line">import org<span class="selector-class">.springframework</span><span class="selector-class">.context</span><span class="selector-class">.annotation</span>.Configuration;</span><br><span class="line">import org<span class="selector-class">.springframework</span><span class="selector-class">.web</span><span class="selector-class">.socket</span><span class="selector-class">.config</span><span class="selector-class">.annotation</span>.EnableWebSocket;</span><br><span class="line">import org<span class="selector-class">.springframework</span><span class="selector-class">.web</span><span class="selector-class">.socket</span><span class="selector-class">.server</span><span class="selector-class">.standard</span>.ServerEndpointExporter;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">@EnableWebSocket</span><br><span class="line">public class WebSocketConfig &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public ServerEndpointExporter <span class="built_in">serverEndpoint</span>() &#123;</span><br><span class="line">        return new <span class="built_in">ServerEndpointExporter</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="WebSocketServer"><a href="#WebSocketServer" class="headerlink" title="WebSocketServer"></a>WebSocketServer</h2><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.<span class="property">io</span>.<span class="property">IOException</span>;</span><br><span class="line"><span class="keyword">import</span> java.<span class="property">util</span>.<span class="property">concurrent</span>.<span class="property">ConcurrentHashMap</span>;</span><br><span class="line"><span class="keyword">import</span> javax.<span class="property">websocket</span>.<span class="property">OnClose</span>;</span><br><span class="line"><span class="keyword">import</span> javax.<span class="property">websocket</span>.<span class="property">OnError</span>;</span><br><span class="line"><span class="keyword">import</span> javax.<span class="property">websocket</span>.<span class="property">OnMessage</span>;</span><br><span class="line"><span class="keyword">import</span> javax.<span class="property">websocket</span>.<span class="property">OnOpen</span>;</span><br><span class="line"><span class="keyword">import</span> javax.<span class="property">websocket</span>.<span class="property">Session</span>;</span><br><span class="line"><span class="keyword">import</span> javax.<span class="property">websocket</span>.<span class="property">server</span>.<span class="property">PathParam</span>;</span><br><span class="line"><span class="keyword">import</span> javax.<span class="property">websocket</span>.<span class="property">server</span>.<span class="property">ServerEndpoint</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.<span class="property">apache</span>.<span class="property">commons</span>.<span class="property">lang3</span>.<span class="property">StringUtils</span>;</span><br><span class="line"><span class="keyword">import</span> org.<span class="property">springframework</span>.<span class="property">stereotype</span>.<span class="property">Component</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.<span class="property">alibaba</span>.<span class="property">fastjson</span>.<span class="property">JSON</span>;</span><br><span class="line"><span class="keyword">import</span> com.<span class="property">alibaba</span>.<span class="property">fastjson</span>.<span class="property">JSONObject</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@<span class="title function_">ServerEndpoint</span>(<span class="string">&quot;/imserver/&#123;userId&#125;&quot;</span>)</span><br><span class="line">@Component</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebSocketServer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//static Log log=LogFactory.get(WebSocketServer.class);</span></span><br><span class="line">    <span class="comment">/**静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> onlineCount = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">/**concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ConcurrentHashMap&lt;<span class="built_in">String</span>,WebSocketServer&gt; webSocketMap = <span class="keyword">new </span><span class="class title_">ConcurrentHashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">/**与某个客户端的连接会话，需要通过它来给客户端发送数据*/</span></span><br><span class="line">    <span class="keyword">private</span> Session session;</span><br><span class="line">    <span class="comment">/**接收userId*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">String</span> userId=<span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 连接建立成功调用的方法*/</span></span><br><span class="line">    @OnOpen</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onOpen</span>(Session session,@<span class="title function_">PathParam</span>(<span class="string">&quot;userId&quot;</span>) <span class="built_in">String</span> userId) &#123;</span><br><span class="line">        <span class="variable">this</span>.<span class="property">session</span> = session;</span><br><span class="line">        <span class="variable">this</span>.<span class="property">userId</span>=userId;</span><br><span class="line">        <span class="keyword">if</span>(webSocketMap.<span class="property">containsKey</span>(userId))&#123;</span><br><span class="line">            webSocketMap.<span class="property">remove</span>(userId);</span><br><span class="line">            webSocketMap.<span class="property">put</span>(userId,<span class="variable">this</span>);</span><br><span class="line">            <span class="comment">//加入set中</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            webSocketMap.<span class="property">put</span>(userId,<span class="variable">this</span>);</span><br><span class="line">            <span class="comment">//加入set中</span></span><br><span class="line">            <span class="title function_">addOnlineCount</span>();</span><br><span class="line">            <span class="comment">//在线数加1</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// log.info(&quot;用户连接:&quot;+userId+&quot;,当前在线人数为:&quot; + getOnlineCount());</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="title function_">sendMessage</span>(<span class="string">&quot;连接成功&quot;</span>);</span><br><span class="line">        &#125; <span class="title function_">catch</span> (IOException e) &#123;</span><br><span class="line">           <span class="comment">// log.error(&quot;用户:&quot;+userId+&quot;,网络异常!!!!!!&quot;);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 连接关闭调用的方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    @OnClose</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClose</span>() &#123;</span><br><span class="line">        <span class="keyword">if</span>(webSocketMap.<span class="property">containsKey</span>(userId))&#123;</span><br><span class="line">            webSocketMap.<span class="property">remove</span>(userId);</span><br><span class="line">            <span class="comment">//从set中删除</span></span><br><span class="line">            <span class="title function_">subOnlineCount</span>();</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="comment">// log.info(&quot;用户退出:&quot;+userId+&quot;,当前在线人数为:&quot; + getOnlineCount());</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 收到客户端消息后调用的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param message 客户端发送过来的消息*/</span></span><br><span class="line">    @OnMessage</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onMessage</span>(<span class="built_in">String</span> message, Session session) &#123;</span><br><span class="line">        <span class="comment">//log.info(&quot;用户消息:&quot;+userId+&quot;,报文:&quot;+message);</span></span><br><span class="line">        <span class="comment">//可以群发消息</span></span><br><span class="line">        <span class="comment">//消息保存到数据库、redis</span></span><br><span class="line">        <span class="keyword">if</span>(StringUtils.<span class="property">isNotBlank</span>(message))&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//解析发送的报文</span></span><br><span class="line">                <span class="built_in">JSONObject</span> jsonObject = JSON.<span class="property">parseObject</span>(message);</span><br><span class="line">                <span class="comment">//追加发送人(防止串改)</span></span><br><span class="line">                jsonObject.<span class="property">put</span>(<span class="string">&quot;fromUserId&quot;</span>,<span class="variable">this</span>.<span class="property">userId</span>);</span><br><span class="line">                <span class="built_in">String</span> toUserId=jsonObject.<span class="property">getString</span>(<span class="string">&quot;toUserId&quot;</span>);</span><br><span class="line">                <span class="comment">//传送给对应toUserId用户的websocket</span></span><br><span class="line">                <span class="keyword">if</span>(StringUtils.<span class="property">isNotBlank</span>(toUserId)&amp;&amp;webSocketMap.<span class="property">containsKey</span>(toUserId))&#123;</span><br><span class="line">                    webSocketMap.<span class="property">get</span>(toUserId).<span class="property">sendMessage</span>(jsonObject.<span class="property">toJSONString</span>());</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="comment">//log.error(&quot;请求的userId:&quot;+toUserId+&quot;不在该服务器上&quot;);</span></span><br><span class="line">                    <span class="comment">//否则不在这个服务器上，发送到mysql或者redis</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="title function_">catch</span> (Exception e)&#123;</span><br><span class="line">                e.<span class="property">printStackTrace</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param session</span></span><br><span class="line"><span class="comment">     * @param error</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    @OnError</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onError</span>(Session session, Throwable error) &#123;</span><br><span class="line">        <span class="comment">//log.error(&quot;用户错误:&quot;+this.userId+&quot;,原因:&quot;+error.getMessage());</span></span><br><span class="line">        error.<span class="property">printStackTrace</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现服务器主动推送</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sendMessage</span>(<span class="built_in">String</span> message) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="variable">this</span>.<span class="property">session</span>.<span class="property">getBasicRemote</span>().<span class="property">sendText</span>(message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送自定义消息</span></span><br><span class="line"><span class="comment">     * */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">sendInfo</span>(<span class="built_in">String</span> message,@<span class="title function_">PathParam</span>(<span class="string">&quot;userId&quot;</span>) <span class="built_in">String</span> userId) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">//log.info(&quot;发送消息到:&quot;+userId+&quot;，报文:&quot;+message);</span></span><br><span class="line">        <span class="keyword">if</span>(StringUtils.<span class="property">isNotBlank</span>(userId)&amp;&amp;webSocketMap.<span class="property">containsKey</span>(userId))&#123;</span><br><span class="line">            webSocketMap.<span class="property">get</span>(userId).<span class="property">sendMessage</span>(message);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//log.error(&quot;用户&quot;+userId+&quot;,不在线！&quot;);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="type">int</span> <span class="title function_">getOnlineCount</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> onlineCount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">addOnlineCount</span>() &#123;</span><br><span class="line">        WebSocketServer.<span class="property">onlineCount</span>++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">subOnlineCount</span>() &#123;</span><br><span class="line">        WebSocketServer.<span class="property">onlineCount</span>--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;index&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;String&gt; <span class="title function_">index</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(<span class="string">&quot;请求成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;page&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> ModelAndView <span class="title function_">page</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ModelAndView</span>(<span class="string">&quot;websocket&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/push/&#123;toUserId&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;String&gt; <span class="title function_">pushToWeb</span><span class="params">(String message, <span class="meta">@PathVariable</span> String toUserId)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        WebSocketServer.sendInfo(message,toUserId);</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(<span class="string">&quot;MSG SEND SUCCESS&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试HTML页面"><a href="#测试HTML页面" class="headerlink" title="测试HTML页面"></a>测试HTML页面</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">&quot;utf-8&quot;</span>&gt;</span><br><span class="line">    &lt;title&gt;websocket通讯&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;script <span class="attribute">src</span>=<span class="string">&quot;https://cdn.bootcss.com/jquery/3.3.1/jquery.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="selector-tag">var</span> socket;</span><br><span class="line">    function <span class="built_in">openSocket</span>() &#123;</span><br><span class="line">        <span class="built_in">if</span>(<span class="built_in">typeof</span>(WebSocket) == <span class="string">&quot;undefined&quot;</span>) &#123;</span><br><span class="line">            console<span class="selector-class">.log</span>(<span class="string">&quot;您的浏览器不支持WebSocket&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            console<span class="selector-class">.log</span>(<span class="string">&quot;您的浏览器支持WebSocket&quot;</span>);</span><br><span class="line">            <span class="comment">//实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接</span></span><br><span class="line">            <span class="comment">//等同于socket = new WebSocket(&quot;ws://localhost:8888/xxxx/im/25&quot;);</span></span><br><span class="line">            <span class="comment">//var socketUrl=&quot;$&#123;request.contextPath&#125;/im/&quot;+$(&quot;#userId&quot;).val();</span></span><br><span class="line">            <span class="selector-tag">var</span> socketUrl=<span class="string">&quot;http://localhost:9999/demo/imserver/&quot;</span>+$(<span class="string">&quot;#userId&quot;</span>)<span class="selector-class">.val</span>();</span><br><span class="line">            socketUrl=socketUrl<span class="selector-class">.replace</span>(<span class="string">&quot;https&quot;</span>,<span class="string">&quot;ws&quot;</span>)<span class="selector-class">.replace</span>(<span class="string">&quot;http&quot;</span>,<span class="string">&quot;ws&quot;</span>);</span><br><span class="line">            console<span class="selector-class">.log</span>(socketUrl);</span><br><span class="line">            <span class="built_in">if</span>(socket!=null)&#123;</span><br><span class="line">                socket<span class="selector-class">.close</span>();</span><br><span class="line">                socket=null;</span><br><span class="line">            &#125;</span><br><span class="line">            socket = new <span class="built_in">WebSocket</span>(socketUrl);</span><br><span class="line">            <span class="comment">//打开事件</span></span><br><span class="line">            socket<span class="selector-class">.onopen</span> = <span class="built_in">function</span>() &#123;</span><br><span class="line">                console<span class="selector-class">.log</span>(<span class="string">&quot;websocket已打开&quot;</span>);</span><br><span class="line">                $(<span class="string">&quot;#msg&quot;</span>)<span class="selector-class">.append</span>(<span class="string">&quot;websocket已打开&quot;</span>);</span><br><span class="line">                <span class="comment">//socket.send(&quot;这是来自客户端的消息&quot; + location.href + new Date());</span></span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="comment">//获得消息事件</span></span><br><span class="line">            socket<span class="selector-class">.onmessage</span> = <span class="built_in">function</span>(msg) &#123;</span><br><span class="line">            	$(<span class="string">&quot;#msg&quot;</span>)<span class="selector-class">.append</span>(msg.data);</span><br><span class="line">                console<span class="selector-class">.log</span>(msg.data);</span><br><span class="line">                <span class="comment">//发现消息进入    开始处理前端触发逻辑</span></span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="comment">//关闭事件</span></span><br><span class="line">            socket<span class="selector-class">.onclose</span> = <span class="built_in">function</span>() &#123;</span><br><span class="line">                console<span class="selector-class">.log</span>(<span class="string">&quot;websocket已关闭&quot;</span>);</span><br><span class="line">                $(<span class="string">&quot;#msg&quot;</span>)<span class="selector-class">.append</span>(<span class="string">&quot;websocket已关闭&quot;</span>);</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="comment">//发生了错误事件</span></span><br><span class="line">            socket<span class="selector-class">.onerror</span> = <span class="built_in">function</span>() &#123;</span><br><span class="line">                console<span class="selector-class">.log</span>(<span class="string">&quot;websocket发生了错误&quot;</span>);</span><br><span class="line">                $(<span class="string">&quot;#msg&quot;</span>)<span class="selector-class">.append</span>(<span class="string">&quot;websocket发生了错误&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    function <span class="built_in">sendMessage</span>() &#123;</span><br><span class="line">        <span class="built_in">if</span>(<span class="built_in">typeof</span>(WebSocket) == <span class="string">&quot;undefined&quot;</span>) &#123;</span><br><span class="line">            console<span class="selector-class">.log</span>(<span class="string">&quot;您的浏览器不支持WebSocket&quot;</span>);</span><br><span class="line">            $(<span class="string">&quot;#msg&quot;</span>)<span class="selector-class">.append</span>(<span class="string">&quot;您的浏览器不支持WebSocket&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            console<span class="selector-class">.log</span>(<span class="string">&quot;您的浏览器支持WebSocket&quot;</span>);</span><br><span class="line">            console<span class="selector-class">.log</span>(<span class="string">&#x27;&#123;&quot;toUserId&quot;:&quot;&#x27;</span>+$(<span class="string">&quot;#toUserId&quot;</span>)<span class="selector-class">.val</span>()+<span class="string">&#x27;&quot;,&quot;contentText&quot;:&quot;&#x27;</span>+$(<span class="string">&quot;#contentText&quot;</span>)<span class="selector-class">.val</span>()+<span class="string">&#x27;&quot;&#125;&#x27;</span>);</span><br><span class="line">            socket<span class="selector-class">.send</span>(<span class="string">&#x27;&#123;&quot;toUserId&quot;:&quot;&#x27;</span>+$(<span class="string">&quot;#toUserId&quot;</span>)<span class="selector-class">.val</span>()+<span class="string">&#x27;&quot;,&quot;contentText&quot;:&quot;&#x27;</span>+$(<span class="string">&quot;#contentText&quot;</span>)<span class="selector-class">.val</span>()+<span class="string">&#x27;&quot;&#125;&#x27;</span>);</span><br><span class="line">            $(<span class="string">&quot;#msg&quot;</span>)<span class="selector-class">.append</span>(<span class="string">&quot;&lt;div&gt;&quot;</span>+ <span class="string">&#x27;&#123;&quot;toUserId&quot;:&quot;&#x27;</span>+$(<span class="string">&quot;#toUserId&quot;</span>)<span class="selector-class">.val</span>()+<span class="string">&#x27;&quot;,&quot;contentText&quot;:&quot;&#x27;</span>+$(<span class="string">&quot;#contentText&quot;</span>)<span class="selector-class">.val</span>()+<span class="string">&#x27;&quot;&#125;&#x27;</span>+<span class="string">&quot;&lt;/div&gt;&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;p&gt;【userId】：&lt;div&gt;&lt;<span class="selector-tag">input</span> id=<span class="string">&quot;userId&quot;</span> name=<span class="string">&quot;userId&quot;</span> type=<span class="string">&quot;text&quot;</span> value=<span class="string">&quot;10&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;p&gt;【toUserId】：&lt;div&gt;&lt;<span class="selector-tag">input</span> id=<span class="string">&quot;toUserId&quot;</span> name=<span class="string">&quot;toUserId&quot;</span> type=<span class="string">&quot;text&quot;</span> value=<span class="string">&quot;20&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;p&gt;【toUserId】：&lt;div&gt;&lt;<span class="selector-tag">input</span> id=<span class="string">&quot;contentText&quot;</span> name=<span class="string">&quot;contentText&quot;</span> type=<span class="string">&quot;text&quot;</span> value=<span class="string">&quot;hello websocket&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;p&gt;【操作】：&lt;div&gt;&lt;<span class="selector-tag">button</span> onclick=<span class="string">&quot;openSocket()&quot;</span>&gt;开启socket&lt;/button&gt;&lt;/div&gt;</span><br><span class="line">&lt;p&gt;【操作】：&lt;div&gt;&lt;<span class="selector-tag">button</span> onclick=<span class="string">&quot;sendMessage()&quot;</span>&gt;发送消息&lt;/button&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;<span class="selector-tag">div</span> id=<span class="string">&quot;msg&quot;</span>&gt;</span><br><span class="line">	</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol>
+<li>访问<a target="_blank" rel="noopener" href="http://localhost:8080/demo/page">http://localhost:8080/demo/page</a><br>开启2个窗口，设置不同的userId，即可相互发送消息，在发送消息之前必须将websocket打开</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+              <a href="/tags/WebSocket/" rel="tag"># WebSocket</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/01/01/SpringBoot%E9%A1%B9%E7%9B%AE%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" rel="prev" title="SpringBoot项目发送邮件">
+                  <i class="fa fa-angle-left"></i> SpringBoot项目发送邮件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/01/01/MSYS%E7%9A%84automake%E5%AE%9E%E8%AE%B0/" rel="next" title="MSYS的automake实记">
+                  MSYS的automake实记 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">my</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

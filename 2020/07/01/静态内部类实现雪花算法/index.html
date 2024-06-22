@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"my0521.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="雪花算法就很适合在分布式场景下生成唯一ID,它既可以保证唯一又可以排序。为了提高生产雪花ID的效率。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="静态内部类实现雪花算法">
+<meta property="og:url" content="https://my0521.github.io/2020/07/01/%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E5%AE%9E%E7%8E%B0%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="miracle">
+<meta property="og:description" content="雪花算法就很适合在分布式场景下生成唯一ID,它既可以保证唯一又可以排序。为了提高生产雪花ID的效率。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-01T12:00:48.000Z">
+<meta property="article:modified_time" content="2024-06-22T08:41:16.916Z">
+<meta property="article:author" content="my">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="面试题">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://my0521.github.io/2020/07/01/%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E5%AE%9E%E7%8E%B0%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://my0521.github.io/2020/07/01/%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E5%AE%9E%E7%8E%B0%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/","path":"2020/07/01/静态内部类实现雪花算法/","title":"静态内部类实现雪花算法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>静态内部类实现雪花算法 | miracle</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">miracle</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-happy"><a href="/happy/" rel="section"><i class="fa fa-th fa-fw"></i>happy</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">算法实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B441%E4%BD%8D%E6%97%B6%E9%97%B4%E6%88%B3%E6%9C%80%E9%95%BF%E5%8F%AA%E8%83%BD%E6%9C%8969%E5%B9%B4"><span class="nav-number">4.</span> <span class="nav-text">为什么说41位时间戳最长只能有69年</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my0521.github.io/2020/07/01/%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E5%AE%9E%E7%8E%B0%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="miracle">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="静态内部类实现雪花算法 | miracle">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          静态内部类实现雪花算法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-01 20:00:48" itemprop="dateCreated datePublished" datetime="2020-07-01T20:00:48+08:00">2020-07-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-22 16:41:16" itemprop="dateModified" datetime="2024-06-22T16:41:16+08:00">2024-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>雪花算法就很适合在分布式场景下生成唯一ID,它既可以保证唯一又可以排序。为了提高生产雪花ID的效率。</p>
+<span id="more"></span>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在生成表主键ID时，我们可以考虑<code>主键自增</code> 或者 <code>UUID</code>,但它们都有很明显的缺点</p>
+<ol>
+<li>主键自增：</li>
+</ol>
+<ul>
+<li>自增ID容易被爬虫遍历数据。</li>
+<li>分表分库会有ID冲突。</li>
+</ul>
+<ol start="2">
+<li>UUID</li>
+</ol>
+<ul>
+<li>太长，并且有索引碎片，索引多占用空间的问题 </li>
+<li>无序。</li>
+</ul>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>SnowFlake算法生成ID的结果是一个64bit大小的整数，其结构为<br>（1bit 固定为0）+（41bit时间戳）+（10bit的机器id）+（12bit序列号）</p>
+<ul>
+<li>1bit 因为二进制中最高位是符号位，1表示负数，0表示正数。生成的ID都是正整数，所以最高位固定为0。</li>
+<li>41bit-时间戳 精确到毫秒级，41位的长度可以使用69年。时间位还有一个很重要的作用是可以根据时间进行排序。</li>
+<li>10bit-工作机器id 10位的机器标识，10位的长度最多支持部署1024个节点。</li>
+<li>12bit-序列号 序列号即一系列的自增id，可以支持同一节点同一毫秒生成多个ID序号。</li>
+<li>12位（bit）可以表示的最大正整数是2^{12}-1 &#x3D; 4095，即可以用0、1、2、3、….4094这4095个数字，来表示同一机器同一时间截（毫秒)内产生的4095个ID序号。</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">说明 由于在Java中<span class="number">64</span>bit的整数是<span class="type">long</span>类型,所以在Java中SnowFlake算法生成的<span class="type">id</span>就是<span class="type">long</span>来存储的</span><br></pre></td></tr></table></figure>
+
+<h2 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br></pre></td><td class="code"><pre><span class="line">import java<span class="selector-class">.util</span>.Map;</span><br><span class="line">import java<span class="selector-class">.util</span><span class="selector-class">.concurrent</span>.ConcurrentHashMap;</span><br><span class="line">import java<span class="selector-class">.util</span><span class="selector-class">.concurrent</span>.CountDownLatch;</span><br><span class="line">import lombok<span class="selector-class">.extern</span><span class="selector-class">.slf4j</span>.Slf4j;</span><br><span class="line">@Slf4j</span><br><span class="line">public class SnowIdUtils &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 私有的 静态内部类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    private static class SnowFlake &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 内部类对象（单例模式）</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        private static final SnowIdUtils<span class="selector-class">.SnowFlake</span> SNOW_FLAKE = new SnowIdUtils<span class="selector-class">.SnowFlake</span>();</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 起始的时间戳</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        private final long START_TIMESTAMP = <span class="number">1557489395327</span>L;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 序列号占用位数</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        private final long SEQUENCE_BIT = <span class="number">12</span>;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 机器标识占用位数</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        private final long MACHINE_BIT = <span class="number">10</span>;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 时间戳位移位数</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        private final long TIMESTAMP_LEFT = SEQUENCE_BIT + MACHINE_BIT;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 最大序列号  （4095）</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        private final long MAX_SEQUENCE = ~(-<span class="number">1</span>L &lt;&lt; SEQUENCE_BIT);</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 最大机器编号 （1023）</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        private final long MAX_MACHINE_ID = ~(-<span class="number">1</span>L &lt;&lt; MACHINE_BIT);</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 生成id机器标识部分</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        private long machineIdPart;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 序列号</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        private long sequence = <span class="number">0</span>L;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 上一次时间戳</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        private long lastStamp = -<span class="number">1</span>L;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 构造函数初始化机器编码</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        private <span class="built_in">SnowFlake</span>() &#123;</span><br><span class="line">            <span class="comment">//模拟这里获得本机机器编码</span></span><br><span class="line">            long localIp = <span class="number">4321</span>;</span><br><span class="line">            <span class="comment">//localIp &amp; MAX_MACHINE_ID最大不会超过1023,在左位移12位</span></span><br><span class="line">            machineIdPart = (localIp &amp; MAX_MACHINE_ID) &lt;&lt; SEQUENCE_BIT;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 获取雪花ID</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        public synchronized long <span class="built_in">nextId</span>() &#123;</span><br><span class="line">            long currentStamp = <span class="built_in">timeGen</span>();</span><br><span class="line">            <span class="comment">//避免机器时钟回拨</span></span><br><span class="line">            while (currentStamp &lt; lastStamp) &#123;</span><br><span class="line">                <span class="comment">// //服务器时钟被调整了,ID生成器停止服务.</span></span><br><span class="line">                throw new <span class="built_in">RuntimeException</span>(String<span class="selector-class">.format</span>(<span class="string">&quot;时钟已经回拨.  Refusing to generate id for %d milliseconds&quot;</span>, lastStamp - currentStamp));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (currentStamp == lastStamp) &#123;</span><br><span class="line">                <span class="comment">// 每次+1</span></span><br><span class="line">                sequence = (sequence + <span class="number">1</span>) &amp; MAX_SEQUENCE;</span><br><span class="line">                <span class="comment">// 毫秒内序列溢出</span></span><br><span class="line">                <span class="keyword">if</span> (sequence == <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="comment">// 阻塞到下一个毫秒,获得新的时间戳</span></span><br><span class="line">                    currentStamp = <span class="built_in">getNextMill</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//不同毫秒内，序列号置0</span></span><br><span class="line">                sequence = <span class="number">0</span>L;</span><br><span class="line">            &#125;</span><br><span class="line">            lastStamp = currentStamp;</span><br><span class="line">            <span class="comment">//时间戳部分+机器标识部分+序列号部分</span></span><br><span class="line">            return (currentStamp - START_TIMESTAMP) &lt;&lt; TIMESTAMP_LEFT | machineIdPart | sequence;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 阻塞到下一个毫秒，直到获得新的时间戳</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        private long <span class="built_in">getNextMill</span>() &#123;</span><br><span class="line">            long mill = <span class="built_in">timeGen</span>();</span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">            while (mill &lt;= lastStamp) &#123;</span><br><span class="line">                mill = <span class="built_in">timeGen</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            return mill;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 返回以毫秒为单位的当前时间</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        protected long <span class="built_in">timeGen</span>() &#123;</span><br><span class="line">            return System<span class="selector-class">.currentTimeMillis</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取long类型雪花ID</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    public static long <span class="built_in">uniqueLong</span>() &#123;</span><br><span class="line">        return SnowIdUtils<span class="selector-class">.SnowFlake</span><span class="selector-class">.SNOW_FLAKE</span><span class="selector-class">.nextId</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取String类型雪花ID</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    public static String <span class="built_in">uniqueLongHex</span>() &#123;</span><br><span class="line">        return String<span class="selector-class">.format</span>(<span class="string">&quot;%016x&quot;</span>, <span class="built_in">uniqueLong</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 测试</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    public static void <span class="selector-tag">main</span>(String<span class="selector-attr">[]</span> args) throws InterruptedException &#123;</span><br><span class="line">        <span class="comment">//计时开始时间</span></span><br><span class="line">        long start = System<span class="selector-class">.currentTimeMillis</span>();</span><br><span class="line">        <span class="comment">//让100个线程同时进行</span></span><br><span class="line">        final CountDownLatch latch = new <span class="built_in">CountDownLatch</span>(<span class="number">100</span>);</span><br><span class="line">        <span class="comment">//判断生成的20万条记录是否有重复记录</span></span><br><span class="line">        final Map&lt;Long, Integer&gt; map = new <span class="built_in">ConcurrentHashMap</span>();</span><br><span class="line">        <span class="keyword">for</span> (int <span class="selector-tag">i</span> = <span class="number">0</span>; <span class="selector-tag">i</span> &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            <span class="comment">//创建100个线程</span></span><br><span class="line">            new <span class="built_in">Thread</span>(() -&gt; &#123;</span><br><span class="line">                <span class="keyword">for</span> (int s = <span class="number">0</span>; s &lt; <span class="number">2000</span>; s++) &#123;</span><br><span class="line">                    long snowID = SnowIdUtils<span class="selector-class">.uniqueLong</span>();</span><br><span class="line">                    log<span class="selector-class">.info</span>(<span class="string">&quot;生成雪花ID=&#123;&#125;&quot;</span>,snowID);</span><br><span class="line">                    Integer put = map<span class="selector-class">.put</span>(snowID, <span class="number">1</span>);</span><br><span class="line">                    <span class="keyword">if</span> (put != null) &#123;</span><br><span class="line">                        throw new <span class="built_in">RuntimeException</span>(<span class="string">&quot;主键重复&quot;</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                latch<span class="selector-class">.countDown</span>();</span><br><span class="line">            &#125;)<span class="selector-class">.start</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//让上面100个线程执行结束后，在走下面输出信息</span></span><br><span class="line">        latch<span class="selector-class">.await</span>();</span><br><span class="line">        log<span class="selector-class">.info</span>(<span class="string">&quot;生成20万条雪花ID总用时=&#123;&#125;&quot;</span>, System<span class="selector-class">.currentTimeMillis</span>() - start);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="为什么说41位时间戳最长只能有69年"><a href="#为什么说41位时间戳最长只能有69年" class="headerlink" title="为什么说41位时间戳最长只能有69年"></a>为什么说41位时间戳最长只能有69年</h2><p>我们思考41的二进制，最大值也就41位都是1，也就是也就是说41位可以表示2^{41}-1个毫秒的值，转化成单位年则是</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(2^&#123;41&#125;-1) / (1000 <span class="symbol">*</span> 60 <span class="symbol">*</span> 60 <span class="symbol">*</span> 24 <span class="symbol">*</span>365) = 69年</span><br></pre></td></tr></table></figure>
+<p>我们可以通过代码泡一下就知道了。 </p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span>(<span class="built_in">String</span>[] args) &#123;</span><br><span class="line">       <span class="comment">//41位二进制最小值</span></span><br><span class="line">       <span class="built_in">String</span> minTimeStampStr = <span class="string">&quot;00000000000000000000000000000000000000000&quot;</span>;</span><br><span class="line">       <span class="comment">//41位二进制最大值</span></span><br><span class="line">       <span class="built_in">String</span> maxTimeStampStr = <span class="string">&quot;11111111111111111111111111111111111111111&quot;</span>;</span><br><span class="line">       <span class="comment">//转10进制</span></span><br><span class="line">       <span class="type">long</span> minTimeStamp = <span class="keyword">new </span><span class="class title_">BigInteger</span>(minTimeStampStr, <span class="number">2</span>).<span class="property">longValue</span>();</span><br><span class="line">       <span class="type">long</span> maxTimeStamp = <span class="keyword">new </span><span class="class title_">BigInteger</span>(maxTimeStampStr, <span class="number">2</span>).<span class="property">longValue</span>();</span><br><span class="line">       <span class="comment">//一年总共多少毫秒</span></span><br><span class="line">       <span class="type">long</span> oneYearMills = <span class="number">1</span>L * <span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span> * <span class="number">365</span>;</span><br><span class="line">       <span class="comment">//算出最大可以多少年</span></span><br><span class="line">       System.<span class="property">out</span>.<span class="property">println</span>((maxTimeStamp - minTimeStamp) / oneYearMills);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：69</p>
+<p>所以说雪花算法生成的ID,只能保证69年内不会重复，如果超过69年的话，那就考虑换个服务器部署吧，并且要保证该服务器的ID和之前都没有重复过</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag"># 面试题</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/01/md/CentOS%E5%AE%89%E8%A3%85Go/" rel="prev" title="CentOS安装Go">
+                  <i class="fa fa-angle-left"></i> CentOS安装Go
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/01/%E8%B0%83%E7%94%A8%E6%89%93%E5%8D%B0%E6%9C%BA%E6%89%93%E5%8D%B0%E6%96%87%E4%BB%B6/" rel="next" title="调用打印机打印文件">
+                  调用打印机打印文件 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">my</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"my0521.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="记录学习过程中Redis相关的一些面试题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis面试题">
+<meta property="og:url" content="https://my0521.github.io/2020/05/05/md/Redis%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="miracle">
+<meta property="og:description" content="记录学习过程中Redis相关的一些面试题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-05T12:00:48.000Z">
+<meta property="article:modified_time" content="2024-06-22T08:41:03.417Z">
+<meta property="article:author" content="my">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="面试题">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://my0521.github.io/2020/05/05/md/Redis%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://my0521.github.io/2020/05/05/md/Redis%E9%9D%A2%E8%AF%95%E9%A2%98/","path":"2020/05/05/md/Redis面试题/","title":"Redis面试题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redis面试题 | miracle</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">miracle</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-happy"><a href="/happy/" rel="section"><i class="fa fa-th fa-fw"></i>happy</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E9%AB%98%E5%B9%B6%E5%8F%91%E5%92%8C%E5%BF%AB%E9%80%9F%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">Redis高并发和快速的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84"><span class="nav-number">2.</span> <span class="nav-text">为什么Redis是单线程的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BC%98%E5%8A%A3"><span class="nav-number">3.</span> <span class="nav-text">Redis单线程的优劣</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">IO多路复用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my0521.github.io/2020/05/05/md/Redis%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="miracle">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redis面试题 | miracle">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis面试题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-05 20:00:48" itemprop="dateCreated datePublished" datetime="2020-05-05T20:00:48+08:00">2020-05-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-22 16:41:03" itemprop="dateModified" datetime="2024-06-22T16:41:03+08:00">2024-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>记录学习过程中Redis相关的一些面试题</p>
+<span id="more"></span>
+
+<h2 id="Redis高并发和快速的原因"><a href="#Redis高并发和快速的原因" class="headerlink" title="Redis高并发和快速的原因"></a>Redis高并发和快速的原因</h2><ol>
+<li>Redis是基于内存的，内存的读写速度非常快；</li>
+<li>Redis是单线程的，省去了很多上下文切换线程的时间；</li>
+<li>Redis使用多路复用技术，可以处理并发的连接；</li>
+</ol>
+<ul>
+<li>非阻塞IO，内部实现采用epoll+实现的简单的事件框架。epoll中的读、写、关闭、连接都转化成了事件，然后利用epoll的多路复用特性，绝不在IO上浪费一点时间。</li>
+</ul>
+<h2 id="为什么Redis是单线程的"><a href="#为什么Redis是单线程的" class="headerlink" title="为什么Redis是单线程的"></a>为什么Redis是单线程的</h2><ol>
+<li>官方答案</li>
+</ol>
+<ul>
+<li>因为 <code>Redis是基于内存的操作，CPU不是Redis的瓶颈，Redis的瓶颈最有可能是机器内存的大小或者网络带宽</code>。既然单线程容易实现，而且CPU不会成为瓶颈，那么就顺理成章地采用单线程的方案了。</li>
+</ul>
+<ol start="2">
+<li>性能指标</li>
+</ol>
+<ul>
+<li>关于Redis的性能，官方网站也有，普通笔记本轻松处理<code>每秒几十万的请求</code>。</li>
+</ul>
+<ol start="3">
+<li>详细原因</li>
+</ol>
+<ul>
+<li>不需要各种锁的性能消耗<ol>
+<li>Redis的数据结构并不是简单的Key-Value，还有list，hash等复杂的结构，这些结构有可能进行很细粒度的操作，比如很长的列表后面添加一个元素，在hash中添加或者删除一个对象，<code>这些操作在多线程下可能就需要非常多的锁，导致结果的同步开销大大增加</code>。</li>
+<li><code>在单线程的情况下，就不用去考虑各种锁的问题</code>，不存在加锁释放锁的操作，没有因为可能出现死锁而导致的性能消耗。</li>
+</ol>
+<p>	</p>
+</li>
+<li>单线程多进程集群方案<ol>
+<li><code>单线程的每核心效率非常高</code>，多线程自然是可以比单线程有更高的性能上限，但是在今天的计算环境中，即使是单机多线程的上限也往往不能满足需要了，需要进一步摸索的是多服务集群化的方案，这些方案中多线程的技术照样是用不上的，<code>所以才有单线程、多进程的集群解决方案</code></li>
+</ol>
+</li>
+<li>CPU消耗<ol>
+<li>使用单线程，避免了不必要的上下文切换和竞争条件，也不存在多进程或者多线程切换而消耗CPU</li>
+<li>如果想充分利用多核CPU性能，可以开启多个Redis进程</li>
+</ol>
+</li>
+</ul>
+<h2 id="Redis单线程的优劣"><a href="#Redis单线程的优劣" class="headerlink" title="Redis单线程的优劣"></a>Redis单线程的优劣</h2><ol>
+<li>单进程单线程的优势</li>
+</ol>
+<ul>
+<li>代码更清晰，处理逻辑更简单</li>
+<li>不用去考虑各种锁的问题，可以避免多线程同步带来的一些弊端</li>
+<li>不存在多进程或者多线程上下文切换而消耗CPU</li>
+</ul>
+<ol start="2">
+<li>单进程多线程的弊端</li>
+</ol>
+<ul>
+<li>无法有效发挥多核CPU性能，不过可以通过单机开多个Redis实例来完善</li>
+</ul>
+<h2 id="IO多路复用"><a href="#IO多路复用" class="headerlink" title="IO多路复用"></a>IO多路复用</h2><ol>
+<li>redis 采用网络IO多路复用技术来保证在多连接的时候，系统的高吞吐量。</li>
+</ol>
+<ul>
+<li>多路：多个socket连接</li>
+<li>复用：复用一个线程</li>
+<li>多路复用3种技术：select，poll，epoll，epoll是最新的也是最好的多路复用技术。</li>
+</ul>
+<ol start="2">
+<li>采用多路复用技术可以让单个线程高效的处理多个连接请求（尽量减少网络IO的时间消耗），且Redis在内存中操作数据的速度非常快（内存操作数据不会成为redis的性能瓶颈），以此造就了Redis具有很高的吞吐量</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>Redis是纯内存数据库，一般都是简单的存取操作，线程占用的时间很多，时间的花费主要集中在IO上，所以读取速度快</li>
+<li>Redis使用的是非阻塞IO，IO多路复用，使用了单线程来轮询描述符，将数据库的开、关、读、写都转换成了事件，减少了线程切换时上下文的切换和竞争</li>
+<li>Redis采用单线程模型，保证了每个操作的原子性，也减少上下文切换和竞争的时间消耗</li>
+<li>Redis全程使用Hash结构，读取速度快，还有一些特殊的数据结构，对数据存储进行了优化，如压缩表，对短数据进行压缩存储，再如跳表，使用有序的数据结构加快读取的速度</li>
+<li>Redis采用自实现的事件分离器，效率比较高，内部采用非租塞的执行方式，吞吐能力比较大。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag"># 面试题</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/05/05/md/python%E9%9D%A2%E8%AF%95/" rel="prev" title="hexo">
+                  <i class="fa fa-angle-left"></i> hexo
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/05/05/md/Hexo/" rel="next" title="hexo">
+                  hexo <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">my</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
