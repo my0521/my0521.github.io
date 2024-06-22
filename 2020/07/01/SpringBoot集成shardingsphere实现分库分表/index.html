@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"my0521.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="SpringBoot、shardingsphere、mybatis-plus实现分库分表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot集成shardingsphere实现分库分表">
+<meta property="og:url" content="https://my0521.github.io/2020/07/01/SpringBoot%E9%9B%86%E6%88%90shardingsphere%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SpringBoot、shardingsphere、mybatis-plus实现分库分表">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-01T12:00:48.000Z">
+<meta property="article:modified_time" content="2024-06-22T08:41:20.867Z">
+<meta property="article:author" content="my">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="MyBatis-plus">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://my0521.github.io/2020/07/01/SpringBoot%E9%9B%86%E6%88%90shardingsphere%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://my0521.github.io/2020/07/01/SpringBoot%E9%9B%86%E6%88%90shardingsphere%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/","path":"2020/07/01/SpringBoot集成shardingsphere实现分库分表/","title":"SpringBoot集成shardingsphere实现分库分表"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SpringBoot集成shardingsphere实现分库分表 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#POM%E4%BE%9D%E8%B5%96"><span class="nav-number">1.</span> <span class="nav-text">POM依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#properties%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">properties配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">项目代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93SQL"><span class="nav-number">4.</span> <span class="nav-text">数据库SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my0521.github.io/2020/07/01/SpringBoot%E9%9B%86%E6%88%90shardingsphere%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SpringBoot集成shardingsphere实现分库分表 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringBoot集成shardingsphere实现分库分表
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-01 20:00:48" itemprop="dateCreated datePublished" datetime="2020-07-01T20:00:48+08:00">2020-07-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-22 16:41:20" itemprop="dateModified" datetime="2024-06-22T16:41:20+08:00">2024-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>SpringBoot、shardingsphere、mybatis-plus实现分库分表</p>
+<span id="more"></span>
+
+<h2 id="POM依赖"><a href="#POM依赖" class="headerlink" title="POM依赖"></a>POM依赖</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- https:<span class="comment">//mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web --&gt;</span></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org<span class="selector-class">.springframework</span>.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- https:<span class="comment">//mvnrepository.com/artifact/mysql/mysql-connector-java --&gt;</span></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- https:<span class="comment">//mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter --&gt;</span></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;com.baomidou&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;mybatis-plus-boot-starter&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;<span class="number">3.3</span>.<span class="number">2</span>&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;io.shardingsphere&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;sharding-jdbc-spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;<span class="number">3.1</span>.<span class="number">0</span>&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;io.shardingsphere&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;sharding-jdbc-spring-namespace&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;<span class="number">3.1</span>.<span class="number">0</span>&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- lombok --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">	&lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="properties配置"><a href="#properties配置" class="headerlink" title="properties配置"></a>properties配置</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">spring<span class="selector-class">.datasource</span><span class="selector-class">.hikari</span>.minimum-idle=<span class="number">3</span></span><br><span class="line">spring<span class="selector-class">.datasource</span><span class="selector-class">.hikari</span>.maximum-pool-size=<span class="number">10</span></span><br><span class="line">spring<span class="selector-class">.datasource</span><span class="selector-class">.hikari</span><span class="selector-class">.max-lifetime</span> =<span class="number">30000</span> <span class="comment">// 不能小于30秒，否则默认回到1800秒</span></span><br><span class="line">spring<span class="selector-class">.datasource</span><span class="selector-class">.hikari</span>.connection-test-query=SELECT <span class="number">1</span></span><br><span class="line"></span><br><span class="line"># 数据源 ds0,ds1</span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.datasource</span>.names=ds0,ds1</span><br><span class="line"></span><br><span class="line"># 第一个数据库</span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.datasource</span><span class="selector-class">.ds0</span>.type=com<span class="selector-class">.zaxxer</span><span class="selector-class">.hikari</span><span class="selector-class">.HikariDataSource</span></span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.datasource</span><span class="selector-class">.ds0</span>.driver-class-name=com<span class="selector-class">.mysql</span><span class="selector-class">.cj</span><span class="selector-class">.jdbc</span><span class="selector-class">.Driver</span></span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.datasource</span><span class="selector-class">.ds0</span>.jdbc-url=jdbc:mysql:<span class="comment">//121.36.64.197:3306/ds0?useUnicode=true&amp;characterEncoding=UTF-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</span></span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.datasource</span><span class="selector-class">.ds0</span>.username=root</span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.datasource</span><span class="selector-class">.ds0</span>.password=Wrhkw555</span><br><span class="line"></span><br><span class="line"># 第二个数据库</span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.datasource</span><span class="selector-class">.ds1</span>.type=com<span class="selector-class">.zaxxer</span><span class="selector-class">.hikari</span><span class="selector-class">.HikariDataSource</span></span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.datasource</span><span class="selector-class">.ds1</span>.driver-class-name=com<span class="selector-class">.mysql</span><span class="selector-class">.cj</span><span class="selector-class">.jdbc</span><span class="selector-class">.Driver</span></span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.datasource</span><span class="selector-class">.ds1</span>.jdbc-url=jdbc:mysql:<span class="comment">//121.36.64.197:3306/ds1?useUnicode=true&amp;characterEncoding=UTF-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</span></span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.datasource</span><span class="selector-class">.ds1</span>.username=root</span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.datasource</span><span class="selector-class">.ds1</span>.password=Wrhkw555</span><br><span class="line"></span><br><span class="line"># 水平拆分的数据库（表） 配置分库 + 分表策略 行表达式分片策略</span><br><span class="line"></span><br><span class="line"># 分库策略</span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.config</span><span class="selector-class">.sharding</span><span class="selector-class">.default-database-strategy</span><span class="selector-class">.inline</span>.sharding-column=id</span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.config</span><span class="selector-class">.sharding</span><span class="selector-class">.default-database-strategy</span><span class="selector-class">.inline</span>.algorithm-expression=ds$-&gt;&#123;id % <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line"># 分表策略 其中user为逻辑表 分表主要取决于age行</span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.config</span><span class="selector-class">.sharding</span><span class="selector-class">.tables</span><span class="selector-class">.user</span>.actual-data-nodes=ds$-&gt;&#123;<span class="number">0</span>..<span class="number">1</span>&#125;.user_$-&gt;&#123;<span class="number">0</span>..<span class="number">1</span>&#125;</span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.config</span><span class="selector-class">.sharding</span><span class="selector-class">.tables</span><span class="selector-class">.user</span><span class="selector-class">.table-strategy</span><span class="selector-class">.inline</span>.sharding-column=age</span><br><span class="line"># 分片算法表达式</span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.config</span><span class="selector-class">.sharding</span><span class="selector-class">.tables</span><span class="selector-class">.user</span><span class="selector-class">.table-strategy</span><span class="selector-class">.inline</span>.algorithm-expression=user_$-&gt;&#123;age % <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line"># 主键 UUID <span class="number">18</span>位数 如果是分布式还要进行一个设置 防止主键重复</span><br><span class="line"><span class="selector-id">#sharding</span><span class="selector-class">.jdbc</span><span class="selector-class">.config</span><span class="selector-class">.sharding</span><span class="selector-class">.tables</span><span class="selector-class">.user</span>.key-generator-column-name=id</span><br><span class="line"></span><br><span class="line"># 打印执行的数据库以及语句</span><br><span class="line">sharding<span class="selector-class">.jdbc</span><span class="selector-class">.config</span><span class="selector-class">.props</span>.<span class="selector-class">.sql</span>.show=true</span><br><span class="line">spring<span class="selector-class">.main</span>.allow-bean-definition-overriding=true</span><br></pre></td></tr></table></figure>
+<ul>
+<li>逻辑表 user<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">水平拆分的数据库（表）的相同逻辑和数据结构表的总称。例：用户数据根据主键尾数拆分为2张表，分别是user0到user1，他们的逻辑表名为user。</span><br></pre></td></tr></table></figure></li>
+<li>真实表<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在分片的数据库中真实存在的物理表。即上个示例中的user0到user1</span><br></pre></td></tr></table></figure></li>
+<li>Hint分片算法<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对应HintShardingAlgorithm，用于处理使用Hint行分片的场景。需要配合HintShardingStrategy使用</span><br></pre></td></tr></table></figure></li>
+<li>分片策略<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对应InlineShardingStrategy。使用Groovy的表达式，提供对SQL语句中的=和IN的分片操作支持，只支持单分片键。对于简单的分片算法，可以通过简单的配置使用，从而避免繁琐的Java代码开发，如: user$-&gt;&#123;id % 2&#125; 表示user表根据id模2，而分成2张表，表名称为user0到user_1</span><br></pre></td></tr></table></figure></li>
+<li>自增主键生成策略<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">通过在客户端生成自增主键替换以数据库原生自增主键的方式，做到分布式主键无重复。</span><br><span class="line">采用UUID<span class="selector-class">.randomUUID</span>()的方式产生分布式主键。或者 SNOWFLAKE</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="项目代码实现"><a href="#项目代码实现" class="headerlink" title="项目代码实现"></a>项目代码实现</h2><ol>
+<li>实体类<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@EqualsAndHashCode</span>(callSuper = <span class="literal">true</span>)</span><br><span class="line"><span class="meta">@Accessors</span>(chain = <span class="literal">true</span>)</span><br><span class="line"><span class="meta">@TableName</span>(<span class="string">&quot;user&quot;</span>)</span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model&lt;User&gt;</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span>	int	 id;</span><br><span class="line">	<span class="keyword">private</span>	<span class="type">String</span>	 name;</span><br><span class="line">	<span class="keyword">private</span>	int	 age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>dao接口<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserMapper</span> <span class="keyword">extends</span> <span class="title class_">BaseMapper</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在SpringBoot主类上添加MapperScan<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MapperScan(&quot;com.my.dao&quot;)</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringBootApp</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		SpringApplication.run(SpringBootApp.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>service接口<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">IUserService</span> <span class="keyword">extends</span> <span class="title class_">IService</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="type">boolean</span> <span class="title function_">save</span><span class="params">(User entity)</span>;</span><br><span class="line"></span><br><span class="line">	List <span class="title function_">getUserList</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>service实现类<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> <span class="keyword">extends</span> <span class="title">ServiceImpl</span> <span class="title">implements</span> <span class="title">IUserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	public boolean save(<span class="type">User</span> entity) &#123;		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">super</span>.save(entity);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	public <span class="type">List</span> getUserList() &#123;		</span><br><span class="line">		<span class="keyword">return</span> baseMapper.selectList(<span class="type">Wrappers</span>.lambdaQuery());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>controller<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class UserController &#123;</span><br><span class="line"></span><br><span class="line">	@Autowired</span><br><span class="line">	private IUserService userService;</span><br><span class="line">	</span><br><span class="line">	@<span class="built_in">GetMapping</span>(<span class="string">&quot;/select&quot;</span>)</span><br><span class="line">	public List&lt;User&gt; <span class="built_in">select</span>() &#123;		</span><br><span class="line">		return userService<span class="selector-class">.getUserList</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@<span class="built_in">GetMapping</span>(<span class="string">&quot;/insert&quot;</span>)</span><br><span class="line">	public boolean <span class="built_in">insert</span>(User user)&#123;		</span><br><span class="line">		return userService<span class="selector-class">.save</span>(user);</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="数据库SQL"><a href="#数据库SQL" class="headerlink" title="数据库SQL"></a>数据库SQL</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE IF NOT EXISTS `ds0`;</span><br><span class="line">USE `ds0`;</span><br><span class="line">SET NAMES utf8mb4;</span><br><span class="line">SET FOREIGN_KEY_CHECKS=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">-- ----------------------------</span><br><span class="line">-- Table structure <span class="keyword">for</span> user_0</span><br><span class="line">-- ----------------------------</span><br><span class="line">DROP TABLE IF EXISTS `user_0`;</span><br><span class="line">CREATE TABLE `user_0` (</span><br><span class="line">  `id` <span class="built_in">int</span>(<span class="number">11</span>) NOT NULL,</span><br><span class="line">  `name` <span class="built_in">varchar</span>(<span class="number">255</span>) DEFAULT NULL,</span><br><span class="line">  `age` <span class="built_in">int</span>(<span class="number">11</span>) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;</span><br><span class="line"></span><br><span class="line">-- ----------------------------</span><br><span class="line">-- Table structure <span class="keyword">for</span> user_1</span><br><span class="line">-- ----------------------------</span><br><span class="line">DROP TABLE IF EXISTS `user_1`;</span><br><span class="line">CREATE TABLE `user_1` (</span><br><span class="line">  `id` <span class="built_in">int</span>(<span class="number">11</span>) NOT NULL,</span><br><span class="line">  `name` <span class="built_in">varchar</span>(<span class="number">255</span>) DEFAULT NULL,</span><br><span class="line">  `age` <span class="built_in">int</span>(<span class="number">11</span>) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;</span><br><span class="line">SET FOREIGN_KEY_CHECKS=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ol>
+<li>插入数据<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:<span class="number">8080</span>/insert?<span class="attr">id=1&amp;name=lhd&amp;age=12</span>	</span><br><span class="line">http://localhost:<span class="number">8080</span>/insert?<span class="attr">id=2&amp;name=lhd&amp;age=13</span>	</span><br><span class="line">http://localhost:<span class="number">8080</span>/insert?<span class="attr">id=3&amp;name=lhd&amp;age=14</span>	</span><br><span class="line">http://localhost:<span class="number">8080</span>/insert?<span class="attr">id=4&amp;name=lhd&amp;age=15</span></span><br></pre></td></tr></table></figure></li>
+<li>查询<br><a target="_blank" rel="noopener" href="http://localhost:8080/select">http://localhost:8080/select</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+              <a href="/tags/MyBatis-plus/" rel="tag"># MyBatis-plus</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/07/01/SpringBoot%E9%9B%86%E6%88%90shardingsphere%E5%AE%9E%E7%8E%B0%E5%8D%95%E5%BA%93%E5%88%86%E8%A1%A8/" rel="prev" title="SpringBoot集成shardingsphere实现单库分表">
+                  <i class="fa fa-angle-left"></i> SpringBoot集成shardingsphere实现单库分表
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/01/SpringBoot%E9%9B%86%E6%88%90Sharding-jdbc%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" rel="next" title="SpringBoot集成Sharding-jdbc实现分库分表">
+                  SpringBoot集成Sharding-jdbc实现分库分表 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">my</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

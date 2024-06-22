@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"my0521.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="记录ffmpeg一些学习概况">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ffmpeg学习">
+<meta property="og:url" content="https://my0521.github.io/2019/05/06/ffmpeg%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="记录ffmpeg一些学习概况">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-06T12:00:48.000Z">
+<meta property="article:modified_time" content="2024-06-22T08:41:16.919Z">
+<meta property="article:author" content="my">
+<meta property="article:tag" content="ffmpeg">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://my0521.github.io/2019/05/06/ffmpeg%E5%AD%A6%E4%B9%A0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://my0521.github.io/2019/05/06/ffmpeg%E5%AD%A6%E4%B9%A0/","path":"2019/05/06/ffmpeg学习/","title":"ffmpeg学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ffmpeg学习 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%BD%91%E7%AB%99"><span class="nav-number">1.</span> <span class="nav-text">相关网站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8Effmpeg%E5%BC%80%E5%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">从ffmpeg开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ffmpeg%E9%A1%B9%E7%9B%AE%E7%BB%84%E6%88%90"><span class="nav-number">3.</span> <span class="nav-text">ffmpeg项目组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ffmpeg%E5%B7%A5%E5%85%B7"><span class="nav-number">4.</span> <span class="nav-text">ffmpeg工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ffmpeg%E5%8F%82%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">ffmpeg参数</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my0521.github.io/2019/05/06/ffmpeg%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ffmpeg学习 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ffmpeg学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-06 20:00:48" itemprop="dateCreated datePublished" datetime="2019-05-06T20:00:48+08:00">2019-05-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-22 16:41:16" itemprop="dateModified" datetime="2024-06-22T16:41:16+08:00">2024-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ffmpeg/" itemprop="url" rel="index"><span itemprop="name">ffmpeg</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>记录ffmpeg一些学习概况</p>
+<span id="more"></span>
+
+<h2 id="相关网站"><a href="#相关网站" class="headerlink" title="相关网站"></a>相关网站</h2><ul>
+<li>官网 <a target="_blank" rel="noopener" href="http://www.ffmpeg.org/">http://www.ffmpeg.org/</a></li>
+<li>github <a target="_blank" rel="noopener" href="https://github.com/FFmpeg/FFmpeg">https://github.com/FFmpeg/FFmpeg</a></li>
+<li>Build网站 <a target="_blank" rel="noopener" href="http://ffmpeg.zeranoe.com/builds/">http://ffmpeg.zeranoe.com/builds/</a></li>
+<li>互动百科 <a target="_blank" rel="noopener" href="http://www.baike.com/wiki/ffmpeg">http://www.baike.com/wiki/ffmpeg</a></li>
+<li>分支 <a target="_blank" rel="noopener" href="http://libav.org/">http://libav.org</a></li>
+</ul>
+<h2 id="从ffmpeg开始"><a href="#从ffmpeg开始" class="headerlink" title="从ffmpeg开始"></a>从ffmpeg开始</h2><p>ffmpeg的编译版本可以从Build网站<a target="_blank" rel="noopener" href="http://ffmpeg.zeranoe.com/builds/">http://ffmpeg.zeranoe.com/builds/</a>下载，可供下载的有shared，dev，static3个版本，各个版本的差异可以参考相关网站。</p>
+<h2 id="ffmpeg项目组成"><a href="#ffmpeg项目组成" class="headerlink" title="ffmpeg项目组成"></a>ffmpeg项目组成</h2><ul>
+<li>项目结构</li>
+</ul>
+<ol>
+<li>libavformat<br>用于各种音视频封装格式的生成和解析，包括获取解码所需信息以生成解码上下文结构和读取音视频帧等功能，包含demuxers和muxer库；</li>
+<li>libavcodec<br>用于各种类型声音&#x2F;图像编解码；</li>
+<li>libavutil<br>包含一些公共的工具函数；</li>
+<li>libswscale<br>用于视频场景比例缩放、色彩映射转换；</li>
+<li>libpostproc<br>用于后期效果处理；</li>
+<li>ffmpeg<br>是一个命令行工具，用来对视频文件转换格式，也支持对电视卡实时编码；</li>
+<li>ffsever<br>是一个HTTP多媒体实时广播流服务器，支持时光平移；</li>
+<li>ffplay<br>是一个简单的播放器，使用ffmpeg 库解析和解码，通过SDL显示；</li>
+</ol>
+<ul>
+<li>生成库文件</li>
+</ul>
+<ol>
+<li>libavcodec<br>包含音视频编码器和解码器；</li>
+<li>libavutil<br>包含多媒体应用常用的简化编程的工具，如随机数生成器、数据结构、数学函数等。</li>
+<li>libavformat<br>包含多种多媒体容器格式的封装、解封装工具；</li>
+<li>libavfilter<br>包含多媒体处理常用的滤镜功能；</li>
+<li>libavdevice<br>用于音视频数据采集和渲染等功能的设备相关；</li>
+<li>libswscale<br>用于图像缩放、色彩空间、像素格式转换等功能；</li>
+<li>libswresample<br>用于音频重采样和格式转换等功能。</li>
+</ol>
+<h2 id="ffmpeg工具"><a href="#ffmpeg工具" class="headerlink" title="ffmpeg工具"></a>ffmpeg工具</h2><p>ffmpeg工具的使用是基于命令行的</p>
+<ol>
+<li>ffmpeg.exe 音视频转码器</li>
+<li>ffplay.exe 简单的音视频播放器</li>
+<li>ffserver.exe 流媒体服务器</li>
+<li>ffprobe.exe 简单的多媒体码流分析器</li>
+</ol>
+<h2 id="ffmpeg参数"><a href="#ffmpeg参数" class="headerlink" title="ffmpeg参数"></a>ffmpeg参数</h2><ol>
+<li>通用参数<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-<span class="language-ruby">f <span class="symbol">fmt:</span> 指定格式(音频或者视频格式)。</span></span><br><span class="line">-<span class="language-ruby">i <span class="symbol">filename:</span> 指定输入文件名。</span></span><br><span class="line">-<span class="language-ruby"><span class="symbol">y:</span> 覆盖已有文件。</span></span><br><span class="line">-<span class="language-ruby">t <span class="symbol">duration:</span> 指定时长。</span></span><br><span class="line">-<span class="language-ruby">fs <span class="symbol">limit_size:</span> 设置文件大小的上限。</span></span><br><span class="line">-<span class="language-ruby">ss <span class="symbol">limit_size:</span> 从指定的时间（单位为秒）开始，也支持[-]<span class="symbol">hh:</span><span class="symbol">mm:</span>ss[.xxx]格式</span></span><br><span class="line">-<span class="language-ruby"><span class="symbol">re:</span> 代表按照帧率发送。在作为推流工具的时候一定要加入该参数，否则ffmpeg会按照最高速率向流媒体服务器不停地发送数据。</span></span><br><span class="line">-<span class="language-ruby"><span class="symbol">map:</span> 指定输出文件的流映射关系。如果没有-map选项，则ffmpeg采用默认的映射关系。</span></span><br></pre></td></tr></table></figure></li>
+<li>视频参数<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">-<span class="language-ruby"><span class="symbol">b:</span> 指定比特率(bit/s)，ffmpeg是自动使用<span class="variable constant_">VBR</span>的，若指定了该参数则使用平均比特率。</span></span><br><span class="line">-<span class="language-ruby"><span class="symbol">bitexact:</span> 使用标准比特率。</span></span><br><span class="line">-<span class="language-ruby"><span class="symbol">vb:</span> 指定视频比特率(bit/s).</span></span><br><span class="line">-<span class="language-ruby">r <span class="symbol">rate:</span> 帧速率（fps）。</span></span><br><span class="line">-<span class="language-ruby">s <span class="symbol">size:</span> 指定分辨率（<span class="number">320</span> * <span class="number">320</span>）</span></span><br><span class="line">-<span class="language-ruby">aspect <span class="symbol">aspect:</span> 设置视频长宽比（<span class="number">4</span><span class="symbol">:</span><span class="number">3</span>，<span class="number">16</span><span class="symbol">:</span><span class="number">9</span>或者<span class="number">1.3333</span>，<span class="number">1.7777</span>）。</span></span><br><span class="line">-<span class="language-ruby">croptop <span class="symbol">size:</span> 设置顶部切除尺寸（<span class="keyword">in</span> pixels）。</span></span><br><span class="line">-<span class="language-ruby">cropbottom <span class="symbol">size:</span> 设置顶底切除尺寸（<span class="keyword">in</span> pixels）。</span></span><br><span class="line">-<span class="language-ruby">cropleft <span class="symbol">size:</span> 设置左切除尺寸（<span class="keyword">in</span> pixels）。</span></span><br><span class="line">-<span class="language-ruby">cropright <span class="symbol">size:</span> 设置右切除尺寸（<span class="keyword">in</span> pixels）。</span></span><br><span class="line">-<span class="language-ruby">padtop <span class="symbol">size:</span> 设置顶部补齐尺寸（<span class="keyword">in</span> pixels）。</span></span><br><span class="line">-<span class="language-ruby">padbottom <span class="symbol">size:</span> 设置底部补齐尺寸（<span class="keyword">in</span> pixels）。</span></span><br><span class="line">-<span class="language-ruby">padleft <span class="symbol">size:</span>设置左补齐尺寸（<span class="keyword">in</span> pixels）。</span></span><br><span class="line">-<span class="language-ruby">padright <span class="symbol">size:</span>设置右补齐尺寸（<span class="keyword">in</span> pixels）。</span></span><br><span class="line">-<span class="language-ruby">padcolor <span class="symbol">color:</span> 补齐带颜色（<span class="number">000000</span>-<span class="variable constant_">FFFFFF</span>）。</span></span><br><span class="line">-<span class="language-ruby"><span class="symbol">vn:</span> 取消视频的输出。</span></span><br><span class="line">-<span class="language-ruby">vcode <span class="symbol">codec:</span> 强制使用codec编解码方式(<span class="string">&#x27;copy&#x27;</span>代表不进行重新编码)。</span></span><br></pre></td></tr></table></figure></li>
+<li>音频参数<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-<span class="language-ruby"><span class="symbol">ab:</span> 设置比特率(单位为bit/s)。</span></span><br><span class="line">-<span class="language-ruby">aq <span class="symbol">quality:</span> 设置音频质量（指定编码）。</span></span><br><span class="line">-<span class="language-ruby">ar <span class="symbol">rate:</span> 设置音频采样率（单位为<span class="title class_">Hz</span>）。</span></span><br><span class="line">-<span class="language-ruby">ac <span class="symbol">channels:</span> 设置声道数。<span class="number">1</span>就是单声道，<span class="number">2</span>就是立体声。</span></span><br><span class="line">-<span class="language-ruby"><span class="symbol">an:</span> 取消音频轨。</span></span><br><span class="line">-<span class="language-ruby">acodec <span class="symbol">codec:</span> 指定音频编码(<span class="string">&#x27;copy&#x27;</span>代表不做音频转码)。</span></span><br><span class="line">-<span class="language-ruby">vol <span class="symbol">volume:</span> 设置录制音量大小（默认<span class="number">256</span>）&lt;百分比&gt;。</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/05/06/ffmpeg%E5%AE%89%E8%A3%85/" rel="prev" title="ffmpeg安装">
+                  <i class="fa fa-angle-left"></i> ffmpeg安装
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/05/06/ffmpeg%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E%E5%8F%8A%E7%A4%BA%E4%BE%8B/" rel="next" title="ffmpeg参数说明及示例">
+                  ffmpeg参数说明及示例 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">my</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"my0521.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="通过Keras，学习一个简单的机器学习模型的搭建过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Keras入门">
+<meta property="og:url" content="https://my0521.github.io/2020/06/03/Keras/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="通过Keras，学习一个简单的机器学习模型的搭建过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-03T11:00:48.000Z">
+<meta property="article:modified_time" content="2024-06-22T08:41:20.863Z">
+<meta property="article:author" content="my">
+<meta property="article:tag" content="Python3">
+<meta property="article:tag" content="tensorflow2">
+<meta property="article:tag" content="Keras">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://my0521.github.io/2020/06/03/Keras/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://my0521.github.io/2020/06/03/Keras/","path":"2020/06/03/Keras/","title":"Keras入门"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Keras入门 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">网络架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">2.</span> <span class="nav-text">加载数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">代码示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">数据预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">3.2.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83-%E6%8B%9F%E5%90%88"><span class="nav-number">3.3.</span> <span class="nav-text">训练(拟合)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.4.</span> <span class="nav-text">评估模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.5.</span> <span class="nav-text">保存模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B"><span class="nav-number">4.</span> <span class="nav-text">使用模型预测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E6%9C%80%E4%BD%B3%E6%A8%A1%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">保存最佳模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#EarlyStopping-ModelCheckpoint"><span class="nav-number">5.1.</span> <span class="nav-text">EarlyStopping ModelCheckpoint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReduceLROnPlateau"><span class="nav-number">5.2.</span> <span class="nav-text">ReduceLROnPlateau</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TensorBoard%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">TensorBoard可视化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">my</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://my0521.github.io/2020/06/03/Keras/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="my">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Keras入门 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Keras入门
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-06-03 19:00:48" itemprop="dateCreated datePublished" datetime="2020-06-03T19:00:48+08:00">2020-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-22 16:41:20" itemprop="dateModified" datetime="2024-06-22T16:41:20+08:00">2024-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/tensorflow2/" itemprop="url" rel="index"><span itemprop="name">tensorflow2</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>通过Keras，学习一个简单的机器学习模型的搭建过程</p>
+<span id="more"></span>
+
+<h2 id="网络架构"><a href="#网络架构" class="headerlink" title="网络架构"></a>网络架构</h2><ul>
+<li><strong>layer</strong> 神经网络的核心组件是层，他是一种数据处理模块</li>
+<li><strong>损失函数</strong> 网络如何衡量在训练数据上的性能，即网络如何朝着正确的 方向前进</li>
+<li><strong>优化器</strong> 基于训练数据和损失函数来更新网络的机制</li>
+<li><strong>在训练和测试过程中需要监控的指标（metric）</strong> 本例只关心精度，即正确分类的图像所 占的比例</li>
+<li><strong>展示网络模型</strong> network.summary()<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">一些常用的网络模型</span><br><span class="line">layers<span class="selector-class">.Dense</span>(<span class="number">32</span>, activation=<span class="string">&#x27;sigmoid&#x27;</span>)</span><br><span class="line">layers<span class="selector-class">.Dense</span>(<span class="number">32</span>, activation=tf.sigmoid)</span><br><span class="line">layers<span class="selector-class">.Dense</span>(<span class="number">32</span>, kernel_initializer=<span class="string">&#x27;orthogonal&#x27;</span>)</span><br><span class="line">layers<span class="selector-class">.Dense</span>(<span class="number">32</span>, kernel_initializer=tf<span class="selector-class">.keras</span><span class="selector-class">.initializers</span>.glorot_normal)</span><br><span class="line">layers<span class="selector-class">.Dense</span>(<span class="number">32</span>, kernel_regularizer=tf<span class="selector-class">.keras</span><span class="selector-class">.regularizers</span><span class="selector-class">.l2</span>(<span class="number">0.01</span>))</span><br><span class="line">layers<span class="selector-class">.Dense</span>(<span class="number">32</span>, kernel_regularizer=tf<span class="selector-class">.keras</span><span class="selector-class">.regularizers</span><span class="selector-class">.l1</span>(<span class="number">0.01</span>))</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="加载数据集"><a href="#加载数据集" class="headerlink" title="加载数据集"></a>加载数据集</h2><p>通过mnist.load_data(path)加载本地当前路径path目录下的数据集文件mnist.npz</p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras.datasets <span class="keyword">import</span> mnist</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers,optimizers</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras.utils <span class="keyword">import</span> to_categorical</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras.models <span class="keyword">import</span> load_model</span><br><span class="line">h5file =<span class="string">&#x27;model_mnist.h5&#x27;</span></span><br><span class="line">path = <span class="string">&#x27;D:/MD/mnist/dataset/mnist.npz&#x27;</span></span><br><span class="line"><span class="comment">#加载数据集</span></span><br><span class="line">(train_images,train_labels),(test_images,test_labels) = mnist.load_data(path)</span><br><span class="line"><span class="comment">#序贯模型</span></span><br><span class="line">network = models.Sequential()</span><br><span class="line"><span class="comment">#输入层，使用relu激活函数</span></span><br><span class="line">network.add(layers.Dense(<span class="number">512</span>,activation=<span class="string">&#x27;relu&#x27;</span>,input_shape=(<span class="number">28</span> * <span class="number">28</span>,)))</span><br><span class="line">network.add(layers.Dense(<span class="number">512</span>,activation=<span class="string">&#x27;relu&#x27;</span>,input_shape=(<span class="number">28</span> * <span class="number">28</span>,)))</span><br><span class="line"><span class="comment">#输出层，</span></span><br><span class="line">network.add(layers.Dense(<span class="number">10</span>,activation=<span class="string">&#x27;softmax&#x27;</span>))</span><br><span class="line">rmsprop =optimizers.RMSprop(lr=<span class="number">0.001</span>, rho=<span class="number">0.9</span>, epsilon=<span class="number">1e-08</span>, decay=<span class="number">0.0</span>)</span><br><span class="line"><span class="comment">#编译</span></span><br><span class="line">network.<span class="built_in">compile</span>(optimizer=rmsprop,</span><br><span class="line">              loss=<span class="string">&#x27;categorical_crossentropy&#x27;</span>,</span><br><span class="line">              metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br><span class="line"><span class="comment">#准备图像数据</span></span><br><span class="line">train_images = train_images.reshape((<span class="number">60000</span>, <span class="number">28</span> * <span class="number">28</span>))</span><br><span class="line">train_images = train_images.astype(<span class="string">&#x27;float32&#x27;</span>) / <span class="number">255</span></span><br><span class="line">test_images = test_images.reshape((<span class="number">10000</span>, <span class="number">28</span> * <span class="number">28</span>))</span><br><span class="line">test_images = test_images.astype(<span class="string">&#x27;float32&#x27;</span>) / <span class="number">255</span></span><br><span class="line"><span class="comment">#准备标签</span></span><br><span class="line">train_labels = to_categorical(train_labels)</span><br><span class="line">test_labels = to_categorical(test_labels)</span><br><span class="line"><span class="comment">#拟合 训练</span></span><br><span class="line">network.fit(train_images, train_labels, epochs=<span class="number">5</span>, batch_size=<span class="number">256</span>)</span><br><span class="line"><span class="comment">#评估模型</span></span><br><span class="line">test_loss, test_acc = network.evaluate(test_images, test_labels)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;test_acc:&#x27;</span>, test_acc)</span><br><span class="line"><span class="comment">#保存模型</span></span><br><span class="line">network.save(h5file)</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><p>在开始训练之前，我们将对数据进行预处理，将其变换为网络要求的形状，并缩放到所有值都在[0,1]之间，比如：之前的训练图像保存在uint8类型的数组中，其形状为（60000，28，28），取值区间为[0,255]，将其变换为一个float32的数组，其形状为（60000，28，28），取值区间为[0,1]</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><ul>
+<li><strong>使用自定义优化器</strong><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from tensorflow.keras import optimizers</span><br><span class="line">rmsprop =optimizers.RMSprop(lr=0.001, rho=0.9, epsilon=1e-08, decay=0.0)</span><br><span class="line">network.compile(optimizer=rmsprop,</span><br><span class="line">              loss=&#x27;categorical_crossentropy&#x27;,</span><br><span class="line">              metrics=[&#x27;accuracy&#x27;])</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="训练-拟合"><a href="#训练-拟合" class="headerlink" title="训练(拟合)"></a>训练(拟合)</h3><p>通过调用网络中的fit方法来完成，在训练过程中显示了2个数字，一个是模型在训练数据上的损失，另一个是模型在训练数据上的精度</p>
+<h3 id="评估模型"><a href="#评估模型" class="headerlink" title="评估模型"></a>评估模型</h3><p>通过调用网络中的evaluate方法来完成，在训练完成后，检验模型在测试集上的性能</p>
+<h3 id="保存模型"><a href="#保存模型" class="headerlink" title="保存模型"></a>保存模型</h3><p>需要说明的一点是Keras会把模型保存成“.h5”文件，为了让你的程序可以支持这种形式的文件你需要安装一下h5py这个package</p>
+<ul>
+<li><code>pip install h5py</code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from tensorflow.keras.models import load_model </span><br><span class="line">network.save(&#x27;model_mnist.h5&#x27;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="使用模型预测"><a href="#使用模型预测" class="headerlink" title="使用模型预测"></a>使用模型预测</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras.models <span class="keyword">import</span> load_model</span><br><span class="line">model = load_model(<span class="string">&#x27;model_mnist.h5&#x27;</span>)  <span class="comment">#选取自己的.h模型名称</span></span><br><span class="line">model.summary()</span><br><span class="line"><span class="comment">#规范化图片大小和像素值</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_inputs</span>(<span class="params">src=[]</span>):</span><br><span class="line">    pre_x = []</span><br><span class="line">    <span class="keyword">for</span> s <span class="keyword">in</span> src:</span><br><span class="line">        <span class="built_in">input</span> = cv2.imread(s)</span><br><span class="line">        <span class="built_in">input</span> = cv2.resize(<span class="built_in">input</span>, (<span class="number">28</span> ,<span class="number">28</span>))</span><br><span class="line">        <span class="built_in">input</span> = cv2.cvtColor(<span class="built_in">input</span>, cv2.COLOR_BGR2GRAY)</span><br><span class="line">        pre_x.append(<span class="built_in">input</span>)  <span class="comment"># input一张图片</span></span><br><span class="line">    pre_x = np.array(pre_x) / <span class="number">255.0</span></span><br><span class="line">    <span class="keyword">return</span> pre_x</span><br><span class="line"><span class="comment">#要预测的图片保存在这里</span></span><br><span class="line">predict_dir = <span class="string">&quot;D:/MD/mnist/dataset/pic/&quot;</span></span><br><span class="line"><span class="comment">#这个路径下有两个文件，分别是cat和dog</span></span><br><span class="line">test = os.listdir(predict_dir)</span><br><span class="line"><span class="built_in">print</span>(test)</span><br><span class="line"><span class="comment">#新建一个列表保存预测图片的地址</span></span><br><span class="line">images = []</span><br><span class="line"><span class="comment">#获取每张图片的地址，并保存在列表images中</span></span><br><span class="line"><span class="keyword">for</span> testpath <span class="keyword">in</span> test:</span><br><span class="line">    fn = os.path.join(predict_dir, testpath)</span><br><span class="line">    <span class="keyword">if</span> fn.endswith(<span class="string">&quot;png&quot;</span>):        </span><br><span class="line">        images.append(fn)</span><br><span class="line"><span class="comment">#调用函数，规范化图片</span></span><br><span class="line">pre_x = get_inputs(images)</span><br><span class="line">pre_x = pre_x.reshape((<span class="number">4</span>, <span class="number">28</span> * <span class="number">28</span>))</span><br><span class="line"><span class="comment">#预测</span></span><br><span class="line">pre_y = model.predict(pre_x[:])</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> pre_y:</span><br><span class="line">    <span class="built_in">print</span>(item) </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Network prediction:&#x27;</span>, np.argmax([item]))</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Model: <span class="string">&quot;sequential&quot;</span></span><br><span class="line">_________________________________________________________________</span><br><span class="line">Layer (type)                 Output Shape              Param #   </span><br><span class="line">=================================================================</span><br><span class="line">dense (Dense)                (None, <span class="number">512</span>)               <span class="number">401920</span>    </span><br><span class="line">_________________________________________________________________</span><br><span class="line">dense_1 (Dense)              (None, <span class="number">512</span>)               <span class="number">262656</span>    </span><br><span class="line">_________________________________________________________________</span><br><span class="line">dense_2 (Dense)              (None, <span class="number">10</span>)                <span class="number">5130</span>      </span><br><span class="line">=================================================================</span><br><span class="line">Total params: <span class="number">669</span>,<span class="number">706</span></span><br><span class="line">Trainable params: <span class="number">669</span>,<span class="number">706</span></span><br><span class="line">Non-trainable params: <span class="number">0</span></span><br><span class="line">_________________________________________________________________</span><br><span class="line"><span class="selector-attr">[<span class="string">&#x27;1.png&#x27;</span>, <span class="string">&#x27;3.png&#x27;</span>, <span class="string">&#x27;7.png&#x27;</span>, <span class="string">&#x27;8.png&#x27;</span>]</span></span><br><span class="line"><span class="selector-attr">[2.3097382e-09 9.9994242e-01 5.7707814e-07 1.2596505e-08 7.0986499e-07 2.3295237e-09 5.8020344e-08 8.8017796e-06 4.7417845e-05 2.1094815e-08]</span></span><br><span class="line">Network prediction: <span class="number">1</span></span><br><span class="line"><span class="selector-attr">[4.8323233e-08 4.5726656e-06 5.1644693e-06 9.9866831e-01 6.2075834e-08 7.2616973e-04 2.5215357e-08 1.3051778e-05 2.0130505e-04 3.8116580e-04]</span></span><br><span class="line">Network prediction: <span class="number">3</span></span><br><span class="line"><span class="selector-attr">[2.22959144e-07 1.51290782e-02 6.36672154e-02 5.00839087e-04 1.79856386e-06 5.51942833e-07 1.08568745e-08 9.20564473e-01 1.29454565e-04 6.25403709e-06]</span></span><br><span class="line">Network prediction: <span class="number">7</span></span><br><span class="line"><span class="selector-attr">[2.9161657e-07 1.0341249e-06 1.3173140e-05 8.6986530e-01 8.3616067e-07 2.0409422e-02 2.9305498e-08 2.1452777e-06 1.0675856e-01 2.9491049e-03]</span></span><br><span class="line">Network prediction: <span class="number">3</span></span><br><span class="line"><span class="selector-attr">[Finished in 3.6s]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="保存最佳模型"><a href="#保存最佳模型" class="headerlink" title="保存最佳模型"></a>保存最佳模型</h2><h3 id="EarlyStopping-ModelCheckpoint"><a href="#EarlyStopping-ModelCheckpoint" class="headerlink" title="EarlyStopping ModelCheckpoint"></a><strong>EarlyStopping</strong> ModelCheckpoint</h3><p> 如果监控的目标指标在设定的轮数内不再改善，可以用 EarlyStopping 回调函数来中断训练，比如，这个回调函数可以在刚开始过拟合的时候就中断训练，从而避免用更少的轮次重 新训练模型。这个回调函数通常与 ModelCheckpoint 结合使用，后者可以在训练过程中持续 不断地保存模型（你也可以选择只保存目前的最佳模型，即一轮结束后具有最佳性能的模型）。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.keras.callbacks <span class="keyword">import</span> ModelCheckpoint,EarlyStopping</span><br><span class="line"></span><br><span class="line">callbacks_list = [       </span><br><span class="line">EarlyStopping(monitor=<span class="string">&#x27;acc&#x27;</span>,patience=<span class="number">1</span>,),     </span><br><span class="line">ModelCheckpoint(filepath=h5file,monitor=<span class="string">&#x27;val_loss&#x27;</span>,save_best_only=<span class="literal">True</span>,) </span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">#编译</span></span><br><span class="line">network.<span class="built_in">compile</span>(optimizer=<span class="string">&#x27;rmsprop&#x27;</span>,</span><br><span class="line">                loss=<span class="string">&#x27;categorical_crossentropy&#x27;</span>,</span><br><span class="line">                metrics=[<span class="string">&#x27;acc&#x27;</span>])</span><br><span class="line">                </span><br><span class="line">network.fit(train_images, train_labels,           </span><br><span class="line">	epochs=<span class="number">10</span>,           </span><br><span class="line">	batch_size=<span class="number">32</span>,           </span><br><span class="line">	callbacks=callbacks_list,           </span><br><span class="line">	validation_data=(test_images, test_labels)) </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="ReduceLROnPlateau"><a href="#ReduceLROnPlateau" class="headerlink" title="ReduceLROnPlateau"></a><strong>ReduceLROnPlateau</strong></h3><p> 如果验证损失不再改善，你可以使用这个回调函数来降低学习率。在训练过程中如果出现 了损失平台（loss plateau），那么增大或减小学习率都是跳出局部最小值的有效策略</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.keras.callbacks <span class="keyword">import</span> ReduceLROnPlateau</span><br><span class="line"></span><br><span class="line">callbacks_list = [       </span><br><span class="line">ReduceLROnPlateau(monitor=<span class="string">&#x27;val_loss&#x27;</span>,factor=<span class="number">0.1</span>,patience=<span class="number">10</span>,)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">#编译</span></span><br><span class="line">network.<span class="built_in">compile</span>(optimizer=<span class="string">&#x27;rmsprop&#x27;</span>,</span><br><span class="line">                loss=<span class="string">&#x27;categorical_crossentropy&#x27;</span>,</span><br><span class="line">                metrics=[<span class="string">&#x27;acc&#x27;</span>])</span><br><span class="line">                </span><br><span class="line">network.fit(train_images, train_labels,           </span><br><span class="line">	epochs=<span class="number">10</span>,           </span><br><span class="line">	batch_size=<span class="number">32</span>,           </span><br><span class="line">	callbacks=callbacks_list,           </span><br><span class="line">	validation_data=(test_images, test_labels)) </span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>自定义回调函数</strong></li>
+</ul>
+<h2 id="TensorBoard可视化"><a href="#TensorBoard可视化" class="headerlink" title="TensorBoard可视化"></a>TensorBoard可视化</h2><p>TensorBoard  是tensorflow提供的一个基于浏览器的可视化工具，在cmd种使用 <code>tensorboard --logdir= my_log_dir</code>启动，在浏览器中输入<a target="_blank" rel="noopener" href="http://localhost:6006/">http://localhost:6006</a>即可查看训练细节信息，TensorBoard 可视化包含如下内容：</p>
+<ul>
+<li>在训练过程中以可视化的方式监控指标  </li>
+<li>将模型架构可视化  </li>
+<li>将激活和梯度的直方图可视化  </li>
+<li>以三维的形式研究嵌入</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from tensorflow<span class="selector-class">.keras</span><span class="selector-class">.callbacks</span> import TensorBoard</span><br><span class="line">callbacks_list = <span class="selector-attr">[TensorBoard(log_dir=<span class="string">&#x27;my_log_dir&#x27;</span>,histogram_freq=1,embeddings_freq=1,)]</span></span><br><span class="line"></span><br><span class="line">network<span class="selector-class">.fit</span>(train_images, train_labels,           </span><br><span class="line">	epochs=<span class="number">10</span>,           </span><br><span class="line">	batch_size=<span class="number">32</span>,           </span><br><span class="line">	callbacks=callbacks_list,           </span><br><span class="line">	validation_data=(test_images, test_labels)) </span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li>python深度学习.pdf</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python3/" rel="tag"># Python3</a>
+              <a href="/tags/tensorflow2/" rel="tag"># tensorflow2</a>
+              <a href="/tags/Keras/" rel="tag"># Keras</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/06/03/md/Keras/" rel="prev" title="Keras入门">
+                  <i class="fa fa-angle-left"></i> Keras入门
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/01/md/%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E5%AE%9E%E7%8E%B0%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95/" rel="next" title="静态内部类实现雪花算法">
+                  静态内部类实现雪花算法 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">my</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
