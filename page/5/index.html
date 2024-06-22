@@ -886,19 +886,14 @@
 <li>分数排名,同分同名  ，排名不连续<br>  RANK() 排名</li>
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">RANK</span>() <span class="keyword">over</span>(<span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">DESC</span>) number,score <span class="keyword">FROM</span> yy</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li>连续出现的数字<br>DENSE_RANK() 用于排名</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    select distinct <span class="title class_">Num</span> <span class="keyword">as</span> <span class="title class_">ConsecutiveNums</span></span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">  select <span class="title class_">Num</span>, </span><br><span class="line">    <span class="keyword">case</span> </span><br><span class="line">      when @prev = <span class="title class_">Num</span> then @count := @count + <span class="number">1</span></span><br><span class="line">      when (@prev := <span class="title class_">Num</span>) is not <span class="literal">null</span> then @count := <span class="number">1</span> # 赋初始值</span><br><span class="line">    end <span class="keyword">as</span> <span class="variable constant_">CNT</span></span><br><span class="line">  <span class="keyword">from</span> <span class="title class_">Logs</span>, (select @prev := <span class="literal">null</span>,@count := <span class="literal">null</span>) <span class="keyword">as</span> t</span><br><span class="line">) <span class="keyword">as</span> temp</span><br><span class="line">where temp.<span class="property">CNT</span> &gt;= <span class="number">3</span></span><br></pre></td></tr></table></figure>
-
-<ol start="7">
-<li>组内排名  ，同分同名  ，排名连续<br>  partition by 用于分组<br>  DENSE_RANK() 用于排名</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable constant_">SELECT</span></span><br><span class="line">	<span class="title class_">Department</span>, <span class="title class_">Employee</span>, <span class="title class_">Salary</span></span><br><span class="line"><span class="variable constant_">FROM</span></span><br><span class="line">	(</span><br><span class="line">        <span class="variable constant_">SELECT</span> </span><br><span class="line">        d.<span class="property">Name</span> <span class="title class_">Department</span>,e.<span class="property">Name</span> <span class="title class_">Employee</span> ,<span class="title class_">Salary</span>,<span class="title function_">DENSE_RANK</span>() <span class="title function_">over</span>(partition by            <span class="title class_">DepartmentId</span>           <span class="variable constant_">ORDER</span> <span class="variable constant_">BY</span></span><br><span class="line">	<span class="title class_">Salary</span> <span class="variable constant_">DESC</span>) <span class="keyword">as</span> rk</span><br><span class="line">        <span class="variable constant_">FROM</span> <span class="title class_">Employee</span> e <span class="variable constant_">LEFT</span> <span class="variable constant_">JOIN</span> <span class="title class_">Department</span> d</span><br><span class="line">        <span class="variable constant_">ON</span> e.<span class="property">DepartmentId</span> = d.<span class="property">Id</span>        </span><br><span class="line">    ) <span class="variable constant_">AS</span> a</span><br><span class="line">    where rk &lt;= <span class="number">3</span></span><br></pre></td></tr></table></figure>
-
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/01/md/MySQL/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
