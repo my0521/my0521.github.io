@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在 Python 中，装饰器（Decorator） 可以应用于类或方法，用于动态修改类或方法的行为。以下是类装饰器和方法装饰器的详细说明及示例：  一、方法装饰器（Method Decorators）方法装饰器用于装饰类中的方法（实例方法、类方法、静态方法）。它们的语法和函数装饰器类似，但需注意方法的作用域和参数传递。 1. 装饰实例方法1234567891011121314def log_met">
+<meta property="og:type" content="article">
+<meta property="og:title" content="装饰器">
+<meta property="og:url" content="http://example.com/2025/03/08/python/decorator/index.html">
+<meta property="og:site_name" content="疏影种月">
+<meta property="og:description" content="在 Python 中，装饰器（Decorator） 可以应用于类或方法，用于动态修改类或方法的行为。以下是类装饰器和方法装饰器的详细说明及示例：  一、方法装饰器（Method Decorators）方法装饰器用于装饰类中的方法（实例方法、类方法、静态方法）。它们的语法和函数装饰器类似，但需注意方法的作用域和参数传递。 1. 装饰实例方法1234567891011121314def log_met">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-08T08:40:35.000Z">
+<meta property="article:modified_time" content="2025-03-09T06:04:06.380Z">
+<meta property="article:author" content="miracle">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2025/03/08/python/decorator/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/03/08/python/decorator/","path":"2025/03/08/python/decorator/","title":"装饰器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>装饰器 | 疏影种月</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">疏影种月</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">星灯守静藤萝下,自把空瓶种晓明</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-book fa-fw"></i>书籍</a></li><li class="menu-item menu-item-design"><a href="/design/" rel="section"><i class="fa fa-book fa-fw"></i>架构设计</a></li><li class="menu-item menu-item-algorithm"><a href="/algorithm/" rel="section"><i class="fa fa-chain fa-fw"></i>数据结构</a></li><li class="menu-item menu-item-ai"><a href="/ai/" rel="section"><i class="fa fa-user fa-fw"></i>人工智能</a></li><li class="menu-item menu-item-blockchain"><a href="/blockchain/" rel="section"><i class="fa fa-sitemap fa-fw"></i>区块链</a></li><li class="menu-item menu-item-database"><a href="/database/" rel="section"><i class="fa fa-sitemap fa-fw"></i>数据库</a></li><li class="menu-item menu-item-k8s"><a href="/k8s/" rel="section"><i class="fa fa-bus fa-fw"></i>云原生</a></li><li class="menu-item menu-item-front"><a href="/front/" rel="section"><i class="fa fa-chain fa-fw"></i>前端</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-zookeeper"><a href="/zk/" rel="section"><i class="fa fa-chain fa-fw"></i>zookeeper</a></li><li class="menu-item menu-item-kafka"><a href="/kafka/" rel="section"><i class="fa fa-chain fa-fw"></i>kafka</a></li><li class="menu-item menu-item-redis"><a href="/redis/" rel="section"><i class="fa fa-chain fa-fw"></i>redis</a></li><li class="menu-item menu-item-python"><a href="/python/" rel="section"><i class="fa fa-chain fa-fw"></i>python</a></li><li class="menu-item menu-item-java"><a href="/java/" rel="section"><i class="fa fa-chain fa-fw"></i>java</a></li><li class="menu-item menu-item-golang"><a href="/go/" rel="section"><i class="fa fa-chain fa-fw"></i>golang</a></li><li class="menu-item menu-item-rust"><a href="/rust/" rel="section"><i class="fa fa-chain fa-fw"></i>rust</a></li><li class="menu-item menu-item-c"><a href="/c/" rel="section"><i class="fa fa-chain fa-fw"></i>c</a></li><li class="menu-item menu-item-bookmark"><a href="/bookmark/" rel="section"><i class="fa fa-chain fa-fw"></i>收藏</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%96%B9%E6%B3%95%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Method-Decorators%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">一、方法装饰器（Method Decorators）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%A3%85%E9%A5%B0%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">1. 装饰实例方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%A3%85%E9%A5%B0%E7%B1%BB%E6%96%B9%E6%B3%95%E6%88%96%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">2. 装饰类方法或静态方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8-functools-wraps-%E4%BF%9D%E7%95%99%E5%85%83%E6%95%B0%E6%8D%AE"><span class="nav-number">1.3.</span> <span class="nav-text">3. 使用 functools.wraps 保留元数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%B1%BB%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%88Class-Decorators%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">二、类装饰器（Class Decorators）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">1. 基本类装饰器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%B1%BB%E8%A3%85%E9%A5%B0%E5%99%A8%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">2. 类装饰器实现单例模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%B1%BB%E8%A3%85%E9%A5%B0%E5%99%A8%E4%BF%AE%E6%94%B9%E5%88%9D%E5%A7%8B%E5%8C%96%E8%A1%8C%E4%B8%BA"><span class="nav-number">2.3.</span> <span class="nav-text">3. 类装饰器修改初始化行为</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%94%A8%E7%B1%BB%E5%AE%9E%E7%8E%B0%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">三、用类实现装饰器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%B1%BB%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">1. 类实现方法装饰器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%B1%BB%E5%AE%9E%E7%8E%B0%E7%B1%BB%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">2. 类实现类装饰器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">四、常见应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">4.1.</span> <span class="nav-text">方法装饰器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">4.2.</span> <span class="nav-text">类装饰器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">5.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">miracle</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/my919" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;my919" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/python/decorator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="miracle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="疏影种月">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="装饰器 | 疏影种月">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          装饰器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-03-08 16:40:35" itemprop="dateCreated datePublished" datetime="2025-03-08T16:40:35+08:00">2025-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-09 14:04:06" itemprop="dateModified" datetime="2025-03-09T14:04:06+08:00">2025-03-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在 Python 中，<strong>装饰器（Decorator）</strong> 可以应用于类或方法，用于动态修改类或方法的行为。以下是类装饰器和方法装饰器的详细说明及示例：</p>
+<hr>
+<h3 id="一、方法装饰器（Method-Decorators）"><a href="#一、方法装饰器（Method-Decorators）" class="headerlink" title="一、方法装饰器（Method Decorators）"></a><strong>一、方法装饰器（Method Decorators）</strong></h3><p>方法装饰器用于装饰类中的方法（实例方法、类方法、静态方法）。它们的语法和函数装饰器类似，但需注意方法的作用域和参数传递。</p>
+<h4 id="1-装饰实例方法"><a href="#1-装饰实例方法" class="headerlink" title="1. 装饰实例方法"></a><strong>1. 装饰实例方法</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">log_method</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;记录方法调用的装饰器&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Calling method <span class="subst">&#123;func.__name__&#125;</span> with args: <span class="subst">&#123;args&#125;</span>, kwargs: <span class="subst">&#123;kwargs&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> func(<span class="variable language_">self</span>, *args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>:</span><br><span class="line"><span class="meta">    @log_method</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, a, b</span>):</span><br><span class="line">        <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line">obj = MyClass()</span><br><span class="line"><span class="built_in">print</span>(obj.add(<span class="number">3</span>, <span class="number">5</span>))  <span class="comment"># 输出日志后返回 8</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-装饰类方法或静态方法"><a href="#2-装饰类方法或静态方法" class="headerlink" title="2. 装饰类方法或静态方法"></a><strong>2. 装饰类方法或静态方法</strong></h4><p>需确保装饰器兼容 <code>@classmethod</code> 或 <code>@staticmethod</code> 的签名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">debug_method</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Debug: <span class="subst">&#123;func.__name__&#125;</span> called&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Calculator</span>:</span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line"><span class="meta">    @debug_method</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">multiply</span>(<span class="params">cls, a, b</span>):</span><br><span class="line">        <span class="keyword">return</span> a * b</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(Calculator.multiply(<span class="number">2</span>, <span class="number">4</span>))  <span class="comment"># 输出调试信息后返回 8</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-使用-functools-wraps-保留元数据"><a href="#3-使用-functools-wraps-保留元数据" class="headerlink" title="3. 使用 functools.wraps 保留元数据"></a><strong>3. 使用 <code>functools.wraps</code> 保留元数据</strong></h4><p>避免因装饰器覆盖方法元数据（如方法名、文档字符串）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">validate_input</span>(<span class="params">func</span>):</span><br><span class="line"><span class="meta">    @wraps(<span class="params">func</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">if</span> x &lt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;x must be non-negative&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> func(<span class="variable language_">self</span>, x)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Validator</span>:</span><br><span class="line"><span class="meta">    @validate_input</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">square</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;计算平方&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> x ** <span class="number">2</span></span><br><span class="line"></span><br><span class="line">obj = Validator()</span><br><span class="line"><span class="built_in">print</span>(obj.square(<span class="number">5</span>))  <span class="comment"># 25</span></span><br><span class="line"><span class="built_in">print</span>(obj.square.__doc__)  <span class="comment"># 输出 &quot;计算平方&quot;（保留文档字符串）</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="二、类装饰器（Class-Decorators）"><a href="#二、类装饰器（Class-Decorators）" class="headerlink" title="二、类装饰器（Class Decorators）"></a><strong>二、类装饰器（Class Decorators）</strong></h3><p>类装饰器直接作用于类，可以动态修改类的属性或行为。类装饰器的参数是类本身，需返回修改后的类。</p>
+<h4 id="1-基本类装饰器"><a href="#1-基本类装饰器" class="headerlink" title="1. 基本类装饰器"></a><strong>1. 基本类装饰器</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_method</span>(<span class="params">cls</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;为类动态添加一个方法&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">new_method</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;This is a dynamically added method&quot;</span></span><br><span class="line">    cls.new_method = new_method</span><br><span class="line">    <span class="keyword">return</span> cls</span><br><span class="line"></span><br><span class="line"><span class="meta">@add_method</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">existing_method</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Existing method&quot;</span></span><br><span class="line"></span><br><span class="line">obj = MyClass()</span><br><span class="line"><span class="built_in">print</span>(obj.existing_method())  <span class="comment"># Existing method</span></span><br><span class="line"><span class="built_in">print</span>(obj.new_method())       <span class="comment"># This is a dynamically added method</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-类装饰器实现单例模式"><a href="#2-类装饰器实现单例模式" class="headerlink" title="2. 类装饰器实现单例模式"></a><strong>2. 类装饰器实现单例模式</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">singleton</span>(<span class="params">cls</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;确保类只有一个实例&quot;&quot;&quot;</span></span><br><span class="line">    instances = &#123;&#125;</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_instance</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">if</span> cls <span class="keyword">not</span> <span class="keyword">in</span> instances:</span><br><span class="line">            instances[cls] = cls(*args, **kwargs)</span><br><span class="line">        <span class="keyword">return</span> instances[cls]</span><br><span class="line">    <span class="keyword">return</span> get_instance</span><br><span class="line"></span><br><span class="line"><span class="meta">@singleton</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Database</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line"></span><br><span class="line">db1 = Database(<span class="string">&quot;MySQL&quot;</span>)</span><br><span class="line">db2 = Database(<span class="string">&quot;PostgreSQL&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(db1.name)  <span class="comment"># MySQL</span></span><br><span class="line"><span class="built_in">print</span>(db2.name)  <span class="comment"># MySQL（单例生效，返回同一个实例）</span></span><br><span class="line"><span class="built_in">print</span>(db1 <span class="keyword">is</span> db2)  <span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-类装饰器修改初始化行为"><a href="#3-类装饰器修改初始化行为" class="headerlink" title="3. 类装饰器修改初始化行为"></a><strong>3. 类装饰器修改初始化行为</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">log_creation</span>(<span class="params">cls</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;记录类的实例化&quot;&quot;&quot;</span></span><br><span class="line">    original_init = cls.__init__</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapped_init</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Creating instance of <span class="subst">&#123;cls.__name__&#125;</span>&quot;</span>)</span><br><span class="line">        original_init(<span class="variable language_">self</span>, *args, **kwargs)</span><br><span class="line">    cls.__init__ = wrapped_init</span><br><span class="line">    <span class="keyword">return</span> cls</span><br><span class="line"></span><br><span class="line"><span class="meta">@log_creation</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line"></span><br><span class="line">user = User(<span class="string">&quot;Alice&quot;</span>)  <span class="comment"># 输出 &quot;Creating instance of User&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="三、用类实现装饰器"><a href="#三、用类实现装饰器" class="headerlink" title="三、用类实现装饰器"></a><strong>三、用类实现装饰器</strong></h3><p>装饰器本身也可以是一个类（通过实现 <code>__call__</code> 方法），这种方式适合需要维护状态的装饰器。</p>
+<h4 id="1-类实现方法装饰器"><a href="#1-类实现方法装饰器" class="headerlink" title="1. 类实现方法装饰器"></a><strong>1. 类实现方法装饰器</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Retry</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;失败后重试的装饰器&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, max_retries=<span class="number">3</span></span>):</span><br><span class="line">        <span class="variable language_">self</span>.max_retries = max_retries</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, func</span>):</span><br><span class="line"><span class="meta">        @wraps(<span class="params">func</span>)</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="variable language_">self</span>.max_retries):</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&quot;Retrying... (<span class="subst">&#123;_ + <span class="number">1</span>&#125;</span>/<span class="subst">&#123;self.max_retries&#125;</span>)&quot;</span>)</span><br><span class="line">            <span class="keyword">raise</span> RuntimeError(<span class="string">&quot;All retries failed&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DataFetcher</span>:</span><br><span class="line"><span class="meta">    @Retry(<span class="params">max_retries=<span class="number">2</span></span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fetch_data</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 模拟随机失败</span></span><br><span class="line">        <span class="keyword">import</span> random</span><br><span class="line">        <span class="keyword">if</span> random.random() &lt; <span class="number">0.5</span>:</span><br><span class="line">            <span class="keyword">raise</span> ConnectionError(<span class="string">&quot;Connection failed&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Data&quot;</span></span><br><span class="line"></span><br><span class="line">fetcher = DataFetcher()</span><br><span class="line"><span class="built_in">print</span>(fetcher.fetch_data())  <span class="comment"># 输出可能重试后返回数据或报错</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-类实现类装饰器"><a href="#2-类实现类装饰器" class="headerlink" title="2. 类实现类装饰器"></a><strong>2. 类实现类装饰器</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FreezeAttributes</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;禁止添加新属性的类装饰器&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, original_class</span>):</span><br><span class="line">        original_class.__setattr__ = cls.prevent_additions</span><br><span class="line">        <span class="keyword">return</span> original_class</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">prevent_additions</span>(<span class="params">self, name, value</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">hasattr</span>(<span class="variable language_">self</span>, name):</span><br><span class="line">            <span class="keyword">raise</span> AttributeError(<span class="string">&quot;Cannot add new attributes&quot;</span>)</span><br><span class="line">        <span class="built_in">object</span>.__setattr__(<span class="variable language_">self</span>, name, value)</span><br><span class="line"></span><br><span class="line"><span class="meta">@FreezeAttributes</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Config</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.host = <span class="string">&quot;localhost&quot;</span></span><br><span class="line"></span><br><span class="line">config = Config()</span><br><span class="line">config.host = <span class="string">&quot;127.0.0.1&quot;</span>  <span class="comment"># 允许修改已有属性</span></span><br><span class="line">config.port = <span class="number">8080</span>         <span class="comment"># 抛出 AttributeError: Cannot add new attributes</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="四、常见应用场景"><a href="#四、常见应用场景" class="headerlink" title="四、常见应用场景"></a><strong>四、常见应用场景</strong></h3><h4 id="方法装饰器"><a href="#方法装饰器" class="headerlink" title="方法装饰器"></a><strong>方法装饰器</strong></h4><ul>
+<li><strong>输入验证</strong>：检查方法参数合法性。</li>
+<li><strong>日志记录</strong>：记录方法的调用和参数。</li>
+<li><strong>权限控制</strong>：验证用户权限后执行方法。</li>
+<li><strong>缓存结果</strong>：缓存方法返回值（如 <code>@lru_cache</code>）。</li>
+</ul>
+<h4 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a><strong>类装饰器</strong></h4><ul>
+<li><strong>注册类</strong>：将类添加到全局注册表（如 ORM 模型注册）。</li>
+<li><strong>单例模式</strong>：确保类只有一个实例。</li>
+<li><strong>动态注入方法</strong>：为类添加通用方法。</li>
+<li><strong>元编程控制</strong>：修改类的初始化行为或属性访问。</li>
+</ul>
+<hr>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a><strong>注意事项</strong></h3><ol>
+<li><p><strong>装饰器顺序</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@decorator1</span></span><br><span class="line"><span class="meta">@decorator2</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>: ...</span><br><span class="line"><span class="comment"># 等效于 MyClass = decorator1(decorator2(MyClass))</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>继承与装饰器</strong>：</p>
+<ul>
+<li>类装饰器会影响所有子类，除非子类显式覆盖装饰行为。</li>
+</ul>
+</li>
+<li><p><strong>性能影响</strong>：</p>
+<ul>
+<li>复杂的装饰器可能增加代码执行时间（如频繁的日志记录或输入验证）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>通过灵活使用类装饰器和方法装饰器，可以显著提升代码的可维护性和复用性，但需合理设计以避免过度抽象。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/08/python/metaclass/" rel="prev" title="元类原理及使用">
+                  <i class="fa fa-angle-left"></i> 元类原理及使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/03/08/python/closure/" rel="next" title="闭包">
+                  闭包 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">miracle</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/my0521" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

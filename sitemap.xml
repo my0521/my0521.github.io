@@ -4,12 +4,22 @@
 
     <sitemap>
         <loc>http://example.com/post-sitemap.xml</loc>
-        <lastmod>2025-03-08T08:13:43.312Z</lastmod>
+        <lastmod>2025-03-09T06:24:30.345Z</lastmod>
     </sitemap>
 
     <sitemap>
         <loc>http://example.com/page-sitemap.xml</loc>
-        <lastmod>2025-03-08T09:30:20.264Z</lastmod>
+        <lastmod>2025-03-09T06:24:12.127Z</lastmod>
+    </sitemap>
+
+    <sitemap>
+        <loc>http://example.com/category-sitemap.xml</loc>
+        <lastmod>2025-03-09T06:24:30.345Z</lastmod>
+    </sitemap>
+
+    <sitemap>
+        <loc>http://example.com/tag-sitemap.xml</loc>
+        <lastmod>2025-03-09T06:24:30.345Z</lastmod>
     </sitemap>
 
 </sitemapindex>

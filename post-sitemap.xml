@@ -9,8 +9,72 @@
 
 
     <url>
-        <loc>http://example.com/2025/03/08/hello-world/</loc>
-        <lastmod>2025-03-08T08:13:43.312Z</lastmod>
+        <loc>http://example.com/2025/03/08/python/cgi/</loc>
+        <lastmod>2025-03-09T06:24:30.345Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2025/03/08/python/metaclass/</loc>
+        <lastmod>2025-03-09T06:12:28.749Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2025/03/08/python/decorator/</loc>
+        <lastmod>2025-03-09T06:04:06.380Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2025/03/08/python/closure/</loc>
+        <lastmod>2025-03-09T06:00:42.007Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2025/03/08/python/magic/</loc>
+        <lastmod>2025-03-09T05:54:50.731Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2025/03/08/python/init/</loc>
+        <lastmod>2025-03-09T05:54:07.031Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2025/03/08/python/main/</loc>
+        <lastmod>2025-03-09T05:45:50.836Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2025/03/08/db/postgres/</loc>
+        <lastmod>2025-03-08T11:00:04.214Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2025/03/08/db/mysql/</loc>
+        <lastmod>2025-03-08T10:59:45.785Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

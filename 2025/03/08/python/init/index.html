@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在 Python 中，__init__.py文件是包（Package）的标识文件，它的存在使得一个目录被 Python 识别为包，从而支持模块化组织代码。以下是其核心作用和原理：  一、核心作用1. 标识包目录 必要条件：当目录中包含__init__.py时，Python 才会将其视为一个包（Package），而非普通目录。 示例结构：123456my_package&#x2F;├── __init__.p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="__init__.py">
+<meta property="og:url" content="http://example.com/2025/03/08/python/init/index.html">
+<meta property="og:site_name" content="疏影种月">
+<meta property="og:description" content="在 Python 中，__init__.py文件是包（Package）的标识文件，它的存在使得一个目录被 Python 识别为包，从而支持模块化组织代码。以下是其核心作用和原理：  一、核心作用1. 标识包目录 必要条件：当目录中包含__init__.py时，Python 才会将其视为一个包（Package），而非普通目录。 示例结构：123456my_package&#x2F;├── __init__.p">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-08T08:40:35.000Z">
+<meta property="article:modified_time" content="2025-03-09T05:54:07.031Z">
+<meta property="article:author" content="miracle">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2025/03/08/python/init/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/03/08/python/init/","path":"2025/03/08/python/init/","title":"__init__.py"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>__init__.py | 疏影种月</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">疏影种月</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">星灯守静藤萝下,自把空瓶种晓明</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-book fa-fw"></i>书籍</a></li><li class="menu-item menu-item-design"><a href="/design/" rel="section"><i class="fa fa-book fa-fw"></i>架构设计</a></li><li class="menu-item menu-item-algorithm"><a href="/algorithm/" rel="section"><i class="fa fa-chain fa-fw"></i>数据结构</a></li><li class="menu-item menu-item-ai"><a href="/ai/" rel="section"><i class="fa fa-user fa-fw"></i>人工智能</a></li><li class="menu-item menu-item-blockchain"><a href="/blockchain/" rel="section"><i class="fa fa-sitemap fa-fw"></i>区块链</a></li><li class="menu-item menu-item-database"><a href="/database/" rel="section"><i class="fa fa-sitemap fa-fw"></i>数据库</a></li><li class="menu-item menu-item-k8s"><a href="/k8s/" rel="section"><i class="fa fa-bus fa-fw"></i>云原生</a></li><li class="menu-item menu-item-front"><a href="/front/" rel="section"><i class="fa fa-chain fa-fw"></i>前端</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-zookeeper"><a href="/zk/" rel="section"><i class="fa fa-chain fa-fw"></i>zookeeper</a></li><li class="menu-item menu-item-kafka"><a href="/kafka/" rel="section"><i class="fa fa-chain fa-fw"></i>kafka</a></li><li class="menu-item menu-item-redis"><a href="/redis/" rel="section"><i class="fa fa-chain fa-fw"></i>redis</a></li><li class="menu-item menu-item-python"><a href="/python/" rel="section"><i class="fa fa-chain fa-fw"></i>python</a></li><li class="menu-item menu-item-java"><a href="/java/" rel="section"><i class="fa fa-chain fa-fw"></i>java</a></li><li class="menu-item menu-item-golang"><a href="/go/" rel="section"><i class="fa fa-chain fa-fw"></i>golang</a></li><li class="menu-item menu-item-rust"><a href="/rust/" rel="section"><i class="fa fa-chain fa-fw"></i>rust</a></li><li class="menu-item menu-item-c"><a href="/c/" rel="section"><i class="fa fa-chain fa-fw"></i>c</a></li><li class="menu-item menu-item-bookmark"><a href="/bookmark/" rel="section"><i class="fa fa-chain fa-fw"></i>收藏</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">一、核心作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A0%87%E8%AF%86%E5%8C%85%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">1. 标识包目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8C%85%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">2. 初始化包代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%8E%A7%E5%88%B6%E5%AF%BC%E5%85%A5%E8%A1%8C%E4%B8%BA"><span class="nav-number">1.3.</span> <span class="nav-text">3. 控制导入行为</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%AF%A6%E7%BB%86%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">二、详细用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%A9%BA%E6%96%87%E4%BB%B6%EF%BC%88%E6%9C%80%E5%B0%8F%E5%8C%96%E5%8C%85%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">1. 空文件（最小化包）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8C%85%E7%BA%A7%E5%8F%98%E9%87%8F"><span class="nav-number">2.2.</span> <span class="nav-text">2. 初始化包级变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%AE%80%E5%8C%96%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5"><span class="nav-number">2.3.</span> <span class="nav-text">3. 简化模块导入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E5%A4%A7%E5%9E%8B%E6%A8%A1%E5%9D%97"><span class="nav-number">2.4.</span> <span class="nav-text">4. 延迟加载大型模块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81Python-2-vs-Python-3"><span class="nav-number">3.</span> <span class="nav-text">三、Python 2 vs. Python 3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Python-2"><span class="nav-number">3.1.</span> <span class="nav-text">1. Python 2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Python-3-3"><span class="nav-number">3.2.</span> <span class="nav-text">2. Python 3.3+</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">四、常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%BF%98%E8%AE%B0%E6%B7%BB%E5%8A%A0-init-py"><span class="nav-number">4.1.</span> <span class="nav-text">1. 忘记添加__init__.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%BE%AA%E7%8E%AF%E5%AF%BC%E5%85%A5"><span class="nav-number">4.2.</span> <span class="nav-text">2. 循环导入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">5.</span> <span class="nav-text">五、最佳实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">6.</span> <span class="nav-text">示例项目结构</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">miracle</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/my919" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;my919" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/python/init/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="miracle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="疏影种月">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="__init__.py | 疏影种月">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          __init__.py
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-03-08 16:40:35" itemprop="dateCreated datePublished" datetime="2025-03-08T16:40:35+08:00">2025-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-09 13:54:07" itemprop="dateModified" datetime="2025-03-09T13:54:07+08:00">2025-03-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在 Python 中，<code>__init__.py</code>文件是<strong>包（Package）的标识文件</strong>，它的存在使得一个目录被 Python 识别为包，从而支持模块化组织代码。以下是其核心作用和原理：</p>
+<hr>
+<h3 id="一、核心作用"><a href="#一、核心作用" class="headerlink" title="一、核心作用"></a><strong>一、核心作用</strong></h3><h4 id="1-标识包目录"><a href="#1-标识包目录" class="headerlink" title="1. 标识包目录"></a><strong>1. 标识包目录</strong></h4><ul>
+<li><strong>必要条件</strong>：当目录中包含<code>__init__.py</code>时，Python 才会将其视为一个包（Package），而非普通目录。</li>
+<li><strong>示例结构</strong>：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">my_package/</span><br><span class="line">├── __init__.py     # 标识为包</span><br><span class="line">├── module1.py</span><br><span class="line">└── subpackage/</span><br><span class="line">    ├── __init__.py # 子包也需要此文件</span><br><span class="line">    └── module2.py</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-初始化包代码"><a href="#2-初始化包代码" class="headerlink" title="2. 初始化包代码"></a><strong>2. 初始化包代码</strong></h4><ul>
+<li><strong>执行时机</strong>：当包或子包被导入时，<code>__init__.py</code>中的代码会自动执行。</li>
+<li><strong>典型用途</strong>：<ul>
+<li>初始化包级变量或配置。</li>
+<li>批量导入子模块，简化外部调用。</li>
+<li>定义包的公共接口。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-控制导入行为"><a href="#3-控制导入行为" class="headerlink" title="3. 控制导入行为"></a><strong>3. 控制导入行为</strong></h4><ul>
+<li><strong>定义<code>__all__</code>变量</strong>：指定<code>from package import *</code>时导入的模块列表。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># __init__.py</span></span><br><span class="line">__all__ = [<span class="string">&quot;module1&quot;</span>, <span class="string">&quot;subpackage&quot;</span>]  <span class="comment"># 允许导出的模块</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="二、详细用法"><a href="#二、详细用法" class="headerlink" title="二、详细用法"></a><strong>二、详细用法</strong></h3><h4 id="1-空文件（最小化包）"><a href="#1-空文件（最小化包）" class="headerlink" title="1. 空文件（最小化包）"></a><strong>1. 空文件（最小化包）</strong></h4><p>如果无需初始化逻辑，<code>__init__.py</code>可以是空文件，仅用于标识包：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_package/</span><br><span class="line">├── __init__.py     # 空文件</span><br><span class="line">└── module1.py</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-初始化包级变量"><a href="#2-初始化包级变量" class="headerlink" title="2. 初始化包级变量"></a><strong>2. 初始化包级变量</strong></h4><p>在<code>__init__.py</code>中定义变量，供其他模块共享：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># my_package/__init__.py</span></span><br><span class="line">VERSION = <span class="string">&quot;1.0.0&quot;</span></span><br><span class="line">AUTHOR = <span class="string">&quot;John Doe&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>外部使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> my_package</span><br><span class="line"><span class="built_in">print</span>(my_package.VERSION)  <span class="comment"># 输出: 1.0.0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-简化模块导入"><a href="#3-简化模块导入" class="headerlink" title="3. 简化模块导入"></a><strong>3. 简化模块导入</strong></h4><p>在<code>__init__.py</code>中导入子模块，简化外部调用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># my_package/__init__.py</span></span><br><span class="line"><span class="keyword">from</span> .module1 <span class="keyword">import</span> func1</span><br><span class="line"><span class="keyword">from</span> .subpackage.module2 <span class="keyword">import</span> func2</span><br></pre></td></tr></table></figure>
+
+<p>外部直接使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> my_package <span class="keyword">import</span> func1, func2  <span class="comment"># 无需写完整路径</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-延迟加载大型模块"><a href="#4-延迟加载大型模块" class="headerlink" title="4. 延迟加载大型模块"></a><strong>4. 延迟加载大型模块</strong></h4><p>使用<code>__getattr__</code>动态导入模块（Python 3.7+）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># my_package/__init__.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">__getattr__</span>(<span class="params">name</span>):</span><br><span class="line">    <span class="keyword">if</span> name == <span class="string">&quot;heavy_module&quot;</span>:</span><br><span class="line">        <span class="keyword">from</span> . <span class="keyword">import</span> heavy_module</span><br><span class="line">        <span class="keyword">return</span> heavy_module</span><br><span class="line">    <span class="keyword">raise</span> AttributeError(<span class="string">f&quot;module <span class="subst">&#123;__name__!r&#125;</span> has no attribute <span class="subst">&#123;name!r&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="三、Python-2-vs-Python-3"><a href="#三、Python-2-vs-Python-3" class="headerlink" title="三、Python 2 vs. Python 3"></a><strong>三、Python 2 vs. Python 3</strong></h3><h4 id="1-Python-2"><a href="#1-Python-2" class="headerlink" title="1. Python 2"></a><strong>1. Python 2</strong></h4><ul>
+<li><strong>强制要求</strong>：所有包目录必须包含<code>__init__.py</code>，否则无法导入。</li>
+</ul>
+<h4 id="2-Python-3-3"><a href="#2-Python-3-3" class="headerlink" title="2. Python 3.3+"></a><strong>2. Python 3.3+</strong></h4><ul>
+<li><strong>隐式命名空间包</strong>：允许不含<code>__init__.py</code>的目录作为包（通过<code>PEP 420</code>），但需满足：<ul>
+<li>目录位于<code>sys.path</code>中。</li>
+<li>未被任何父级传统包（含<code>__init__.py</code>）覆盖。</li>
+</ul>
+</li>
+<li><strong>兼容性建议</strong>：显式保留<code>__init__.py</code>以确保兼容性和明确性。</li>
+</ul>
+<hr>
+<h3 id="四、常见问题"><a href="#四、常见问题" class="headerlink" title="四、常见问题"></a><strong>四、常见问题</strong></h3><h4 id="1-忘记添加-init-py"><a href="#1-忘记添加-init-py" class="headerlink" title="1. 忘记添加__init__.py"></a><strong>1. 忘记添加<code>__init__.py</code></strong></h4><ul>
+<li><strong>错误现象</strong>：尝试导入模块时抛出<code>ImportError</code>。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ImportError: No module named &#x27;my_package&#x27;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-循环导入"><a href="#2-循环导入" class="headerlink" title="2. 循环导入"></a><strong>2. 循环导入</strong></h4><ul>
+<li><strong>风险场景</strong>：在<code>__init__.py</code>中导入其他模块时，若模块间存在相互依赖，会导致循环导入错误。</li>
+<li><strong>解决方案</strong>：重构代码或延迟导入（在函数内部导入）。</li>
+</ul>
+<hr>
+<h3 id="五、最佳实践"><a href="#五、最佳实践" class="headerlink" title="五、最佳实践"></a><strong>五、最佳实践</strong></h3><ol>
+<li>**始终包含<code>__init__.py</code>**：即使文件为空，也显式标识包。</li>
+<li><strong>精简初始化代码</strong>：避免在<code>__init__.py</code>中编写复杂逻辑，保持轻量。</li>
+<li><strong>显式定义公共接口</strong>：通过<code>__all__</code>明确导出内容，避免命名污染。</li>
+</ol>
+<hr>
+<h3 id="示例项目结构"><a href="#示例项目结构" class="headerlink" title="示例项目结构"></a><strong>示例项目结构</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">project/</span><br><span class="line">├── main.py</span><br><span class="line">└── my_package/</span><br><span class="line">    ├── __init__.py         # 包标识</span><br><span class="line">    ├── module1.py          # 模块1</span><br><span class="line">    └── subpackage/</span><br><span class="line">        ├── __init__.py     # 子包标识</span><br><span class="line">        └── module2.py      # 模块2</span><br></pre></td></tr></table></figure>
+
+<p>通过<code>__init__.py</code>，Python 能够以层次化和模块化的方式组织代码，提升可维护性和复用性。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/08/python/magic/" rel="prev" title="魔法方法">
+                  <i class="fa fa-angle-left"></i> 魔法方法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/03/08/python/main/" rel="next" title="if __name__ == "__main__"">
+                  if __name__ == "__main__" <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">miracle</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/my0521" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

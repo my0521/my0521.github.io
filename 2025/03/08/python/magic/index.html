@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Python 的 魔法方法（Magic Methods） 是以双下划线 __ 开头和结尾的特殊方法，用于定义类的特定行为（如运算符重载、对象构造、字符串表示等）。这些方法由 Python 解释器自动调用，开发者可以通过实现它们来自定义类的行为。  常见魔法方法分类1. 构造与初始化 __init__(self, ...): 对象初始化时调用（不是构造函数，而是初始化方法）。 __new__(cls">
+<meta property="og:type" content="article">
+<meta property="og:title" content="魔法方法">
+<meta property="og:url" content="http://example.com/2025/03/08/python/magic/index.html">
+<meta property="og:site_name" content="疏影种月">
+<meta property="og:description" content="Python 的 魔法方法（Magic Methods） 是以双下划线 __ 开头和结尾的特殊方法，用于定义类的特定行为（如运算符重载、对象构造、字符串表示等）。这些方法由 Python 解释器自动调用，开发者可以通过实现它们来自定义类的行为。  常见魔法方法分类1. 构造与初始化 __init__(self, ...): 对象初始化时调用（不是构造函数，而是初始化方法）。 __new__(cls">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-08T08:40:35.000Z">
+<meta property="article:modified_time" content="2025-03-09T05:54:50.731Z">
+<meta property="article:author" content="miracle">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2025/03/08/python/magic/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/03/08/python/magic/","path":"2025/03/08/python/magic/","title":"魔法方法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>魔法方法 | 疏影种月</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">疏影种月</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">星灯守静藤萝下,自把空瓶种晓明</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-book fa-fw"></i>书籍</a></li><li class="menu-item menu-item-design"><a href="/design/" rel="section"><i class="fa fa-book fa-fw"></i>架构设计</a></li><li class="menu-item menu-item-algorithm"><a href="/algorithm/" rel="section"><i class="fa fa-chain fa-fw"></i>数据结构</a></li><li class="menu-item menu-item-ai"><a href="/ai/" rel="section"><i class="fa fa-user fa-fw"></i>人工智能</a></li><li class="menu-item menu-item-blockchain"><a href="/blockchain/" rel="section"><i class="fa fa-sitemap fa-fw"></i>区块链</a></li><li class="menu-item menu-item-database"><a href="/database/" rel="section"><i class="fa fa-sitemap fa-fw"></i>数据库</a></li><li class="menu-item menu-item-k8s"><a href="/k8s/" rel="section"><i class="fa fa-bus fa-fw"></i>云原生</a></li><li class="menu-item menu-item-front"><a href="/front/" rel="section"><i class="fa fa-chain fa-fw"></i>前端</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-zookeeper"><a href="/zk/" rel="section"><i class="fa fa-chain fa-fw"></i>zookeeper</a></li><li class="menu-item menu-item-kafka"><a href="/kafka/" rel="section"><i class="fa fa-chain fa-fw"></i>kafka</a></li><li class="menu-item menu-item-redis"><a href="/redis/" rel="section"><i class="fa fa-chain fa-fw"></i>redis</a></li><li class="menu-item menu-item-python"><a href="/python/" rel="section"><i class="fa fa-chain fa-fw"></i>python</a></li><li class="menu-item menu-item-java"><a href="/java/" rel="section"><i class="fa fa-chain fa-fw"></i>java</a></li><li class="menu-item menu-item-golang"><a href="/go/" rel="section"><i class="fa fa-chain fa-fw"></i>golang</a></li><li class="menu-item menu-item-rust"><a href="/rust/" rel="section"><i class="fa fa-chain fa-fw"></i>rust</a></li><li class="menu-item menu-item-c"><a href="/c/" rel="section"><i class="fa fa-chain fa-fw"></i>c</a></li><li class="menu-item menu-item-bookmark"><a href="/bookmark/" rel="section"><i class="fa fa-chain fa-fw"></i>收藏</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">常见魔法方法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%9E%84%E9%80%A0%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.1.</span> <span class="nav-text">1. 构造与初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.2.</span> <span class="nav-text">2. 字符串表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%AE%B9%E5%99%A8%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">3. 容器类方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%B1%9E%E6%80%A7%E8%AE%BF%E9%97%AE"><span class="nav-number">1.4.</span> <span class="nav-text">4. 属性访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E6%AF%94%E8%BE%83%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">1.5.</span> <span class="nav-text">5. 比较操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.6.</span> <span class="nav-text">6. 算术运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.</span> <span class="nav-text">7. 上下文管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.8.</span> <span class="nav-text">8. 迭代器协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-%E8%B0%83%E7%94%A8%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.9.</span> <span class="nav-text">9. 调用对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">2.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">miracle</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/my919" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;my919" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/python/magic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="miracle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="疏影种月">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="魔法方法 | 疏影种月">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          魔法方法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-03-08 16:40:35" itemprop="dateCreated datePublished" datetime="2025-03-08T16:40:35+08:00">2025-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-09 13:54:50" itemprop="dateModified" datetime="2025-03-09T13:54:50+08:00">2025-03-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Python 的 <strong>魔法方法（Magic Methods）</strong> 是以双下划线 <code>__</code> 开头和结尾的特殊方法，用于定义类的特定行为（如运算符重载、对象构造、字符串表示等）。这些方法由 Python 解释器自动调用，开发者可以通过实现它们来自定义类的行为。</p>
+<hr>
+<h3 id="常见魔法方法分类"><a href="#常见魔法方法分类" class="headerlink" title="常见魔法方法分类"></a><strong>常见魔法方法分类</strong></h3><h4 id="1-构造与初始化"><a href="#1-构造与初始化" class="headerlink" title="1. 构造与初始化"></a><strong>1. 构造与初始化</strong></h4><ul>
+<li><code>__init__(self, ...)</code>: 对象初始化时调用（不是构造函数，而是初始化方法）。</li>
+<li><code>__new__(cls, ...)</code>: 类的构造函数，负责创建并返回实例对象（通常用于不可变类型或单例模式）。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, *args, **kwargs</span>):</span><br><span class="line">        instance = <span class="built_in">super</span>().__new__(cls)</span><br><span class="line">        <span class="keyword">return</span> instance</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, value</span>):</span><br><span class="line">        <span class="variable language_">self</span>.value = value</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-字符串表示"><a href="#2-字符串表示" class="headerlink" title="2. 字符串表示"></a><strong>2. 字符串表示</strong></h4><ul>
+<li><code>__str__(self)</code>: 返回对象的“用户友好”字符串表示（<code>print(obj)</code> 或 <code>str(obj)</code> 时调用）。</li>
+<li><code>__repr__(self)</code>: 返回对象的“官方”字符串表示（用于调试，如直接输入对象名时显示）。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Point</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, x, y</span>):</span><br><span class="line">        <span class="variable language_">self</span>.x = x</span><br><span class="line">        <span class="variable language_">self</span>.y = y</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;Point(<span class="subst">&#123;self.x&#125;</span>, <span class="subst">&#123;self.y&#125;</span>)&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__repr__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;Point(x=<span class="subst">&#123;self.x&#125;</span>, y=<span class="subst">&#123;self.y&#125;</span>)&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-容器类方法"><a href="#3-容器类方法" class="headerlink" title="3. 容器类方法"></a><strong>3. 容器类方法</strong></h4><ul>
+<li><code>__len__(self)</code>: 返回容器长度（<code>len(obj)</code> 时调用）。</li>
+<li><code>__getitem__(self, key)</code>: 定义通过索引访问元素（<code>obj[key]</code>）。</li>
+<li><code>__setitem__(self, key, value)</code>: 定义通过索引设置元素（<code>obj[key] = value</code>）。</li>
+<li><code>__delitem__(self, key)</code>: 定义删除元素（<code>del obj[key]</code>）。</li>
+<li><code>__contains__(self, item)</code>: 定义 <code>in</code> 操作符的行为（<code>item in obj</code>）。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyList</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, data</span>):</span><br><span class="line">        <span class="variable language_">self</span>.data = <span class="built_in">list</span>(data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(<span class="variable language_">self</span>.data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, index</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.data[index]</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="4-属性访问"><a href="#4-属性访问" class="headerlink" title="4. 属性访问"></a><strong>4. 属性访问</strong></h4><ul>
+<li><code>__getattr__(self, name)</code>: 当访问不存在的属性时调用。</li>
+<li><code>__setattr__(self, name, value)</code>: 设置属性时调用（需避免递归调用）。</li>
+<li><code>__delattr__(self, name)</code>: 删除属性时调用。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DynamicAttributes</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getattr__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;Attribute <span class="subst">&#123;name&#125;</span> does not exist!&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__setattr__</span>(<span class="params">self, name, value</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Setting <span class="subst">&#123;name&#125;</span> to <span class="subst">&#123;value&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="built_in">super</span>().__setattr__(name, value)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="5-比较操作符"><a href="#5-比较操作符" class="headerlink" title="5. 比较操作符"></a><strong>5. 比较操作符</strong></h4><ul>
+<li><code>__eq__(self, other)</code>: <code>==</code></li>
+<li><code>__ne__(self, other)</code>: <code>!=</code></li>
+<li><code>__lt__(self, other)</code>: <code>&lt;</code></li>
+<li><code>__le__(self, other)</code>: <code>&lt;=</code></li>
+<li><code>__gt__(self, other)</code>: <code>&gt;</code></li>
+<li><code>__ge__(self, other)</code>: <code>&gt;=</code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Money</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, amount</span>):</span><br><span class="line">        <span class="variable language_">self</span>.amount = amount</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__eq__</span>(<span class="params">self, other</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.amount == other.amount</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__lt__</span>(<span class="params">self, other</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.amount &lt; other.amount</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="6-算术运算符"><a href="#6-算术运算符" class="headerlink" title="6. 算术运算符"></a><strong>6. 算术运算符</strong></h4><ul>
+<li><code>__add__(self, other)</code>: <code>+</code></li>
+<li><code>__sub__(self, other)</code>: <code>-</code></li>
+<li><code>__mul__(self, other)</code>: <code>*</code></li>
+<li><code>__truediv__(self, other)</code>: <code>/</code></li>
+<li><code>__floordiv__(self, other)</code>: <code>//</code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Vector</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, x, y</span>):</span><br><span class="line">        <span class="variable language_">self</span>.x = x</span><br><span class="line">        <span class="variable language_">self</span>.y = y</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__add__</span>(<span class="params">self, other</span>):</span><br><span class="line">        <span class="keyword">return</span> Vector(<span class="variable language_">self</span>.x + other.x, <span class="variable language_">self</span>.y + other.y)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="7-上下文管理"><a href="#7-上下文管理" class="headerlink" title="7. 上下文管理"></a><strong>7. 上下文管理</strong></h4><ul>
+<li><code>__enter__(self)</code>: 进入 <code>with</code> 代码块时调用。</li>
+<li><code>__exit__(self, exc_type, exc_val, exc_tb)</code>: 退出 <code>with</code> 代码块时调用（处理资源释放）。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ManagedFile</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, filename</span>):</span><br><span class="line">        <span class="variable language_">self</span>.filename = filename</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__enter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.file = <span class="built_in">open</span>(<span class="variable language_">self</span>.filename, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.file</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__exit__</span>(<span class="params">self, exc_type, exc_val, exc_tb</span>):</span><br><span class="line">        <span class="variable language_">self</span>.file.close()</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="8-迭代器协议"><a href="#8-迭代器协议" class="headerlink" title="8. 迭代器协议"></a><strong>8. 迭代器协议</strong></h4><ul>
+<li><code>__iter__(self)</code>: 返回迭代器对象（通常是 <code>self</code>）。</li>
+<li><code>__next__(self)</code>: 返回下一个元素（无元素时抛出 <code>StopIteration</code>）。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CountDown</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, start</span>):</span><br><span class="line">        <span class="variable language_">self</span>.current = start</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__iter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__next__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.current &lt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br><span class="line">        num = <span class="variable language_">self</span>.current</span><br><span class="line">        <span class="variable language_">self</span>.current -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> num</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="9-调用对象"><a href="#9-调用对象" class="headerlink" title="9. 调用对象"></a><strong>9. 调用对象</strong></h4><ul>
+<li><code>__call__(self, ...)</code>: 使实例可以像函数一样被调用。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Adder</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, a, b</span>):</span><br><span class="line">        <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line">add = Adder()</span><br><span class="line"><span class="built_in">print</span>(add(<span class="number">3</span>, <span class="number">5</span>))  <span class="comment"># 输出 8</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a><strong>注意事项</strong></h3><ol>
+<li><strong>运算符重载需谨慎</strong>：确保重载后的行为符合直觉。</li>
+<li><strong>避免无限递归</strong>：例如在 <code>__setattr__</code> 中直接赋值 <code>self.name = value</code> 会导致递归，应使用 <code>super().__setattr__</code>。</li>
+<li><strong><code>__repr__</code> 和 <code>__str__</code> 的区别</strong>：<code>__repr__</code> 的目标是明确性，<code>__str__</code> 的目标是可读性。</li>
+</ol>
+<p>通过合理使用魔法方法，可以让自定义类的行为更加接近内置类型，提升代码的简洁性和可维护性。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/08/python/closure/" rel="prev" title="闭包">
+                  <i class="fa fa-angle-left"></i> 闭包
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/03/08/python/init/" rel="next" title="__init__.py">
+                  __init__.py <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">miracle</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/my0521" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
