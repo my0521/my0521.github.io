@@ -9,6 +9,27 @@
 
 
     <url>
+        <loc>http://example.com/categories/Node/</loc>
+        <lastmod>2025-03-09T09:11:02.758Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://example.com/categories/Go/</loc>
+        <lastmod>2025-03-09T08:48:46.795Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://example.com/categories/java/</loc>
+        <lastmod>2025-03-09T07:31:55.992Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://example.com/categories/python/</loc>
         <lastmod>2025-03-09T06:24:30.345Z</lastmod>
         <changefreq>weekly</changefreq>

@@ -625,4 +625,57 @@
         <tag>python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>JDK下载安装</title>
+    <url>/2025/03/08/java/install/</url>
+    <content><![CDATA[<p><a href="https://www.oracle.com/java/technologies/downloads/">JDK 官网下载地址</a></p>
+<h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><p><a href="https://gitee.com/my919/scripts/blob/master/sh/jdk_install.sh">jdk 一键安装配置脚本</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://gitee.com/my919/scripts/blob/master/sh/jdk_install.sh</span><br><span class="line"><span class="built_in">chmod</span> +x jdk_install.sh</span><br><span class="line">sh jdk_install.sh</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Golang下载安装</title>
+    <url>/2025/03/08/go/install/</url>
+    <content><![CDATA[<p><a href="https://golang.halfiisland.com/">Golang 中文学习文档</a></p>
+<p><a href="https://go.p2hp.com/doc/">Golang 中文网</a></p>
+<h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><p><a href="https://gitee.com/my919/scripts/blob/master/sh/golang_install.sh">golang 一键安装配置脚本</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://gitee.com/my919/scripts/blob/master/sh/golang_install.sh</span><br><span class="line"><span class="built_in">chmod</span> +x golang_install.sh</span><br><span class="line">sh golang_install.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"># 检查环境配置</span><br><span class="line"><span class="keyword">go</span> env | grep -E <span class="string">&quot;GOROOT|GOPATH|GOPROXY&quot;</span></span><br><span class="line"></span><br><span class="line"># 创建测试程序</span><br><span class="line">mkdir -p $GOPATH/src/hello</span><br><span class="line">cat &gt; $GOPATH/src/hello/main.<span class="keyword">go</span> &lt;&lt;EOF</span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Installation Successful!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 编译运行</span><br><span class="line">cd $GOPATH/src/hello &amp;&amp; <span class="keyword">go</span> run main.<span class="keyword">go</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Go</category>
+      </categories>
+      <tags>
+        <tag>Go</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Node下载安装</title>
+    <url>/2025/03/08/front/node_install/</url>
+    <content><![CDATA[<p><a href="https://nodejs.org/zh-cn">Node 官网</a></p>
+<p><a href="https://nodejs.p2hp.com/">NodeJs 中文网</a></p>
+<p><a href="https://cn.vuejs.org/">Vue3 中文官网文档</a></p>
+<p><a href="https://vitejs.cn/">Vite 中文官网文档</a></p>
+<h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><p><a href="https://gitee.com/my919/scripts/blob/master/sh/nodejs_install.sh">Nodejs 一键安装配置脚本</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://gitee.com/my919/scripts/blob/master/sh/nodejs_install.sh</span><br><span class="line"><span class="built_in">chmod</span> +x nodejs_install.sh</span><br><span class="line">sh nodejs_install.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><ul>
+<li>Node -v</li>
+<li>npm -v</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Node</category>
+      </categories>
+      <tags>
+        <tag>Node</tag>
+      </tags>
+  </entry>
 </search>

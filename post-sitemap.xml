@@ -9,6 +9,30 @@
 
 
     <url>
+        <loc>http://example.com/2025/03/08/front/node_install/</loc>
+        <lastmod>2025-03-09T09:11:02.758Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2025/03/08/go/install/</loc>
+        <lastmod>2025-03-09T08:48:46.795Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://example.com/2025/03/08/java/install/</loc>
+        <lastmod>2025-03-09T07:31:55.992Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://example.com/2025/03/08/python/cgi/</loc>
         <lastmod>2025-03-09T06:24:30.345Z</lastmod>
         <changefreq>weekly</changefreq>
