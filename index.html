@@ -146,16 +146,16 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -366,7 +366,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 13:45:50" itemprop="dateModified" datetime="2025-03-09T13:45:50+08:00">2025-03-09</time>
+      <time title="修改时间：2025-03-09 18:54:24" itemprop="dateModified" datetime="2025-03-09T18:54:24+08:00">2025-03-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -389,7 +389,6 @@
     
     <div class="post-body" itemprop="articleBody">
           <p><code>if __name__ == &quot;__main__&quot;:</code> 是 Python 中一个常见的代码块，<strong>它的核心作用是区分当前模块是直接运行还是被导入到其他模块中</strong>。这个机制使得 Python 文件既可以独立执行，也能作为模块被其他代码复用。以下是详细解释：</p>
-<hr>
 <h3 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a><strong>一、作用</strong></h3><h4 id="1-控制代码执行范围"><a href="#1-控制代码执行范围" class="headerlink" title="1. 控制代码执行范围"></a><strong>1. 控制代码执行范围</strong></h4><ul>
 <li><strong>直接运行该文件时</strong>：<code>if __name__ == &quot;__main__&quot;:</code> 下的代码会被执行。</li>
 <li><strong>被其他文件导入时</strong>：<code>if __name__ == &quot;__main__&quot;:</code> 下的代码不会执行。</li>
@@ -399,7 +398,6 @@
 <li><strong>脚本的入口</strong>：定义程序的主逻辑，例如启动服务或命令行工具。</li>
 <li><strong>避免副作用</strong>：防止模块被导入时自动执行不必要的操作。</li>
 </ul>
-<hr>
 <h3 id="二、原理"><a href="#二、原理" class="headerlink" title="二、原理"></a><strong>二、原理</strong></h3><h4 id="1-name-的含义"><a href="#1-name-的含义" class="headerlink" title="1. __name__ 的含义"></a><strong>1. <code>__name__</code> 的含义</strong></h4><ul>
 <li>Python 中每个模块都有一个内置属性 <code>__name__</code>。</li>
 <li><strong>当模块被直接运行时</strong>：<code>__name__</code> 会被自动赋值为 <code>&quot;__main__&quot;</code>。</li>
@@ -407,7 +405,6 @@
 </ul>
 <h4 id="2-条件判断的逻辑"><a href="#2-条件判断的逻辑" class="headerlink" title="2. 条件判断的逻辑"></a><strong>2. 条件判断的逻辑</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 直接运行该文件时执行</span></span><br><span class="line">    main()  <span class="comment"># 例如调用主函数</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="三、示例"><a href="#三、示例" class="headerlink" title="三、示例"></a><strong>三、示例</strong></h3><h4 id="1-场景一：直接运行脚本"><a href="#1-场景一：直接运行脚本" class="headerlink" title="1. 场景一：直接运行脚本"></a><strong>1. 场景一：直接运行脚本</strong></h4><p>假设有一个文件 <code>test.py</code>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Hello from test!&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;直接运行该文件时输出:&quot;</span>)</span><br><span class="line">    hello()</span><br></pre></td></tr></table></figure>
 
@@ -417,7 +414,6 @@
 <p><strong>输出</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">直接运行该文件时输出:</span><br><span class="line">Hello from test!</span><br></pre></td></tr></table></figure>
 
-<hr>
 <h4 id="2-场景二：被其他模块导入"><a href="#2-场景二：被其他模块导入" class="headerlink" title="2. 场景二：被其他模块导入"></a><strong>2. 场景二：被其他模块导入</strong></h4><p>在另一个文件 <code>another_script.py</code> 中导入 <code>test</code>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> test</span><br><span class="line"></span><br><span class="line">test.hello()</span><br></pre></td></tr></table></figure>
 
@@ -428,7 +424,6 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello from test!  # 仅执行导入后的函数调用</span><br></pre></td></tr></table></figure>
 
 <p>此时 <code>test</code> 中的 <code>if __name__ == &quot;__main__&quot;:</code> 代码块不会触发。</p>
-<hr>
 <h3 id="四、深入理解"><a href="#四、深入理解" class="headerlink" title="四、深入理解"></a><strong>四、深入理解</strong></h3><h4 id="1-Python-模块的执行流程"><a href="#1-Python-模块的执行流程" class="headerlink" title="1. Python 模块的执行流程"></a><strong>1. Python 模块的执行流程</strong></h4><ul>
 <li><strong>直接运行文件时</strong>：<ol>
 <li>Python 解释器会将该文件视为主程序（<code>__main__</code>）。</li>
@@ -448,7 +443,6 @@
 <li><strong>直接运行</strong>：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当前模块的 __name__ 是: __main__</span><br></pre></td></tr></table></figure></li>
 <li><strong>被导入时</strong>：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当前模块的 __name__ 是: test</span><br></pre></td></tr></table></figure></li>
 </ul>
-<hr>
 <h3 id="五、常见问题"><a href="#五、常见问题" class="headerlink" title="五、常见问题"></a><strong>五、常见问题</strong></h3><h4 id="1-如果不写-if-name-main-会怎样？"><a href="#1-如果不写-if-name-main-会怎样？" class="headerlink" title="1. 如果不写 if __name__ == &quot;__main__&quot;: 会怎样？"></a><strong>1. 如果不写 <code>if __name__ == &quot;__main__&quot;:</code> 会怎样？</strong></h4><ul>
 <li><strong>直接运行文件时</strong>：所有顶层代码（包括函数外的代码）都会执行。</li>
 <li><strong>被导入时</strong>：所有顶层代码也会执行，可能导致意外的副作用（例如自动启动服务）。</li>
@@ -459,14 +453,12 @@
 <h4 id="3-是否只能用于单文件脚本？"><a href="#3-是否只能用于单文件脚本？" class="headerlink" title="3. 是否只能用于单文件脚本？"></a><strong>3. 是否只能用于单文件脚本？</strong></h4><ul>
 <li><strong>否</strong>。在多文件项目中，每个文件都可以有自己的 <code>if __name__ == &quot;__main__&quot;:</code> 块，用于独立测试。</li>
 </ul>
-<hr>
 <h3 id="六、最佳实践"><a href="#六、最佳实践" class="headerlink" title="六、最佳实践"></a><strong>六、最佳实践</strong></h3><h4 id="1-将主逻辑封装为函数"><a href="#1-将主逻辑封装为函数" class="headerlink" title="1. 将主逻辑封装为函数"></a><strong>1. 将主逻辑封装为函数</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;这是主函数逻辑&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()  <span class="comment"># 更清晰的入口</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="2-避免在模块顶层写业务逻辑"><a href="#2-避免在模块顶层写业务逻辑" class="headerlink" title="2. 避免在模块顶层写业务逻辑"></a><strong>2. 避免在模块顶层写业务逻辑</strong></h4><ul>
 <li>将可复用的函数或类定义在顶层。</li>
 <li>将执行代码放在 <code>if __name__ == &quot;__main__&quot;:</code> 块中。</li>
 </ul>
-<hr>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p><code>if __name__ == &quot;__main__&quot;:</code> 是 Python 的模块化编程基石之一。<strong>它通过 <code>__name__</code> 变量的动态赋值，实现了代码的“双重身份”</strong>：既可以是独立运行的程序，也可以是被复用的模块。合理使用这一机制，可以显著提升代码的可维护性和复用性。</p>
 
       
@@ -530,7 +522,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 13:54:07" itemprop="dateModified" datetime="2025-03-09T13:54:07+08:00">2025-03-09</time>
+      <time title="修改时间：2025-03-09 18:53:43" itemprop="dateModified" datetime="2025-03-09T18:53:43+08:00">2025-03-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -553,7 +545,6 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>在 Python 中，<code>__init__.py</code>文件是<strong>包（Package）的标识文件</strong>，它的存在使得一个目录被 Python 识别为包，从而支持模块化组织代码。以下是其核心作用和原理：</p>
-<hr>
 <h3 id="一、核心作用"><a href="#一、核心作用" class="headerlink" title="一、核心作用"></a><strong>一、核心作用</strong></h3><h4 id="1-标识包目录"><a href="#1-标识包目录" class="headerlink" title="1. 标识包目录"></a><strong>1. 标识包目录</strong></h4><ul>
 <li><strong>必要条件</strong>：当目录中包含<code>__init__.py</code>时，Python 才会将其视为一个包（Package），而非普通目录。</li>
 <li><strong>示例结构</strong>：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">my_package/</span><br><span class="line">├── __init__.py     # 标识为包</span><br><span class="line">├── module1.py</span><br><span class="line">└── subpackage/</span><br><span class="line">    ├── __init__.py # 子包也需要此文件</span><br><span class="line">    └── module2.py</span><br></pre></td></tr></table></figure></li>
@@ -570,7 +561,6 @@
 <h4 id="3-控制导入行为"><a href="#3-控制导入行为" class="headerlink" title="3. 控制导入行为"></a><strong>3. 控制导入行为</strong></h4><ul>
 <li><strong>定义<code>__all__</code>变量</strong>：指定<code>from package import *</code>时导入的模块列表。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># __init__.py</span></span><br><span class="line">__all__ = [<span class="string">&quot;module1&quot;</span>, <span class="string">&quot;subpackage&quot;</span>]  <span class="comment"># 允许导出的模块</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<hr>
 <h3 id="二、详细用法"><a href="#二、详细用法" class="headerlink" title="二、详细用法"></a><strong>二、详细用法</strong></h3><h4 id="1-空文件（最小化包）"><a href="#1-空文件（最小化包）" class="headerlink" title="1. 空文件（最小化包）"></a><strong>1. 空文件（最小化包）</strong></h4><p>如果无需初始化逻辑，<code>__init__.py</code>可以是空文件，仅用于标识包：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_package/</span><br><span class="line">├── __init__.py     # 空文件</span><br><span class="line">└── module1.py</span><br></pre></td></tr></table></figure>
 
@@ -589,7 +579,6 @@
 <h4 id="4-延迟加载大型模块"><a href="#4-延迟加载大型模块" class="headerlink" title="4. 延迟加载大型模块"></a><strong>4. 延迟加载大型模块</strong></h4><p>使用<code>__getattr__</code>动态导入模块（Python 3.7+）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># my_package/__init__.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">__getattr__</span>(<span class="params">name</span>):</span><br><span class="line">    <span class="keyword">if</span> name == <span class="string">&quot;heavy_module&quot;</span>:</span><br><span class="line">        <span class="keyword">from</span> . <span class="keyword">import</span> heavy_module</span><br><span class="line">        <span class="keyword">return</span> heavy_module</span><br><span class="line">    <span class="keyword">raise</span> AttributeError(<span class="string">f&quot;module <span class="subst">&#123;__name__!r&#125;</span> has no attribute <span class="subst">&#123;name!r&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="三、Python-2-vs-Python-3"><a href="#三、Python-2-vs-Python-3" class="headerlink" title="三、Python 2 vs. Python 3"></a><strong>三、Python 2 vs. Python 3</strong></h3><h4 id="1-Python-2"><a href="#1-Python-2" class="headerlink" title="1. Python 2"></a><strong>1. Python 2</strong></h4><ul>
 <li><strong>强制要求</strong>：所有包目录必须包含<code>__init__.py</code>，否则无法导入。</li>
 </ul>
@@ -601,7 +590,6 @@
 </li>
 <li><strong>兼容性建议</strong>：显式保留<code>__init__.py</code>以确保兼容性和明确性。</li>
 </ul>
-<hr>
 <h3 id="四、常见问题"><a href="#四、常见问题" class="headerlink" title="四、常见问题"></a><strong>四、常见问题</strong></h3><h4 id="1-忘记添加-init-py"><a href="#1-忘记添加-init-py" class="headerlink" title="1. 忘记添加__init__.py"></a><strong>1. 忘记添加<code>__init__.py</code></strong></h4><ul>
 <li><strong>错误现象</strong>：尝试导入模块时抛出<code>ImportError</code>。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ImportError: No module named &#x27;my_package&#x27;</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -609,13 +597,11 @@
 <li><strong>风险场景</strong>：在<code>__init__.py</code>中导入其他模块时，若模块间存在相互依赖，会导致循环导入错误。</li>
 <li><strong>解决方案</strong>：重构代码或延迟导入（在函数内部导入）。</li>
 </ul>
-<hr>
 <h3 id="五、最佳实践"><a href="#五、最佳实践" class="headerlink" title="五、最佳实践"></a><strong>五、最佳实践</strong></h3><ol>
 <li>**始终包含<code>__init__.py</code>**：即使文件为空，也显式标识包。</li>
 <li><strong>精简初始化代码</strong>：避免在<code>__init__.py</code>中编写复杂逻辑，保持轻量。</li>
 <li><strong>显式定义公共接口</strong>：通过<code>__all__</code>明确导出内容，避免命名污染。</li>
 </ol>
-<hr>
 <h3 id="示例项目结构"><a href="#示例项目结构" class="headerlink" title="示例项目结构"></a><strong>示例项目结构</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">project/</span><br><span class="line">├── main.py</span><br><span class="line">└── my_package/</span><br><span class="line">    ├── __init__.py         # 包标识</span><br><span class="line">    ├── module1.py          # 模块1</span><br><span class="line">    └── subpackage/</span><br><span class="line">        ├── __init__.py     # 子包标识</span><br><span class="line">        └── module2.py      # 模块2</span><br></pre></td></tr></table></figure>
 
 <p>通过<code>__init__.py</code>，Python 能够以层次化和模块化的方式组织代码，提升可维护性和复用性。</p>
@@ -681,7 +667,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 13:54:50" itemprop="dateModified" datetime="2025-03-09T13:54:50+08:00">2025-03-09</time>
+      <time title="修改时间：2025-03-09 18:53:59" itemprop="dateModified" datetime="2025-03-09T18:53:59+08:00">2025-03-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -704,7 +690,6 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>Python 的 <strong>魔法方法（Magic Methods）</strong> 是以双下划线 <code>__</code> 开头和结尾的特殊方法，用于定义类的特定行为（如运算符重载、对象构造、字符串表示等）。这些方法由 Python 解释器自动调用，开发者可以通过实现它们来自定义类的行为。</p>
-<hr>
 <h3 id="常见魔法方法分类"><a href="#常见魔法方法分类" class="headerlink" title="常见魔法方法分类"></a><strong>常见魔法方法分类</strong></h3><h4 id="1-构造与初始化"><a href="#1-构造与初始化" class="headerlink" title="1. 构造与初始化"></a><strong>1. 构造与初始化</strong></h4><ul>
 <li><code>__init__(self, ...)</code>: 对象初始化时调用（不是构造函数，而是初始化方法）。</li>
 <li><code>__new__(cls, ...)</code>: 类的构造函数，负责创建并返回实例对象（通常用于不可变类型或单例模式）。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, *args, **kwargs</span>):</span><br><span class="line">        instance = <span class="built_in">super</span>().__new__(cls)</span><br><span class="line">        <span class="keyword">return</span> instance</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, value</span>):</span><br><span class="line">        <span class="variable language_">self</span>.value = value</span><br></pre></td></tr></table></figure></li>
@@ -751,7 +736,6 @@
 <h4 id="9-调用对象"><a href="#9-调用对象" class="headerlink" title="9. 调用对象"></a><strong>9. 调用对象</strong></h4><ul>
 <li><code>__call__(self, ...)</code>: 使实例可以像函数一样被调用。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Adder</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, a, b</span>):</span><br><span class="line">        <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line">add = Adder()</span><br><span class="line"><span class="built_in">print</span>(add(<span class="number">3</span>, <span class="number">5</span>))  <span class="comment"># 输出 8</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<hr>
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a><strong>注意事项</strong></h3><ol>
 <li><strong>运算符重载需谨慎</strong>：确保重载后的行为符合直觉。</li>
 <li><strong>避免无限递归</strong>：例如在 <code>__setattr__</code> 中直接赋值 <code>self.name = value</code> 会导致递归，应使用 <code>super().__setattr__</code>。</li>
@@ -820,7 +804,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 14:00:42" itemprop="dateModified" datetime="2025-03-09T14:00:42+08:00">2025-03-09</time>
+      <time title="修改时间：2025-03-09 18:53:04" itemprop="dateModified" datetime="2025-03-09T18:53:04+08:00">2025-03-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -843,20 +827,17 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>在 Python 中，<strong>闭包（Closure）</strong> 是指一个函数（称为内部函数）捕获并“记住”了其外层作用域中的变量（即使外层函数已经执行完毕）。闭包允许函数访问并操作其定义时的上下文环境中的变量，即使这个上下文已经不再活跃。</p>
-<hr>
 <h3 id="闭包的核心概念"><a href="#闭包的核心概念" class="headerlink" title="闭包的核心概念"></a><strong>闭包的核心概念</strong></h3><ol>
 <li><strong>嵌套函数</strong>：闭包基于嵌套函数（函数内部定义另一个函数）。</li>
 <li><strong>引用外部变量</strong>：内部函数引用了外层函数作用域中的变量。</li>
 <li><strong>保持变量状态</strong>：即使外层函数执行完毕，内部函数仍能访问外层函数的变量。</li>
 </ol>
-<hr>
 <h3 id="闭包的简单示例"><a href="#闭包的简单示例" class="headerlink" title="闭包的简单示例"></a><strong>闭包的简单示例</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">outer_func</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner_func</span>(<span class="params">y</span>):</span><br><span class="line">        <span class="keyword">return</span> x + y  <span class="comment"># inner_func 捕获了外层作用域中的 x</span></span><br><span class="line">    <span class="keyword">return</span> inner_func</span><br><span class="line"></span><br><span class="line">closure = outer_func(<span class="number">10</span>)  <span class="comment"># outer_func 执行完毕，但 x=10 被保留</span></span><br><span class="line"><span class="built_in">print</span>(closure(<span class="number">5</span>))  <span class="comment"># 输出 15</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><code>inner_func</code> 是一个闭包，因为它引用了外层函数 <code>outer_func</code> 的参数 <code>x</code>。</li>
 <li>即使 <code>outer_func</code> 执行结束，<code>closure</code> 仍然能访问 <code>x=10</code>。</li>
 </ul>
-<hr>
 <h3 id="闭包的关键特性"><a href="#闭包的关键特性" class="headerlink" title="闭包的关键特性"></a><strong>闭包的关键特性</strong></h3><h4 id="1-捕获变量的生命周期延长"><a href="#1-捕获变量的生命周期延长" class="headerlink" title="1. 捕获变量的生命周期延长"></a>1. <strong>捕获变量的生命周期延长</strong></h4><p>闭包会延长外层函数变量的生命周期：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">counter</span>():</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">increment</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> count  <span class="comment"># 声明修改外层变量</span></span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    <span class="keyword">return</span> increment</span><br><span class="line"></span><br><span class="line">c = counter()</span><br><span class="line"><span class="built_in">print</span>(c())  <span class="comment"># 1</span></span><br><span class="line"><span class="built_in">print</span>(c())  <span class="comment"># 2 (闭包保持了 count 的状态)</span></span><br></pre></td></tr></table></figure>
 
@@ -866,7 +847,6 @@
 <p><strong>解决方法</strong>：通过参数传递立即绑定：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">funcs = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>(<span class="params">x=i</span>):  <span class="comment"># 立即绑定当前 i 的值到 x</span></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    funcs.append(inner)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>([f() <span class="keyword">for</span> f <span class="keyword">in</span> funcs])  <span class="comment"># 输出 [0, 1, 2]</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="闭包的常见应用场景"><a href="#闭包的常见应用场景" class="headerlink" title="闭包的常见应用场景"></a><strong>闭包的常见应用场景</strong></h3><h4 id="1-装饰器（Decorators）"><a href="#1-装饰器（Decorators）" class="headerlink" title="1. 装饰器（Decorators）"></a>1. <strong>装饰器（Decorators）</strong></h4><p>装饰器本质上是闭包的应用：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">logger</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Calling <span class="subst">&#123;func.__name__&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@logger</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line">add(<span class="number">3</span>, <span class="number">5</span>)  <span class="comment"># 输出 &quot;Calling add&quot;</span></span><br></pre></td></tr></table></figure>
 
@@ -876,7 +856,6 @@
 <h4 id="3-封装私有变量"><a href="#3-封装私有变量" class="headerlink" title="3. 封装私有变量"></a>3. <strong>封装私有变量</strong></h4><p>闭包可以模拟私有变量：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">create_counter</span>():</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">increment</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> count</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reset</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> count</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> increment, reset</span><br><span class="line"></span><br><span class="line">inc, reset = create_counter()</span><br><span class="line"><span class="built_in">print</span>(inc())  <span class="comment"># 1</span></span><br><span class="line"><span class="built_in">print</span>(inc())  <span class="comment"># 2</span></span><br><span class="line">reset()</span><br><span class="line"><span class="built_in">print</span>(inc())  <span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="闭包的注意事项"><a href="#闭包的注意事项" class="headerlink" title="闭包的注意事项"></a><strong>闭包的注意事项</strong></h3><ol>
 <li><p><strong>变量修改</strong>：</p>
 <ul>
@@ -896,14 +875,12 @@
 </ul>
 </li>
 </ol>
-<hr>
 <h3 id="闭包-vs-类"><a href="#闭包-vs-类" class="headerlink" title="闭包 vs 类"></a><strong>闭包 vs 类</strong></h3><ul>
 <li><strong>闭包</strong>：轻量级，适合简单的状态保持。</li>
 <li><strong>类</strong>：适合复杂的状态和行为管理。</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 闭包实现</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">make_counter</span>():</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">counter</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> count</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    <span class="keyword">return</span> counter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 类实现</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Counter</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.count</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用方式相同</span></span><br><span class="line">c1 = make_counter()</span><br><span class="line">c2 = Counter()</span><br><span class="line"><span class="built_in">print</span>(c1(), c2())  <span class="comment"># 1 1</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>闭包是 Python 中强大的特性，用于：</p>
 <ul>
 <li><strong>保持状态</strong>：在函数调用间保留上下文。</li>
@@ -973,7 +950,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 14:04:06" itemprop="dateModified" datetime="2025-03-09T14:04:06+08:00">2025-03-09</time>
+      <time title="修改时间：2025-03-09 18:53:26" itemprop="dateModified" datetime="2025-03-09T18:53:26+08:00">2025-03-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -996,7 +973,6 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>在 Python 中，<strong>装饰器（Decorator）</strong> 可以应用于类或方法，用于动态修改类或方法的行为。以下是类装饰器和方法装饰器的详细说明及示例：</p>
-<hr>
 <h3 id="一、方法装饰器（Method-Decorators）"><a href="#一、方法装饰器（Method-Decorators）" class="headerlink" title="一、方法装饰器（Method Decorators）"></a><strong>一、方法装饰器（Method Decorators）</strong></h3><p>方法装饰器用于装饰类中的方法（实例方法、类方法、静态方法）。它们的语法和函数装饰器类似，但需注意方法的作用域和参数传递。</p>
 <h4 id="1-装饰实例方法"><a href="#1-装饰实例方法" class="headerlink" title="1. 装饰实例方法"></a><strong>1. 装饰实例方法</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">log_method</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;记录方法调用的装饰器&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Calling method <span class="subst">&#123;func.__name__&#125;</span> with args: <span class="subst">&#123;args&#125;</span>, kwargs: <span class="subst">&#123;kwargs&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> func(<span class="variable language_">self</span>, *args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>:</span><br><span class="line"><span class="meta">    @log_method</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">self, a, b</span>):</span><br><span class="line">        <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line">obj = MyClass()</span><br><span class="line"><span class="built_in">print</span>(obj.add(<span class="number">3</span>, <span class="number">5</span>))  <span class="comment"># 输出日志后返回 8</span></span><br></pre></td></tr></table></figure>
 
@@ -1006,7 +982,6 @@
 <h4 id="3-使用-functools-wraps-保留元数据"><a href="#3-使用-functools-wraps-保留元数据" class="headerlink" title="3. 使用 functools.wraps 保留元数据"></a><strong>3. 使用 <code>functools.wraps</code> 保留元数据</strong></h4><p>避免因装饰器覆盖方法元数据（如方法名、文档字符串）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">validate_input</span>(<span class="params">func</span>):</span><br><span class="line"><span class="meta">    @wraps(<span class="params">func</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">if</span> x &lt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;x must be non-negative&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> func(<span class="variable language_">self</span>, x)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Validator</span>:</span><br><span class="line"><span class="meta">    @validate_input</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">square</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;计算平方&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> x ** <span class="number">2</span></span><br><span class="line"></span><br><span class="line">obj = Validator()</span><br><span class="line"><span class="built_in">print</span>(obj.square(<span class="number">5</span>))  <span class="comment"># 25</span></span><br><span class="line"><span class="built_in">print</span>(obj.square.__doc__)  <span class="comment"># 输出 &quot;计算平方&quot;（保留文档字符串）</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="二、类装饰器（Class-Decorators）"><a href="#二、类装饰器（Class-Decorators）" class="headerlink" title="二、类装饰器（Class Decorators）"></a><strong>二、类装饰器（Class Decorators）</strong></h3><p>类装饰器直接作用于类，可以动态修改类的属性或行为。类装饰器的参数是类本身，需返回修改后的类。</p>
 <h4 id="1-基本类装饰器"><a href="#1-基本类装饰器" class="headerlink" title="1. 基本类装饰器"></a><strong>1. 基本类装饰器</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_method</span>(<span class="params">cls</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;为类动态添加一个方法&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">new_method</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;This is a dynamically added method&quot;</span></span><br><span class="line">    cls.new_method = new_method</span><br><span class="line">    <span class="keyword">return</span> cls</span><br><span class="line"></span><br><span class="line"><span class="meta">@add_method</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">existing_method</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Existing method&quot;</span></span><br><span class="line"></span><br><span class="line">obj = MyClass()</span><br><span class="line"><span class="built_in">print</span>(obj.existing_method())  <span class="comment"># Existing method</span></span><br><span class="line"><span class="built_in">print</span>(obj.new_method())       <span class="comment"># This is a dynamically added method</span></span><br></pre></td></tr></table></figure>
 
@@ -1014,13 +989,11 @@
 
 <h4 id="3-类装饰器修改初始化行为"><a href="#3-类装饰器修改初始化行为" class="headerlink" title="3. 类装饰器修改初始化行为"></a><strong>3. 类装饰器修改初始化行为</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">log_creation</span>(<span class="params">cls</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;记录类的实例化&quot;&quot;&quot;</span></span><br><span class="line">    original_init = cls.__init__</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapped_init</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Creating instance of <span class="subst">&#123;cls.__name__&#125;</span>&quot;</span>)</span><br><span class="line">        original_init(<span class="variable language_">self</span>, *args, **kwargs)</span><br><span class="line">    cls.__init__ = wrapped_init</span><br><span class="line">    <span class="keyword">return</span> cls</span><br><span class="line"></span><br><span class="line"><span class="meta">@log_creation</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line"></span><br><span class="line">user = User(<span class="string">&quot;Alice&quot;</span>)  <span class="comment"># 输出 &quot;Creating instance of User&quot;</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="三、用类实现装饰器"><a href="#三、用类实现装饰器" class="headerlink" title="三、用类实现装饰器"></a><strong>三、用类实现装饰器</strong></h3><p>装饰器本身也可以是一个类（通过实现 <code>__call__</code> 方法），这种方式适合需要维护状态的装饰器。</p>
 <h4 id="1-类实现方法装饰器"><a href="#1-类实现方法装饰器" class="headerlink" title="1. 类实现方法装饰器"></a><strong>1. 类实现方法装饰器</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Retry</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;失败后重试的装饰器&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, max_retries=<span class="number">3</span></span>):</span><br><span class="line">        <span class="variable language_">self</span>.max_retries = max_retries</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, func</span>):</span><br><span class="line"><span class="meta">        @wraps(<span class="params">func</span>)</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="variable language_">self</span>.max_retries):</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&quot;Retrying... (<span class="subst">&#123;_ + <span class="number">1</span>&#125;</span>/<span class="subst">&#123;self.max_retries&#125;</span>)&quot;</span>)</span><br><span class="line">            <span class="keyword">raise</span> RuntimeError(<span class="string">&quot;All retries failed&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DataFetcher</span>:</span><br><span class="line"><span class="meta">    @Retry(<span class="params">max_retries=<span class="number">2</span></span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fetch_data</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 模拟随机失败</span></span><br><span class="line">        <span class="keyword">import</span> random</span><br><span class="line">        <span class="keyword">if</span> random.random() &lt; <span class="number">0.5</span>:</span><br><span class="line">            <span class="keyword">raise</span> ConnectionError(<span class="string">&quot;Connection failed&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Data&quot;</span></span><br><span class="line"></span><br><span class="line">fetcher = DataFetcher()</span><br><span class="line"><span class="built_in">print</span>(fetcher.fetch_data())  <span class="comment"># 输出可能重试后返回数据或报错</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="2-类实现类装饰器"><a href="#2-类实现类装饰器" class="headerlink" title="2. 类实现类装饰器"></a><strong>2. 类实现类装饰器</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">FreezeAttributes</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;禁止添加新属性的类装饰器&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, original_class</span>):</span><br><span class="line">        original_class.__setattr__ = cls.prevent_additions</span><br><span class="line">        <span class="keyword">return</span> original_class</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">prevent_additions</span>(<span class="params">self, name, value</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">hasattr</span>(<span class="variable language_">self</span>, name):</span><br><span class="line">            <span class="keyword">raise</span> AttributeError(<span class="string">&quot;Cannot add new attributes&quot;</span>)</span><br><span class="line">        <span class="built_in">object</span>.__setattr__(<span class="variable language_">self</span>, name, value)</span><br><span class="line"></span><br><span class="line"><span class="meta">@FreezeAttributes</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Config</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.host = <span class="string">&quot;localhost&quot;</span></span><br><span class="line"></span><br><span class="line">config = Config()</span><br><span class="line">config.host = <span class="string">&quot;127.0.0.1&quot;</span>  <span class="comment"># 允许修改已有属性</span></span><br><span class="line">config.port = <span class="number">8080</span>         <span class="comment"># 抛出 AttributeError: Cannot add new attributes</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="四、常见应用场景"><a href="#四、常见应用场景" class="headerlink" title="四、常见应用场景"></a><strong>四、常见应用场景</strong></h3><h4 id="方法装饰器"><a href="#方法装饰器" class="headerlink" title="方法装饰器"></a><strong>方法装饰器</strong></h4><ul>
 <li><strong>输入验证</strong>：检查方法参数合法性。</li>
 <li><strong>日志记录</strong>：记录方法的调用和参数。</li>
@@ -1033,11 +1006,9 @@
 <li><strong>动态注入方法</strong>：为类添加通用方法。</li>
 <li><strong>元编程控制</strong>：修改类的初始化行为或属性访问。</li>
 </ul>
-<hr>
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a><strong>注意事项</strong></h3><ol>
 <li><p><strong>装饰器顺序</strong>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@decorator1</span></span><br><span class="line"><span class="meta">@decorator2</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>: ...</span><br><span class="line"><span class="comment"># 等效于 MyClass = decorator1(decorator2(MyClass))</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@decorator1</span></span><br><span class="line"><span class="meta">@decorator2</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>: ...</span><br><span class="line"><span class="comment"># 等效于 MyClass = decorator1(decorator2(MyClass))</span></span><br></pre></td></tr></table></figure></li>
 <li><p><strong>继承与装饰器</strong>：</p>
 <ul>
 <li>类装饰器会影响所有子类，除非子类显式覆盖装饰行为。</li>
@@ -1049,7 +1020,6 @@
 </ul>
 </li>
 </ol>
-<hr>
 <p>通过灵活使用类装饰器和方法装饰器，可以显著提升代码的可维护性和复用性，但需合理设计以避免过度抽象。</p>
 
       
@@ -1113,7 +1083,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 14:12:28" itemprop="dateModified" datetime="2025-03-09T14:12:28+08:00">2025-03-09</time>
+      <time title="修改时间：2025-03-09 18:54:51" itemprop="dateModified" datetime="2025-03-09T18:54:51+08:00">2025-03-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1136,7 +1106,6 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>在 Python 中，<strong>元类（Metaclass）</strong> 是用于创建类的类，被称为“类的类”。所有的类（包括 <code>object</code>）都由元类生成，默认的元类是 <code>type</code>。通过自定义元类，可以在类创建时动态修改类的定义（如属性、方法、继承关系等），实现高度灵活的元编程。</p>
-<hr>
 <h3 id="元类的基本原理"><a href="#元类的基本原理" class="headerlink" title="元类的基本原理"></a><strong>元类的基本原理</strong></h3><h4 id="1-类的创建过程"><a href="#1-类的创建过程" class="headerlink" title="1. 类的创建过程"></a>1. <strong>类的创建过程</strong></h4><ul>
 <li>当定义类时，Python 解释器会调用元类的 <code>__new__</code> 和 <code>__init__</code> 方法生成类。</li>
 <li>默认情况下，所有类由 <code>type</code> 元类创建：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以下两种定义等价</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">MyClass = <span class="built_in">type</span>(<span class="string">&#x27;MyClass&#x27;</span>, (), &#123;&#125;)</span><br></pre></td></tr></table></figure></li>
@@ -1146,12 +1115,10 @@
 <li>自定义元类需要继承 <code>type</code>，并重写 <code>__new__</code> 或 <code>__init__</code> 方法。</li>
 <li>类的 <code>__metaclass__</code> 属性决定其元类（Python 3 中通过 <code>class MyClass(metaclass=MyMeta)</code> 指定）。</li>
 </ul>
-<hr>
 <h3 id="自定义元类的步骤"><a href="#自定义元类的步骤" class="headerlink" title="自定义元类的步骤"></a><strong>自定义元类的步骤</strong></h3><h4 id="1-定义元类"><a href="#1-定义元类" class="headerlink" title="1. 定义元类"></a>1. <strong>定义元类</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyMeta</span>(<span class="title class_ inherited__">type</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, name, bases, attrs</span>):</span><br><span class="line">        <span class="comment"># 在类创建前修改属性</span></span><br><span class="line">        attrs[<span class="string">&#x27;version&#x27;</span>] = <span class="number">1.0</span>  <span class="comment"># 动态添加类属性</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>().__new__(cls, name, bases, attrs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, bases, attrs</span>):</span><br><span class="line">        <span class="comment"># 初始化类</span></span><br><span class="line">        <span class="built_in">super</span>().__init__(name, bases, attrs)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;类 <span class="subst">&#123;name&#125;</span> 被创建&quot;</span>)</span><br></pre></td></tr></table></figure>
 
 <h4 id="2-使用元类创建类"><a href="#2-使用元类创建类" class="headerlink" title="2. 使用元类创建类"></a>2. <strong>使用元类创建类</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>(metaclass=MyMeta):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">hello</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Hello from MyClass&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出: 类 MyClass 被创建</span></span><br><span class="line"><span class="built_in">print</span>(MyClass.version)  <span class="comment"># 1.0</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="元类的核心方法"><a href="#元类的核心方法" class="headerlink" title="元类的核心方法"></a><strong>元类的核心方法</strong></h3><h4 id="1-new-cls-name-bases-attrs"><a href="#1-new-cls-name-bases-attrs" class="headerlink" title="1. __new__(cls, name, bases, attrs)"></a>1. <strong><code>__new__(cls, name, bases, attrs)</code></strong></h4><ul>
 <li><strong>作用</strong>：创建类对象（控制类的生成过程）。</li>
 <li><strong>参数</strong>：<ul>
@@ -1170,7 +1137,6 @@
 <li><strong>作用</strong>：返回一个字典对象，用于存储类的命名空间。</li>
 <li><strong>用途</strong>：自定义类的属性存储方式（如使用 <code>OrderedDict</code> 保持顺序）。</li>
 </ul>
-<hr>
 <h3 id="元类的应用场景"><a href="#元类的应用场景" class="headerlink" title="元类的应用场景"></a><strong>元类的应用场景</strong></h3><h4 id="1-强制类属性规范"><a href="#1-强制类属性规范" class="headerlink" title="1. 强制类属性规范"></a>1. <strong>强制类属性规范</strong></h4><p>要求子类必须实现特定方法：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">InterfaceMeta</span>(<span class="title class_ inherited__">type</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, name, bases, attrs</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;run&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> attrs:</span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">f&quot;类 <span class="subst">&#123;name&#125;</span> 必须实现 run 方法&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>().__new__(cls, name, bases, attrs)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Task</span>(metaclass=InterfaceMeta):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">run</span>(<span class="params">self</span>):  <span class="comment"># 必须实现 run 方法</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 未实现 run 方法会报错</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">InvalidTask</span>(metaclass=InterfaceMeta):</span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 
@@ -1183,7 +1149,6 @@
 <h4 id="4-ORM-框架"><a href="#4-ORM-框架" class="headerlink" title="4. ORM 框架"></a>4. <strong>ORM 框架</strong></h4><p>模拟 Django ORM 动态生成模型字段：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Field</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, <span class="built_in">type</span></span>):</span><br><span class="line">        <span class="variable language_">self</span>.<span class="built_in">type</span> = <span class="built_in">type</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ModelMeta</span>(<span class="title class_ inherited__">type</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, name, bases, attrs</span>):</span><br><span class="line">        fields = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> key, value <span class="keyword">in</span> attrs.items():</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">isinstance</span>(value, Field):</span><br><span class="line">                fields[key] = value</span><br><span class="line">        attrs[<span class="string">&#x27;_fields&#x27;</span>] = fields</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>().__new__(cls, name, bases, attrs)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Model</span>(metaclass=ModelMeta):</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(<span class="title class_ inherited__">Model</span>):</span><br><span class="line">    name = Field(<span class="built_in">str</span>)</span><br><span class="line">    age = Field(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(User._fields)  <span class="comment"># &#123;&#x27;name&#x27;: &lt;Field object&gt;, &#x27;age&#x27;: &lt;Field object&gt;&#125;</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="元类-vs-类装饰器"><a href="#元类-vs-类装饰器" class="headerlink" title="元类 vs 类装饰器"></a><strong>元类 vs 类装饰器</strong></h3><table>
 <thead>
 <tr>
@@ -1213,7 +1178,6 @@
 <td>简单增强或修改类（如添加方法）</td>
 </tr>
 </tbody></table>
-<hr>
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a><strong>注意事项</strong></h3><ol>
 <li><strong>谨慎使用元类</strong>：<ul>
 <li>元类会增加代码复杂性，优先考虑其他方案（如装饰器或继承）。</li>
@@ -1228,7 +1192,6 @@
 </ul>
 </li>
 </ol>
-<hr>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>元类是 Python 元编程的核心工具，允许在类创建时动态修改其定义。它在框架开发（如 Django、SQLAlchemy）中广泛使用，但日常开发中应避免过度设计。理解元类的工作原理需要深入掌握以下概念：</p>
 <ol>
 <li>类的创建过程（<code>type</code> 的作用）。</li>
@@ -1297,7 +1260,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 14:24:30" itemprop="dateModified" datetime="2025-03-09T14:24:30+08:00">2025-03-09</time>
+      <time title="修改时间：2025-03-09 18:52:38" itemprop="dateModified" datetime="2025-03-09T18:52:38+08:00">2025-03-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1320,7 +1283,6 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>在 Python 中，<strong>列表生成式（List Comprehensions）</strong>、<strong>生成器（Generators）</strong> 和 <strong>迭代器（Iterators）</strong> 是处理数据集合的核心工具，但它们的用途和实现方式有所不同。以下是详细对比和示例：</p>
-<hr>
 <h3 id="1-列表生成式（List-Comprehensions）"><a href="#1-列表生成式（List-Comprehensions）" class="headerlink" title="1. 列表生成式（List Comprehensions）"></a><strong>1. 列表生成式（List Comprehensions）</strong></h3><p>列表生成式是一种简洁的语法，用于快速创建列表。<strong>一次性生成所有元素</strong>，存储在内存中。</p>
 <h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a><strong>语法</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[expression <span class="keyword">for</span> item <span class="keyword">in</span> iterable <span class="keyword">if</span> condition]</span><br></pre></td></tr></table></figure>
 
@@ -1331,7 +1293,6 @@
 </ul>
 <h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成平方数列表</span></span><br><span class="line">squares = [x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]  <span class="comment"># [0, 1, 4, 9, 16]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 带条件的过滤</span></span><br><span class="line">even_squares = [x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>) <span class="keyword">if</span> x % <span class="number">2</span> == <span class="number">0</span>]  <span class="comment"># [0, 4, 16, 36, 64]</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="2-生成器（Generators）"><a href="#2-生成器（Generators）" class="headerlink" title="2. 生成器（Generators）"></a><strong>2. 生成器（Generators）</strong></h3><p>生成器通过 <strong>惰性计算（Lazy Evaluation）</strong> 按需生成元素，<strong>节省内存</strong>。分为两种形式：</p>
 <ul>
 <li><strong>生成器表达式（Generator Expressions）</strong></li>
@@ -1348,7 +1309,6 @@
 <li><strong>一次遍历</strong>：生成器用完即失效，不可重复使用。</li>
 <li><strong>适合处理大规模数据流</strong>（如文件逐行读取）。</li>
 </ul>
-<hr>
 <h3 id="3-迭代器（Iterators）"><a href="#3-迭代器（Iterators）" class="headerlink" title="3. 迭代器（Iterators）"></a><strong>3. 迭代器（Iterators）</strong></h3><p>迭代器是实现了 <strong>迭代协议</strong> 的对象，即定义了 <code>__iter__()</code> 和 <code>__next__()</code> 方法的对象。</p>
 <h4 id="迭代协议"><a href="#迭代协议" class="headerlink" title="迭代协议"></a><strong>迭代协议</strong></h4><ul>
 <li><code>__iter__()</code>：返回迭代器自身（即 <code>self</code>）。</li>
@@ -1360,7 +1320,6 @@
 <li><strong>通用遍历机制</strong>：所有可迭代对象（如列表、字典）最终通过迭代器遍历。</li>
 <li><strong>一次遍历</strong>：迭代器状态会保留，遍历结束后需重新创建。</li>
 </ul>
-<hr>
 <h3 id="三者的关系"><a href="#三者的关系" class="headerlink" title="三者的关系"></a><strong>三者的关系</strong></h3><table>
 <thead>
 <tr>
@@ -1395,14 +1354,12 @@
 <td>自定义遍历逻辑</td>
 </tr>
 </tbody></table>
-<hr>
 <h3 id="关键区别"><a href="#关键区别" class="headerlink" title="关键区别"></a><strong>关键区别</strong></h3><h4 id="1-列表-vs-生成器表达式"><a href="#1-列表-vs-生成器表达式" class="headerlink" title="1. 列表 vs 生成器表达式"></a><strong>1. 列表 vs 生成器表达式</strong></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列表生成式：立即生成所有元素</span></span><br><span class="line">list_data = [x * <span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1_000_000</span>)]  <span class="comment"># 占用大量内存</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成器表达式：逐个生成元素</span></span><br><span class="line">gen_data = (x * <span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1_000_000</span>))   <span class="comment"># 几乎不占内存</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="2-生成器-vs-迭代器"><a href="#2-生成器-vs-迭代器" class="headerlink" title="2. 生成器 vs 迭代器"></a><strong>2. 生成器 vs 迭代器</strong></h4><ul>
 <li>生成器是迭代器的简化实现（自动实现 <code>__iter__</code> 和 <code>__next__</code>）。</li>
 <li>迭代器可以更灵活地自定义遍历逻辑。</li>
 </ul>
-<hr>
 <h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a><strong>应用场景</strong></h3><ol>
 <li><p><strong>列表生成式</strong>：</p>
 <ul>
@@ -1423,7 +1380,6 @@
 </ul>
 </li>
 </ol>
-<hr>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul>
 <li><strong>列表生成式</strong>：简单高效，适合已知规模的静态数据。</li>
 <li><strong>生成器</strong>：内存友好，适合动态或大规模数据。</li>

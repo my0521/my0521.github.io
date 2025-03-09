@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="在 Python 中，闭包（Closure） 是指一个函数（称为内部函数）捕获并“记住”了其外层作用域中的变量（即使外层函数已经执行完毕）。闭包允许函数访问并操作其定义时的上下文环境中的变量，即使这个上下文已经不再活跃。  闭包的核心概念 嵌套函数：闭包基于嵌套函数（函数内部定义另一个函数）。 引用外部变量：内部函数引用了外层函数作用域中的变量。 保持变量状态：即使外层函数执行完毕，内部函数仍能访">
+    <meta name="description" content="在 Python 中，闭包（Closure） 是指一个函数（称为内部函数）捕获并“记住”了其外层作用域中的变量（即使外层函数已经执行完毕）。闭包允许函数访问并操作其定义时的上下文环境中的变量，即使这个上下文已经不再活跃。 闭包的核心概念 嵌套函数：闭包基于嵌套函数（函数内部定义另一个函数）。 引用外部变量：内部函数引用了外层函数作用域中的变量。 保持变量状态：即使外层函数执行完毕，内部函数仍能访问">
 <meta property="og:type" content="article">
 <meta property="og:title" content="闭包">
 <meta property="og:url" content="http://example.com/2025/03/08/python/closure/index.html">
 <meta property="og:site_name" content="疏影种月">
-<meta property="og:description" content="在 Python 中，闭包（Closure） 是指一个函数（称为内部函数）捕获并“记住”了其外层作用域中的变量（即使外层函数已经执行完毕）。闭包允许函数访问并操作其定义时的上下文环境中的变量，即使这个上下文已经不再活跃。  闭包的核心概念 嵌套函数：闭包基于嵌套函数（函数内部定义另一个函数）。 引用外部变量：内部函数引用了外层函数作用域中的变量。 保持变量状态：即使外层函数执行完毕，内部函数仍能访">
+<meta property="og:description" content="在 Python 中，闭包（Closure） 是指一个函数（称为内部函数）捕获并“记住”了其外层作用域中的变量（即使外层函数已经执行完毕）。闭包允许函数访问并操作其定义时的上下文环境中的变量，即使这个上下文已经不再活跃。 闭包的核心概念 嵌套函数：闭包基于嵌套函数（函数内部定义另一个函数）。 引用外部变量：内部函数引用了外层函数作用域中的变量。 保持变量状态：即使外层函数执行完毕，内部函数仍能访问">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-03-08T08:40:35.000Z">
-<meta property="article:modified_time" content="2025-03-09T06:00:42.007Z">
+<meta property="article:modified_time" content="2025-03-09T10:53:04.185Z">
 <meta property="article:author" content="miracle">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -152,16 +152,16 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -235,7 +235,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 14:00:42" itemprop="dateModified" datetime="2025-03-09T14:00:42+08:00">2025-03-09</time>
+      <time title="修改时间：2025-03-09 18:53:04" itemprop="dateModified" datetime="2025-03-09T18:53:04+08:00">2025-03-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -257,20 +257,17 @@
     
     
     <div class="post-body" itemprop="articleBody"><p>在 Python 中，<strong>闭包（Closure）</strong> 是指一个函数（称为内部函数）捕获并“记住”了其外层作用域中的变量（即使外层函数已经执行完毕）。闭包允许函数访问并操作其定义时的上下文环境中的变量，即使这个上下文已经不再活跃。</p>
-<hr>
 <h3 id="闭包的核心概念"><a href="#闭包的核心概念" class="headerlink" title="闭包的核心概念"></a><strong>闭包的核心概念</strong></h3><ol>
 <li><strong>嵌套函数</strong>：闭包基于嵌套函数（函数内部定义另一个函数）。</li>
 <li><strong>引用外部变量</strong>：内部函数引用了外层函数作用域中的变量。</li>
 <li><strong>保持变量状态</strong>：即使外层函数执行完毕，内部函数仍能访问外层函数的变量。</li>
 </ol>
-<hr>
 <h3 id="闭包的简单示例"><a href="#闭包的简单示例" class="headerlink" title="闭包的简单示例"></a><strong>闭包的简单示例</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">outer_func</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner_func</span>(<span class="params">y</span>):</span><br><span class="line">        <span class="keyword">return</span> x + y  <span class="comment"># inner_func 捕获了外层作用域中的 x</span></span><br><span class="line">    <span class="keyword">return</span> inner_func</span><br><span class="line"></span><br><span class="line">closure = outer_func(<span class="number">10</span>)  <span class="comment"># outer_func 执行完毕，但 x=10 被保留</span></span><br><span class="line"><span class="built_in">print</span>(closure(<span class="number">5</span>))  <span class="comment"># 输出 15</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><code>inner_func</code> 是一个闭包，因为它引用了外层函数 <code>outer_func</code> 的参数 <code>x</code>。</li>
 <li>即使 <code>outer_func</code> 执行结束，<code>closure</code> 仍然能访问 <code>x=10</code>。</li>
 </ul>
-<hr>
 <h3 id="闭包的关键特性"><a href="#闭包的关键特性" class="headerlink" title="闭包的关键特性"></a><strong>闭包的关键特性</strong></h3><h4 id="1-捕获变量的生命周期延长"><a href="#1-捕获变量的生命周期延长" class="headerlink" title="1. 捕获变量的生命周期延长"></a>1. <strong>捕获变量的生命周期延长</strong></h4><p>闭包会延长外层函数变量的生命周期：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">counter</span>():</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">increment</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> count  <span class="comment"># 声明修改外层变量</span></span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    <span class="keyword">return</span> increment</span><br><span class="line"></span><br><span class="line">c = counter()</span><br><span class="line"><span class="built_in">print</span>(c())  <span class="comment"># 1</span></span><br><span class="line"><span class="built_in">print</span>(c())  <span class="comment"># 2 (闭包保持了 count 的状态)</span></span><br></pre></td></tr></table></figure>
 
@@ -280,7 +277,6 @@
 <p><strong>解决方法</strong>：通过参数传递立即绑定：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">funcs = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>(<span class="params">x=i</span>):  <span class="comment"># 立即绑定当前 i 的值到 x</span></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    funcs.append(inner)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>([f() <span class="keyword">for</span> f <span class="keyword">in</span> funcs])  <span class="comment"># 输出 [0, 1, 2]</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="闭包的常见应用场景"><a href="#闭包的常见应用场景" class="headerlink" title="闭包的常见应用场景"></a><strong>闭包的常见应用场景</strong></h3><h4 id="1-装饰器（Decorators）"><a href="#1-装饰器（Decorators）" class="headerlink" title="1. 装饰器（Decorators）"></a>1. <strong>装饰器（Decorators）</strong></h4><p>装饰器本质上是闭包的应用：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">logger</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Calling <span class="subst">&#123;func.__name__&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@logger</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line">add(<span class="number">3</span>, <span class="number">5</span>)  <span class="comment"># 输出 &quot;Calling add&quot;</span></span><br></pre></td></tr></table></figure>
 
@@ -290,7 +286,6 @@
 <h4 id="3-封装私有变量"><a href="#3-封装私有变量" class="headerlink" title="3. 封装私有变量"></a>3. <strong>封装私有变量</strong></h4><p>闭包可以模拟私有变量：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">create_counter</span>():</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">increment</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> count</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reset</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> count</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> increment, reset</span><br><span class="line"></span><br><span class="line">inc, reset = create_counter()</span><br><span class="line"><span class="built_in">print</span>(inc())  <span class="comment"># 1</span></span><br><span class="line"><span class="built_in">print</span>(inc())  <span class="comment"># 2</span></span><br><span class="line">reset()</span><br><span class="line"><span class="built_in">print</span>(inc())  <span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="闭包的注意事项"><a href="#闭包的注意事项" class="headerlink" title="闭包的注意事项"></a><strong>闭包的注意事项</strong></h3><ol>
 <li><p><strong>变量修改</strong>：</p>
 <ul>
@@ -310,14 +305,12 @@
 </ul>
 </li>
 </ol>
-<hr>
 <h3 id="闭包-vs-类"><a href="#闭包-vs-类" class="headerlink" title="闭包 vs 类"></a><strong>闭包 vs 类</strong></h3><ul>
 <li><strong>闭包</strong>：轻量级，适合简单的状态保持。</li>
 <li><strong>类</strong>：适合复杂的状态和行为管理。</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 闭包实现</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">make_counter</span>():</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">counter</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> count</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    <span class="keyword">return</span> counter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 类实现</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Counter</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.count</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用方式相同</span></span><br><span class="line">c1 = make_counter()</span><br><span class="line">c2 = Counter()</span><br><span class="line"><span class="built_in">print</span>(c1(), c2())  <span class="comment"># 1 1</span></span><br></pre></td></tr></table></figure>
 
-<hr>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>闭包是 Python 中强大的特性，用于：</p>
 <ul>
 <li><strong>保持状态</strong>：在函数调用间保留上下文。</li>

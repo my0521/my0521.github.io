@@ -19,22 +19,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="疏影种月">
-<meta property="og:url" content="http://example.com/page/2/index.html">
+    <meta name="description" content="Kafka 中文官方文档 Kafka 功能简介Apache Kafka 是一个开源的 分布式流处理平台，最初由 LinkedIn 开发，后成为 Apache 顶级项目。它被设计为高吞吐、低延迟、可水平扩展的实时数据管道系统，广泛应用于大数据和实时计算领域。 核心功能1. 消息队列（Pub&#x2F;Sub 模型） 发布-订阅模式：支持生产者（Producer）发布消息到主题（Topic），消费者（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kafka 安装使用">
+<meta property="og:url" content="http://example.com/2025/03/08/kafka/install/index.html">
 <meta property="og:site_name" content="疏影种月">
+<meta property="og:description" content="Kafka 中文官方文档 Kafka 功能简介Apache Kafka 是一个开源的 分布式流处理平台，最初由 LinkedIn 开发，后成为 Apache 顶级项目。它被设计为高吞吐、低延迟、可水平扩展的实时数据管道系统，广泛应用于大数据和实时计算领域。 核心功能1. 消息队列（Pub&#x2F;Sub 模型） 发布-订阅模式：支持生产者（Producer）发布消息到主题（Topic），消费者（">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-08T08:40:35.000Z">
+<meta property="article:modified_time" content="2025-03-09T10:37:31.305Z">
 <meta property="article:author" content="miracle">
+<meta property="article:tag" content="kafka">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/page/2/">
+<link rel="canonical" href="http://example.com/2025/03/08/kafka/install/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/2/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/03/08/kafka/install/","path":"2025/03/08/kafka/install/","title":"kafka 安装使用"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>疏影种月</title>
+<title>kafka 安装使用 | 疏影种月</title>
   
 
 
@@ -67,7 +72,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">疏影种月</h1>
+      <p class="site-title">疏影种月</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">星灯守静藤萝下,自把空瓶种晓明</p>
@@ -121,7 +126,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -134,6 +139,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka-%E5%8A%9F%E8%83%BD%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">Kafka 功能简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">核心功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%88Pub-Sub-%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">1. 消息队列（Pub&#x2F;Sub 模型）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%AB%98%E5%90%9E%E5%90%90%E4%B8%8E%E4%BD%8E%E5%BB%B6%E8%BF%9F"><span class="nav-number">2.2.</span> <span class="nav-text">2. 高吞吐与低延迟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8"><span class="nav-number">2.3.</span> <span class="nav-text">3. 持久化存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84"><span class="nav-number">2.4.</span> <span class="nav-text">4. 分布式架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%AE%B9%E9%94%99%E4%B8%8E%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">2.5.</span> <span class="nav-text">5. 容错与高可用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E6%B5%81%E5%A4%84%E7%90%86%E8%83%BD%E5%8A%9B"><span class="nav-number">2.6.</span> <span class="nav-text">6. 流处理能力</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">核心组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">典型应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka-%E4%B8%8E%E5%85%B6%E4%BB%96%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%AF%B9%E6%AF%94"><span class="nav-number">5.</span> <span class="nav-text">Kafka 与其他消息队列对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2"><span class="nav-number">7.</span> <span class="nav-text">一键部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="nav-number">7.1.</span> <span class="nav-text">2. 服务管理命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%97%A5%E5%BF%97%E6%9F%A5%E7%9C%8B"><span class="nav-number">7.2.</span> <span class="nav-text">3.日志查看</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E5%9C%BA%E6%99%AF"><span class="nav-number">8.</span> <span class="nav-text">扩展场景</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -182,310 +188,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/go/install/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="miracle">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="疏影种月">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 疏影种月">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/03/08/go/install/" class="post-title-link" itemprop="url">Golang下载安装</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2025-03-08 16:40:35" itemprop="dateCreated datePublished" datetime="2025-03-08T16:40:35+08:00">2025-03-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 16:48:46" itemprop="dateModified" datetime="2025-03-09T16:48:46+08:00">2025-03-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://golang.halfiisland.com/">Golang 中文学习文档</a></p>
-<p><a target="_blank" rel="noopener" href="https://go.p2hp.com/doc/">Golang 中文网</a></p>
-<h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><p><a target="_blank" rel="noopener" href="https://gitee.com/my919/scripts/blob/master/sh/golang_install.sh">golang 一键安装配置脚本</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://gitee.com/my919/scripts/blob/master/sh/golang_install.sh</span><br><span class="line"><span class="built_in">chmod</span> +x golang_install.sh</span><br><span class="line">sh golang_install.sh</span><br></pre></td></tr></table></figure>
-
-<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 检查环境配置</span><br><span class="line"><span class="keyword">go</span> env | grep -E <span class="string">&quot;GOROOT|GOPATH|GOPROXY&quot;</span></span><br><span class="line"></span><br><span class="line"># 创建测试程序</span><br><span class="line">mkdir -p $GOPATH/src/hello</span><br><span class="line">cat &gt; $GOPATH/src/hello/main.<span class="keyword">go</span> &lt;&lt;EOF</span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Installation Successful!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 编译运行</span><br><span class="line">cd $GOPATH/src/hello &amp;&amp; <span class="keyword">go</span> run main.<span class="keyword">go</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/front/node_install/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="miracle">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="疏影种月">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 疏影种月">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/03/08/front/node_install/" class="post-title-link" itemprop="url">Node下载安装</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2025-03-08 16:40:35" itemprop="dateCreated datePublished" datetime="2025-03-08T16:40:35+08:00">2025-03-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 17:11:02" itemprop="dateModified" datetime="2025-03-09T17:11:02+08:00">2025-03-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Node/" itemprop="url" rel="index"><span itemprop="name">Node</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn">Node 官网</a></p>
-<p><a target="_blank" rel="noopener" href="https://nodejs.p2hp.com/">NodeJs 中文网</a></p>
-<p><a target="_blank" rel="noopener" href="https://cn.vuejs.org/">Vue3 中文官网文档</a></p>
-<p><a target="_blank" rel="noopener" href="https://vitejs.cn/">Vite 中文官网文档</a></p>
-<h2 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h2><p><a target="_blank" rel="noopener" href="https://gitee.com/my919/scripts/blob/master/sh/nodejs_install.sh">Nodejs 一键安装配置脚本</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://gitee.com/my919/scripts/blob/master/sh/nodejs_install.sh</span><br><span class="line"><span class="built_in">chmod</span> +x nodejs_install.sh</span><br><span class="line">sh nodejs_install.sh</span><br></pre></td></tr></table></figure>
-
-<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><ul>
-<li>Node -v</li>
-<li>npm -v</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/zk/install/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="miracle">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="疏影种月">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 疏影种月">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/03/08/zk/install/" class="post-title-link" itemprop="url">zookeeper 安装使用</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2025-03-08 16:40:35" itemprop="dateCreated datePublished" datetime="2025-03-08T16:40:35+08:00">2025-03-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 18:12:57" itemprop="dateModified" datetime="2025-03-09T18:12:57+08:00">2025-03-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/zookeeper/" itemprop="url" rel="index"><span itemprop="name">zookeeper</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://zookeeper.apache.org/doc/current/">ZooKeeper 官方文档</a></p>
-<h3 id="ZooKeeper-功能简介"><a href="#ZooKeeper-功能简介" class="headerlink" title="ZooKeeper 功能简介"></a>ZooKeeper 功能简介</h3><p><strong>ZooKeeper</strong> 是一个开源的分布式协调服务，由 Apache 维护，主要用于解决分布式系统中的数据管理和协调问题。其核心功能包括：</p>
-<ol>
-<li><strong>配置管理</strong><br>集中存储和管理分布式系统的配置信息，支持动态更新和通知机制。</li>
-<li><strong>命名服务</strong><br>提供全局唯一的路径名标识（类似文件系统路径），方便服务注册与发现。</li>
-<li><strong>分布式锁</strong><br>实现互斥锁和读写锁，协调多节点对共享资源的访问。</li>
-<li><strong>集群管理</strong><br>监控节点状态（存活&#x2F;离线），自动处理主节点选举和故障转移。</li>
-<li><strong>数据同步</strong><br>提供强一致性的数据存储，确保所有节点看到的视图一致。</li>
-</ol>
-<h3 id="一键部署"><a href="#一键部署" class="headerlink" title="一键部署"></a>一键部署</h3><p><a target="_blank" rel="noopener" href="https://gitee.com/my919/scripts/blob/master/sh/zk_install_standalone.sh">Standalone 版部署脚本</a></p>
-<p><a target="_blank" rel="noopener" href="https://gitee.com/my919/scripts/blob/master/sh/zk_install_cluster.sh">伪集群一键部署脚本</a></p>
-<p>伪集群批量停止</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> node <span class="keyword">in</span> /app/zookeeper-cluster/cluster/node*; <span class="keyword">do</span></span><br><span class="line"> /app/zookeeper-cluster/bin/zkServer.sh --config <span class="variable">$&#123;node&#125;</span>/conf stop</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="ZooKeeper-基本使用"><a href="#ZooKeeper-基本使用" class="headerlink" title="ZooKeeper 基本使用"></a>ZooKeeper 基本使用</h3><h4 id="1-命令行客户端操作"><a href="#1-命令行客户端操作" class="headerlink" title="1. 命令行客户端操作"></a>1. 命令行客户端操作</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 连接本地ZooKeeper</span></span><br><span class="line">bin/zkCli.sh -server 127.0.0.1:2181</span><br><span class="line"></span><br><span class="line"><span class="comment"># 常用命令</span></span><br><span class="line">create /myapp <span class="string">&quot;config_data&quot;</span>   <span class="comment"># 创建持久节点</span></span><br><span class="line">create -e /ephemeral_node <span class="string">&quot;&quot;</span> <span class="comment"># 创建临时节点（会话结束自动删除）</span></span><br><span class="line">get /myapp                   <span class="comment"># 获取节点数据及状态</span></span><br><span class="line"><span class="built_in">set</span> /myapp <span class="string">&quot;new_data&quot;</span>        <span class="comment"># 更新数据</span></span><br><span class="line"><span class="built_in">ls</span> /                         <span class="comment"># 列出根目录下所有节点</span></span><br><span class="line">delete /myapp                <span class="comment"># 删除节点（需无子节点）</span></span><br><span class="line">rmr /myapp                   <span class="comment"># 递归删除节点及其子节点</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-监听节点变化"><a href="#2-监听节点变化" class="headerlink" title="2. 监听节点变化"></a>2. 监听节点变化</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在客户端A执行监听</span></span><br><span class="line">get -w /myapp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在客户端B修改节点值，客户端A会收到事件通知</span></span><br><span class="line"><span class="built_in">set</span> /myapp <span class="string">&quot;updated&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-使用编程-API（Java-示例）"><a href="#3-使用编程-API（Java-示例）" class="headerlink" title="3. 使用编程 API（Java 示例）"></a>3. 使用编程 API（Java 示例）</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加Maven依赖</span></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.zookeeper&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;zookeeper&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;<span class="number">3.9</span><span class="number">.3</span>&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接并操作</span></span><br><span class="line"><span class="type">ZooKeeper</span> <span class="variable">zk</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ZooKeeper</span>(<span class="string">&quot;localhost:2181&quot;</span>, <span class="number">3000</span>, <span class="literal">null</span>);</span><br><span class="line">zk.create(<span class="string">&quot;/test&quot;</span>, <span class="string">&quot;data&quot;</span>.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);</span><br><span class="line"><span class="type">byte</span>[] data = zk.getData(<span class="string">&quot;/test&quot;</span>, <span class="literal">false</span>, <span class="literal">null</span>);</span><br><span class="line">System.out.println(<span class="keyword">new</span> <span class="title class_">String</span>(data)); <span class="comment">// 输出 &quot;data&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li><strong>功能</strong>：ZooKeeper 是分布式系统的“协调员”，解决配置、锁、节点管理等问题。</li>
-<li><strong>安装</strong>：需 Java 环境，配置简单，支持单机和集群部署。</li>
-<li><strong>使用</strong>：通过命令行或 API 操作节点，支持监听和强一致性。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/kafka/install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -499,13 +212,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 疏影种月">
+      <meta itemprop="name" content="kafka 安装使用 | 疏影种月">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/03/08/kafka/install/" class="post-title-link" itemprop="url">kafka 安装使用</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          kafka 安装使用
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -543,8 +256,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://kafka.p2hp.com/">Kafka 中文官方文档</a></p>
+    <div class="post-body" itemprop="articleBody"><p><a target="_blank" rel="noopener" href="https://kafka.p2hp.com/">Kafka 中文官方文档</a></p>
 <h3 id="Kafka-功能简介"><a href="#Kafka-功能简介" class="headerlink" title="Kafka 功能简介"></a>Kafka 功能简介</h3><p><strong>Apache Kafka</strong> 是一个开源的 <strong>分布式流处理平台</strong>，最初由 LinkedIn 开发，后成为 Apache 顶级项目。它被设计为高吞吐、低延迟、可水平扩展的实时数据管道系统，广泛应用于大数据和实时计算领域。</p>
 <h3 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a><strong>核心功能</strong></h3><h4 id="1-消息队列（Pub-Sub-模型）"><a href="#1-消息队列（Pub-Sub-模型）" class="headerlink" title="1. 消息队列（Pub&#x2F;Sub 模型）"></a><strong>1. 消息队列（Pub&#x2F;Sub 模型）</strong></h4><ul>
 <li><strong>发布-订阅模式</strong>：支持生产者（Producer）发布消息到主题（Topic），消费者（Consumer）订阅并消费消息。</li>
@@ -702,7 +414,6 @@
 </li>
 </ul>
 
-      
     </div>
 
     
@@ -710,8 +421,21 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-tags">
+              <a href="/tags/kafka/" rel="tag"># kafka</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/03/08/zk/install/" rel="next" title="zookeeper 安装使用">
+                  zookeeper 安装使用 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -719,9 +443,7 @@
 
 
 
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
+
 
 </div>
   </main>

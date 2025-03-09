@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Python 的 魔法方法（Magic Methods） 是以双下划线 __ 开头和结尾的特殊方法，用于定义类的特定行为（如运算符重载、对象构造、字符串表示等）。这些方法由 Python 解释器自动调用，开发者可以通过实现它们来自定义类的行为。  常见魔法方法分类1. 构造与初始化 __init__(self, ...): 对象初始化时调用（不是构造函数，而是初始化方法）。 __new__(cls">
+    <meta name="description" content="Python 的 魔法方法（Magic Methods） 是以双下划线 __ 开头和结尾的特殊方法，用于定义类的特定行为（如运算符重载、对象构造、字符串表示等）。这些方法由 Python 解释器自动调用，开发者可以通过实现它们来自定义类的行为。 常见魔法方法分类1. 构造与初始化 __init__(self, ...): 对象初始化时调用（不是构造函数，而是初始化方法）。 __new__(cls,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="魔法方法">
 <meta property="og:url" content="http://example.com/2025/03/08/python/magic/index.html">
 <meta property="og:site_name" content="疏影种月">
-<meta property="og:description" content="Python 的 魔法方法（Magic Methods） 是以双下划线 __ 开头和结尾的特殊方法，用于定义类的特定行为（如运算符重载、对象构造、字符串表示等）。这些方法由 Python 解释器自动调用，开发者可以通过实现它们来自定义类的行为。  常见魔法方法分类1. 构造与初始化 __init__(self, ...): 对象初始化时调用（不是构造函数，而是初始化方法）。 __new__(cls">
+<meta property="og:description" content="Python 的 魔法方法（Magic Methods） 是以双下划线 __ 开头和结尾的特殊方法，用于定义类的特定行为（如运算符重载、对象构造、字符串表示等）。这些方法由 Python 解释器自动调用，开发者可以通过实现它们来自定义类的行为。 常见魔法方法分类1. 构造与初始化 __init__(self, ...): 对象初始化时调用（不是构造函数，而是初始化方法）。 __new__(cls,">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-03-08T08:40:35.000Z">
-<meta property="article:modified_time" content="2025-03-09T05:54:50.731Z">
+<meta property="article:modified_time" content="2025-03-09T10:53:59.454Z">
 <meta property="article:author" content="miracle">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -152,16 +152,16 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -235,7 +235,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-09 13:54:50" itemprop="dateModified" datetime="2025-03-09T13:54:50+08:00">2025-03-09</time>
+      <time title="修改时间：2025-03-09 18:53:59" itemprop="dateModified" datetime="2025-03-09T18:53:59+08:00">2025-03-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -257,7 +257,6 @@
     
     
     <div class="post-body" itemprop="articleBody"><p>Python 的 <strong>魔法方法（Magic Methods）</strong> 是以双下划线 <code>__</code> 开头和结尾的特殊方法，用于定义类的特定行为（如运算符重载、对象构造、字符串表示等）。这些方法由 Python 解释器自动调用，开发者可以通过实现它们来自定义类的行为。</p>
-<hr>
 <h3 id="常见魔法方法分类"><a href="#常见魔法方法分类" class="headerlink" title="常见魔法方法分类"></a><strong>常见魔法方法分类</strong></h3><h4 id="1-构造与初始化"><a href="#1-构造与初始化" class="headerlink" title="1. 构造与初始化"></a><strong>1. 构造与初始化</strong></h4><ul>
 <li><code>__init__(self, ...)</code>: 对象初始化时调用（不是构造函数，而是初始化方法）。</li>
 <li><code>__new__(cls, ...)</code>: 类的构造函数，负责创建并返回实例对象（通常用于不可变类型或单例模式）。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, *args, **kwargs</span>):</span><br><span class="line">        instance = <span class="built_in">super</span>().__new__(cls)</span><br><span class="line">        <span class="keyword">return</span> instance</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, value</span>):</span><br><span class="line">        <span class="variable language_">self</span>.value = value</span><br></pre></td></tr></table></figure></li>
@@ -304,7 +303,6 @@
 <h4 id="9-调用对象"><a href="#9-调用对象" class="headerlink" title="9. 调用对象"></a><strong>9. 调用对象</strong></h4><ul>
 <li><code>__call__(self, ...)</code>: 使实例可以像函数一样被调用。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Adder</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, a, b</span>):</span><br><span class="line">        <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line">add = Adder()</span><br><span class="line"><span class="built_in">print</span>(add(<span class="number">3</span>, <span class="number">5</span>))  <span class="comment"># 输出 8</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<hr>
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a><strong>注意事项</strong></h3><ol>
 <li><strong>运算符重载需谨慎</strong>：确保重载后的行为符合直觉。</li>
 <li><strong>避免无限递归</strong>：例如在 <code>__setattr__</code> 中直接赋值 <code>self.name = value</code> 会导致递归，应使用 <code>super().__setattr__</code>。</li>
