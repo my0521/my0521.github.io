@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在 Python 中，协程（Coroutine） 是一种更轻量级的并发编程模型，通过 async 和 await 关键字实现，用于高效处理 I&#x2F;O 密集型任务（如网络请求、文件读写）。协程由事件循环（Event Loop）调度，可以在单线程内实现并发，避免多线程的资源竞争和切换开销。 协程的核心概念 异步函数（Async Function）：使用 async def 定义的函数，内部可包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="协程">
+<meta property="og:url" content="http://example.com/2025/03/08/python/crotine/index.html">
+<meta property="og:site_name" content="疏影种月">
+<meta property="og:description" content="在 Python 中，协程（Coroutine） 是一种更轻量级的并发编程模型，通过 async 和 await 关键字实现，用于高效处理 I&#x2F;O 密集型任务（如网络请求、文件读写）。协程由事件循环（Event Loop）调度，可以在单线程内实现并发，避免多线程的资源竞争和切换开销。 协程的核心概念 异步函数（Async Function）：使用 async def 定义的函数，内部可包">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-08T08:40:35.000Z">
+<meta property="article:modified_time" content="2025-03-09T12:37:10.950Z">
+<meta property="article:author" content="miracle">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2025/03/08/python/crotine/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/03/08/python/crotine/","path":"2025/03/08/python/crotine/","title":"协程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>协程 | 疏影种月</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">疏影种月</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">星灯守静藤萝下,自把空瓶种晓明</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-book fa-fw"></i>书籍</a></li><li class="menu-item menu-item-design"><a href="/design/" rel="section"><i class="fa fa-book fa-fw"></i>架构设计</a></li><li class="menu-item menu-item-algorithm"><a href="/algorithm/" rel="section"><i class="fa fa-chain fa-fw"></i>数据结构</a></li><li class="menu-item menu-item-ai"><a href="/ai/" rel="section"><i class="fa fa-user fa-fw"></i>人工智能</a></li><li class="menu-item menu-item-blockchain"><a href="/blockchain/" rel="section"><i class="fa fa-sitemap fa-fw"></i>区块链</a></li><li class="menu-item menu-item-database"><a href="/database/" rel="section"><i class="fa fa-sitemap fa-fw"></i>数据库</a></li><li class="menu-item menu-item-k8s"><a href="/k8s/" rel="section"><i class="fa fa-bus fa-fw"></i>云原生</a></li><li class="menu-item menu-item-front"><a href="/front/" rel="section"><i class="fa fa-chain fa-fw"></i>前端</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-zookeeper"><a href="/zk/" rel="section"><i class="fa fa-chain fa-fw"></i>zookeeper</a></li><li class="menu-item menu-item-kafka"><a href="/kafka/" rel="section"><i class="fa fa-chain fa-fw"></i>kafka</a></li><li class="menu-item menu-item-redis"><a href="/redis/" rel="section"><i class="fa fa-chain fa-fw"></i>redis</a></li><li class="menu-item menu-item-python"><a href="/python/" rel="section"><i class="fa fa-chain fa-fw"></i>python</a></li><li class="menu-item menu-item-java"><a href="/java/" rel="section"><i class="fa fa-chain fa-fw"></i>java</a></li><li class="menu-item menu-item-golang"><a href="/go/" rel="section"><i class="fa fa-chain fa-fw"></i>golang</a></li><li class="menu-item menu-item-rust"><a href="/rust/" rel="section"><i class="fa fa-chain fa-fw"></i>rust</a></li><li class="menu-item menu-item-c"><a href="/c/" rel="section"><i class="fa fa-chain fa-fw"></i>c</a></li><li class="menu-item menu-item-bookmark"><a href="/bookmark/" rel="section"><i class="fa fa-chain fa-fw"></i>收藏</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">协程的核心概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">协程的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AE%9A%E4%B9%89%E5%8D%8F%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">1. 定义协程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%B9%B6%E5%8F%91%E6%89%A7%E8%A1%8C%E5%A4%9A%E4%B8%AA%E5%8D%8F%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">2. 并发执行多个协程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">协程与生成器的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%85%B3%E9%94%AE%E7%BB%84%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">协程的关键组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%EF%BC%88Event-Loop%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">1. 事件循环（Event Loop）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BB%BB%E5%8A%A1%EF%BC%88Task%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">2. 任务（Task）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Future-%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.3.</span> <span class="nav-text">3. Future 对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%B8%B8%E8%A7%81%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">协程的常见模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-number">5.1.</span> <span class="nav-text">1. 异步上下文管理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%BC%82%E6%AD%A5%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">5.2.</span> <span class="nav-text">2. 异步迭代器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">协程的异常处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B-vs-%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">7.</span> <span class="nav-text">协程 vs 多线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">8.</span> <span class="nav-text">协程的常见应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">9.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">miracle</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/my919" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;my919" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/python/crotine/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="miracle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="疏影种月">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="协程 | 疏影种月">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          协程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-03-08 16:40:35" itemprop="dateCreated datePublished" datetime="2025-03-08T16:40:35+08:00">2025-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-09 20:37:10" itemprop="dateModified" datetime="2025-03-09T20:37:10+08:00">2025-03-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在 Python 中，<strong>协程（Coroutine）</strong> 是一种更轻量级的并发编程模型，通过 <code>async</code> 和 <code>await</code> 关键字实现，用于高效处理 I&#x2F;O 密集型任务（如网络请求、文件读写）。协程由事件循环（Event Loop）调度，可以在单线程内实现并发，避免多线程的资源竞争和切换开销。</p>
+<h3 id="协程的核心概念"><a href="#协程的核心概念" class="headerlink" title="协程的核心概念"></a><strong>协程的核心概念</strong></h3><ol>
+<li><strong>异步函数（Async Function）</strong>：使用 <code>async def</code> 定义的函数，内部可包含 <code>await</code> 表达式。</li>
+<li><strong>事件循环（Event Loop）</strong>：协程的调度器，负责执行和管理异步任务。</li>
+<li><strong>任务（Task）</strong>：对协程的进一步封装，用于并发执行。</li>
+</ol>
+<h3 id="协程的基本使用"><a href="#协程的基本使用" class="headerlink" title="协程的基本使用"></a><strong>协程的基本使用</strong></h3><h4 id="1-定义协程"><a href="#1-定义协程" class="headerlink" title="1. 定义协程"></a>1. 定义协程</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">hello</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Hello&quot;</span>)</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)  <span class="comment"># 模拟异步 I/O 操作</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;World&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行协程</span></span><br><span class="line">asyncio.run(hello())  <span class="comment"># 输出 Hello -&gt; (等待1秒) -&gt; World</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-并发执行多个协程"><a href="#2-并发执行多个协程" class="headerlink" title="2. 并发执行多个协程"></a>2. 并发执行多个协程</h4><p>使用 <code>asyncio.gather()</code> 并行执行多个协程：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">task1</span>():</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Task 1 done&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">task2</span>():</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">2</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Task 2 done&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="keyword">await</span> asyncio.gather(task1(), task2())  <span class="comment"># 并发执行</span></span><br><span class="line"></span><br><span class="line">asyncio.run(main())</span><br><span class="line"><span class="comment"># 输出: Task 1 done -&gt; (等待1秒) -&gt; Task 2 done</span></span><br><span class="line"><span class="comment"># 总耗时约2秒（而非1+2秒）</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="协程与生成器的区别"><a href="#协程与生成器的区别" class="headerlink" title="协程与生成器的区别"></a><strong>协程与生成器的区别</strong></h3><table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>协程</strong></th>
+<th><strong>生成器</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>目的</strong></td>
+<td>异步编程，处理 I&#x2F;O 操作</td>
+<td>惰性生成数据</td>
+</tr>
+<tr>
+<td><strong>关键字</strong></td>
+<td><code>async</code>、<code>await</code></td>
+<td><code>yield</code></td>
+</tr>
+<tr>
+<td><strong>调度方式</strong></td>
+<td>由事件循环调度</td>
+<td>由<code>next()</code> 逐步执行</td>
+</tr>
+<tr>
+<td><strong>返回值</strong></td>
+<td>通过<code>return</code> 返回值</td>
+<td>通过<code>yield</code> 产生值</td>
+</tr>
+<tr>
+<td><strong>应用场景</strong></td>
+<td>高并发网络请求、数据库异步操作</td>
+<td>大数据流处理、节省内存</td>
+</tr>
+</tbody></table>
+<h3 id="协程的关键组件"><a href="#协程的关键组件" class="headerlink" title="协程的关键组件"></a><strong>协程的关键组件</strong></h3><h4 id="1-事件循环（Event-Loop）"><a href="#1-事件循环（Event-Loop）" class="headerlink" title="1. 事件循环（Event Loop）"></a>1. <strong>事件循环（Event Loop）</strong></h4><p>事件循环是协程的调度核心，负责执行异步任务、处理回调和管理系统事件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 手动管理事件循环（不推荐，通常用 asyncio.run()）</span></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">loop.run_until_complete(hello())</span><br><span class="line">loop.close()</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-任务（Task）"><a href="#2-任务（Task）" class="headerlink" title="2. 任务（Task）"></a>2. <strong>任务（Task）</strong></h4><p>任务是对协程的封装，表示一个正在运行的协程。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    task = asyncio.create_task(hello())  <span class="comment"># 创建任务</span></span><br><span class="line">    <span class="keyword">await</span> task  <span class="comment"># 等待任务完成</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-Future-对象"><a href="#3-Future-对象" class="headerlink" title="3. Future 对象"></a>3. <strong>Future 对象</strong></h4><p><code>Future</code> 表示一个异步操作的最终结果，是 <code>Task</code> 的基类。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">fetch_data</span>():</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Data&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    future = asyncio.ensure_future(fetch_data())</span><br><span class="line">    result = <span class="keyword">await</span> future  <span class="comment"># 等待 Future 完成</span></span><br><span class="line">    <span class="built_in">print</span>(result)  <span class="comment"># 输出 &quot;Data&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="协程的常见模式"><a href="#协程的常见模式" class="headerlink" title="协程的常见模式"></a><strong>协程的常见模式</strong></h3><h4 id="1-异步上下文管理器"><a href="#1-异步上下文管理器" class="headerlink" title="1. 异步上下文管理器"></a>1. <strong>异步上下文管理器</strong></h4><p>使用 <code>async with</code> 管理异步资源（如数据库连接）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AsyncResource</span>:</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">__aenter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Acquiring resource&quot;</span>)</span><br><span class="line">        <span class="keyword">await</span> asyncio.sleep(<span class="number">0.5</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">__aexit__</span>(<span class="params">self, *args</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Releasing resource&quot;</span>)</span><br><span class="line">        <span class="keyword">await</span> asyncio.sleep(<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">use_resource</span>():</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> AsyncResource() <span class="keyword">as</span> res:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Using resource&quot;</span>)</span><br><span class="line"></span><br><span class="line">asyncio.run(use_resource())</span><br><span class="line"><span class="comment"># 输出: Acquiring resource -&gt; Using resource -&gt; Releasing resource</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-异步迭代器"><a href="#2-异步迭代器" class="headerlink" title="2. 异步迭代器"></a>2. <strong>异步迭代器</strong></h4><p>通过 <code>async for</code> 遍历异步生成的数据流：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AsyncCounter</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, stop</span>):</span><br><span class="line">        <span class="variable language_">self</span>.current = <span class="number">0</span></span><br><span class="line">        <span class="variable language_">self</span>.stop = stop</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__aiter__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">__anext__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.current &gt;= <span class="variable language_">self</span>.stop:</span><br><span class="line">            <span class="keyword">raise</span> StopAsyncIteration</span><br><span class="line">        <span class="keyword">await</span> asyncio.sleep(<span class="number">0.5</span>)</span><br><span class="line">        <span class="variable language_">self</span>.current += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.current - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">for</span> num <span class="keyword">in</span> AsyncCounter(<span class="number">3</span>):</span><br><span class="line">        <span class="built_in">print</span>(num)  <span class="comment"># 输出 0 -&gt; 1 -&gt; 2（间隔0.5秒）</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="协程的异常处理"><a href="#协程的异常处理" class="headerlink" title="协程的异常处理"></a><strong>协程的异常处理</strong></h3><p>使用 <code>try...except</code> 捕获协程中的异常：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">error_task</span>():</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">raise</span> ValueError(<span class="string">&quot;Something went wrong&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">await</span> error_task()</span><br><span class="line">    <span class="keyword">except</span> ValueError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Caught error: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">asyncio.run(main())  <span class="comment"># 输出 Caught error: Something went wrong</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="协程-vs-多线程"><a href="#协程-vs-多线程" class="headerlink" title="协程 vs 多线程"></a><strong>协程 vs 多线程</strong></h3><table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>协程</strong></th>
+<th><strong>多线程</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>并发模型</strong></td>
+<td>单线程内事件循环调度</td>
+<td>操作系统线程调度</td>
+</tr>
+<tr>
+<td><strong>内存开销</strong></td>
+<td>极低（约 KB 级）</td>
+<td>较高（约 MB 级）</td>
+</tr>
+<tr>
+<td><strong>切换开销</strong></td>
+<td>极低（无需系统调用）</td>
+<td>较高（涉及内核上下文切换）</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>I&#x2F;O 密集型任务（网络、文件）</td>
+<td>CPU 密集型任务</td>
+</tr>
+<tr>
+<td><strong>GIL 影响</strong></td>
+<td>无影响</td>
+<td>受 GIL 限制（CPython）</td>
+</tr>
+</tbody></table>
+<h3 id="协程的常见应用场景"><a href="#协程的常见应用场景" class="headerlink" title="协程的常见应用场景"></a><strong>协程的常见应用场景</strong></h3><ol>
+<li><strong>Web 服务器</strong>：处理大量并发 HTTP 请求（如 FastAPI、Sanic）。</li>
+<li><strong>爬虫</strong>：异步抓取多个网页。</li>
+<li><strong>数据库操作</strong>：异步读写数据库（如 asyncpg、aiomysql）。</li>
+<li><strong>微服务通信</strong>：异步调用多个服务接口。</li>
+</ol>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a><strong>注意事项</strong></h3><ol>
+<li><strong>避免阻塞操作</strong>：协程中不要使用同步阻塞代码（如 <code>time.sleep()</code>），需替换为异步版本（<code>await asyncio.sleep()</code>）。</li>
+<li><strong>正确使用异步库</strong>：确保依赖的库支持异步（如 <code>aiohttp</code> 替代 <code>requests</code>）。</li>
+<li><strong>调试复杂性</strong>：异步代码的堆栈跟踪可能较难分析。</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>Python 协程通过 <code>async/await</code> 提供了一种高效的异步编程模型，尤其适合高并发的 I&#x2F;O 密集型任务。结合 <code>asyncio</code> 库，可以轻松实现以下功能：</p>
+<ul>
+<li>并发执行多个异步任务。</li>
+<li>管理异步资源（如网络连接）。</li>
+<li>构建高性能的异步应用。</li>
+</ul>
+<p>通过合理使用协程，可以在不增加线程开销的情况下显著提升程序性能。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/08/python/init/" rel="prev" title="__init__.py">
+                  <i class="fa fa-angle-left"></i> __init__.py
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/03/08/python/decorator/" rel="next" title="装饰器">
+                  装饰器 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">miracle</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/my0521" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一、基础概念 Redis 简介  基于内存的高性能 key-value 数据库，支持多种数据结构，支持数据持久化。   Redis 与 Memcached 的区别  数据类型：Memcached 仅支持字符串，Redis 支持字符串、列表、集合、有序集合、哈希等。 性能：Redis 速度更快。 持久化：Redis 支持数据持久化，Memcached 不支持。     维度 Memcache Red">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis 知识">
+<meta property="og:url" content="http://example.com/2025/03/08/redis/interview/index.html">
+<meta property="og:site_name" content="疏影种月">
+<meta property="og:description" content="一、基础概念 Redis 简介  基于内存的高性能 key-value 数据库，支持多种数据结构，支持数据持久化。   Redis 与 Memcached 的区别  数据类型：Memcached 仅支持字符串，Redis 支持字符串、列表、集合、有序集合、哈希等。 性能：Redis 速度更快。 持久化：Redis 支持数据持久化，Memcached 不支持。     维度 Memcache Red">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-08T08:40:35.000Z">
+<meta property="article:modified_time" content="2025-03-09T14:11:20.501Z">
+<meta property="article:author" content="miracle">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2025/03/08/redis/interview/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/03/08/redis/interview/","path":"2025/03/08/redis/interview/","title":"Redis 知识"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redis 知识 | 疏影种月</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">疏影种月</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">星灯守静藤萝下,自把空瓶种晓明</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-book fa-fw"></i>书籍</a></li><li class="menu-item menu-item-design"><a href="/design/" rel="section"><i class="fa fa-book fa-fw"></i>架构设计</a></li><li class="menu-item menu-item-algorithm"><a href="/algorithm/" rel="section"><i class="fa fa-chain fa-fw"></i>数据结构</a></li><li class="menu-item menu-item-ai"><a href="/ai/" rel="section"><i class="fa fa-user fa-fw"></i>人工智能</a></li><li class="menu-item menu-item-blockchain"><a href="/blockchain/" rel="section"><i class="fa fa-sitemap fa-fw"></i>区块链</a></li><li class="menu-item menu-item-database"><a href="/database/" rel="section"><i class="fa fa-sitemap fa-fw"></i>数据库</a></li><li class="menu-item menu-item-k8s"><a href="/k8s/" rel="section"><i class="fa fa-bus fa-fw"></i>云原生</a></li><li class="menu-item menu-item-front"><a href="/front/" rel="section"><i class="fa fa-chain fa-fw"></i>前端</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-zookeeper"><a href="/zk/" rel="section"><i class="fa fa-chain fa-fw"></i>zookeeper</a></li><li class="menu-item menu-item-kafka"><a href="/kafka/" rel="section"><i class="fa fa-chain fa-fw"></i>kafka</a></li><li class="menu-item menu-item-redis"><a href="/redis/" rel="section"><i class="fa fa-chain fa-fw"></i>redis</a></li><li class="menu-item menu-item-python"><a href="/python/" rel="section"><i class="fa fa-chain fa-fw"></i>python</a></li><li class="menu-item menu-item-java"><a href="/java/" rel="section"><i class="fa fa-chain fa-fw"></i>java</a></li><li class="menu-item menu-item-golang"><a href="/go/" rel="section"><i class="fa fa-chain fa-fw"></i>golang</a></li><li class="menu-item menu-item-rust"><a href="/rust/" rel="section"><i class="fa fa-chain fa-fw"></i>rust</a></li><li class="menu-item menu-item-c"><a href="/c/" rel="section"><i class="fa fa-chain fa-fw"></i>c</a></li><li class="menu-item menu-item-bookmark"><a href="/bookmark/" rel="section"><i class="fa fa-chain fa-fw"></i>收藏</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">一、基础概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">二、数据类型与操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B8%8E%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5"><span class="nav-number">3.</span> <span class="nav-text">三、内存管理与淘汰策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">四、持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E9%AB%98%E5%8F%AF%E7%94%A8%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">五、高可用与分布式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">6.</span> <span class="nav-text">六、缓存问题与解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD"><span class="nav-number">7.</span> <span class="nav-text">七、高级功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%80%A7%E8%83%BD%E4%B8%8E%E7%9B%91%E6%8E%A7"><span class="nav-number">8.</span> <span class="nav-text">八、性能与监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%85%B6%E4%BB%96"><span class="nav-number">9.</span> <span class="nav-text">九、其他</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">miracle</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/my0521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;my0521" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/my919" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;my919" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yeal166@163.com" title="E-Mail → mailto:yeal166@163.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/08/redis/interview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="miracle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="疏影种月">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redis 知识 | 疏影种月">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis 知识
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-03-08 16:40:35" itemprop="dateCreated datePublished" datetime="2025-03-08T16:40:35+08:00">2025-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-09 22:11:20" itemprop="dateModified" datetime="2025-03-09T22:11:20+08:00">2025-03-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="一、基础概念"><a href="#一、基础概念" class="headerlink" title="一、基础概念"></a>一、基础概念</h2><ol>
+<li><p><strong>Redis 简介</strong></p>
+<ul>
+<li>基于内存的高性能 key-value 数据库，支持多种数据结构，支持数据持久化。</li>
+</ul>
+</li>
+<li><p><strong>Redis 与 Memcached 的区别</strong></p>
+<ul>
+<li><strong>数据类型</strong>：Memcached 仅支持字符串，Redis 支持字符串、列表、集合、有序集合、哈希等。</li>
+<li><strong>性能</strong>：Redis 速度更快。</li>
+<li><strong>持久化</strong>：Redis 支持数据持久化，Memcached 不支持。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>维度</strong></th>
+<th><strong>Memcache</strong></th>
+<th><strong>Redis</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>数据持久化</strong></td>
+<td>不支持</td>
+<td>支持 RDB&#x2F;AOF</td>
+</tr>
+<tr>
+<td><strong>数据类型</strong></td>
+<td>仅字符串</td>
+<td>支持多种数据结构</td>
+</tr>
+<tr>
+<td><strong>内存管理</strong></td>
+<td>内存分配简单，易产生碎片</td>
+<td>支持内存淘汰策略与碎片整理</td>
+</tr>
+<tr>
+<td><strong>单 Value 大小</strong></td>
+<td>最大 1MB</td>
+<td>最大 1GB</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>Redis 单线程模型</strong></p>
+<ul>
+<li>通过队列将并发访问串行化，避免多线程上下文切换和锁竞争，提升性能。</li>
+<li>高性能原因：<ul>
+<li>基于内存操作。</li>
+<li>高效数据结构设计。</li>
+<li>多路 I&#x2F;O 复用模型（非阻塞 I&#x2F;O）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="二、数据类型与操作"><a href="#二、数据类型与操作" class="headerlink" title="二、数据类型与操作"></a>二、数据类型与操作</h2><ol start="4">
+<li><p><strong>5 种核心数据类型</strong></p>
+<ul>
+<li>String（字符串）、List（列表）、Set（集合）、Sorted Set（有序集合）、Hash（哈希）。</li>
+</ul>
+</li>
+<li><p><strong>SDS（简单动态字符串）</strong></p>
+<ul>
+<li>Redis 自定义字符串结构，包含 <code>len</code>（长度）和 <code>free</code>（空闲空间）字段，支持高效追加和预分配。</li>
+</ul>
+</li>
+<li><p><strong>Key 操作命令</strong></p>
+<ul>
+<li><code>EXISTS key</code>：判断 Key 是否存在。</li>
+<li><code>DEL key1 key2</code>：删除指定 Key。</li>
+<li><code>DBSIZE</code>：返回当前数据库 Key 总数。</li>
+</ul>
+</li>
+</ol>
+<h2 id="三、内存管理与淘汰策略"><a href="#三、内存管理与淘汰策略" class="headerlink" title="三、内存管理与淘汰策略"></a>三、内存管理与淘汰策略</h2><ol start="7">
+<li><p><strong>内存划分</strong></p>
+<ul>
+<li><strong>数据内存</strong>：存储实际数据，计入 <code>used_memory</code>。</li>
+<li><strong>缓冲内存</strong>：客户端缓冲区、AOF 缓冲区等。</li>
+<li><strong>内存碎片</strong>：物理内存中未被有效利用的空间。</li>
+</ul>
+</li>
+<li><p><strong>6 种淘汰策略</strong></p>
+<ul>
+<li><code>noeviction</code>：不删除，直接返回错误（默认）。</li>
+<li><code>allkeys-lru</code>：全体 Key 中删除最近最少使用的。</li>
+<li><code>volatile-lru</code>：仅删除设置了过期时间的 Key 中最近最少使用的。</li>
+<li><code>allkeys-random</code>：全体 Key 中随机删除。</li>
+<li><code>volatile-random</code>：仅删除设置了过期时间的随机 Key。</li>
+<li><code>volatile-ttl</code>：优先删除剩余时间最短的 Key。</li>
+</ul>
+</li>
+<li><p><strong>删除策略</strong></p>
+<ul>
+<li><strong>定时删除</strong>：精确但消耗 CPU。</li>
+<li><strong>惰性删除</strong>：获取时检查，节省 CPU 但可能导致内存泄漏。</li>
+<li><strong>定期删除</strong>：折中方案，周期性检查过期 Key。</li>
+</ul>
+</li>
+</ol>
+<h2 id="四、持久化"><a href="#四、持久化" class="headerlink" title="四、持久化"></a>四、持久化</h2><ol start="10">
+<li><p><strong>持久化方案</strong></p>
+<ul>
+<li><strong>RDB</strong>：快照持久化，文件紧凑、恢复快，但可能丢失部分数据。</li>
+<li><strong>AOF</strong>：日志追加，支持秒级持久化，文件大但兼容性好。</li>
+</ul>
+</li>
+<li><p><strong>持久化策略选择</strong></p>
+<ul>
+<li>可接受分钟级数据丢失：选择 RDB。</li>
+<li>需秒级持久化：选择 AOF。</li>
+<li>高可用场景：主从复制结合持久化。</li>
+</ul>
+</li>
+<li><p><strong>AOF 配置示例</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">appendonly <span class="built_in">yes</span>                  <span class="comment"># 开启 AOF</span></span><br><span class="line">appendfilename <span class="string">&quot;appendonly.aof&quot;</span> <span class="comment"># 文件名</span></span><br><span class="line">appendfsync everysec            <span class="comment"># 每秒同步</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="五、高可用与分布式"><a href="#五、高可用与分布式" class="headerlink" title="五、高可用与分布式"></a>五、高可用与分布式</h2><ol start="13">
+<li><p><strong>主从复制</strong></p>
+<ul>
+<li>实现数据备份和读写分离，缺陷：故障恢复需手动，写操作无法负载均衡。</li>
+</ul>
+</li>
+<li><p><strong>哨兵（Sentinel）</strong></p>
+<ul>
+<li>在主从复制基础上实现自动化故障恢复，缺陷：存储受单机限制。</li>
+</ul>
+</li>
+<li><p><strong>分布式锁</strong></p>
+<ul>
+<li>使用 <code>SETNX</code> 争抢锁，结合 <code>EXPIRE</code> 防止死锁（建议用 <code>SET key value EX seconds NX</code> 原子操作）。</li>
+<li><strong>Redlock 算法</strong>：向多个 Redis 节点申请锁，半数以上成功且总耗时小于锁有效期则成功。</li>
+</ul>
+</li>
+<li><p><strong>数据分片</strong></p>
+<ul>
+<li>通过分片解决单机存储限制，结合读写分离提升扩展性。</li>
+</ul>
+</li>
+</ol>
+<h2 id="六、缓存问题与解决方案"><a href="#六、缓存问题与解决方案" class="headerlink" title="六、缓存问题与解决方案"></a>六、缓存问题与解决方案</h2><ol start="17">
+<li><p><strong>缓存穿透</strong></p>
+<ul>
+<li>问题：查询不存在的数据，绕过缓存直接访问数据库。</li>
+<li>方案：使用布隆过滤器拦截无效请求。</li>
+</ul>
+</li>
+<li><p><strong>缓存雪崩</strong></p>
+<ul>
+<li>问题：大量 Key 同时失效，请求压垮数据库。</li>
+<li>方案：<ul>
+<li>分散过期时间。</li>
+<li>双缓存策略（A 缓存设过期，B 缓存永久）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>缓存击穿</strong></p>
+<ul>
+<li>问题：热点 Key 失效后高并发查询数据库。</li>
+<li>方案：使用互斥锁（如 <code>SETNX</code>）控制单线程重建缓存。</li>
+</ul>
+</li>
+</ol>
+<h2 id="七、高级功能"><a href="#七、高级功能" class="headerlink" title="七、高级功能"></a>七、高级功能</h2><ol start="20">
+<li><p><strong>Pipeline</strong></p>
+<ul>
+<li>批量执行命令减少网络开销，非原子性操作。</li>
+</ul>
+</li>
+<li><p><strong>Lua 脚本</strong></p>
+<ul>
+<li>支持原子性执行自定义逻辑。</li>
+</ul>
+</li>
+<li><p><strong>Geo 模块</strong></p>
+<ul>
+<li>存储地理位置信息，支持“附近的人”功能（命令：<code>GEOADD</code>、<code>GEORADIUS</code>）。</li>
+</ul>
+</li>
+<li><p><strong>布隆过滤器</strong></p>
+<ul>
+<li>通过 Redis Module（如 RedisBloom）实现，快速判断元素是否存在。</li>
+</ul>
+</li>
+</ol>
+<h2 id="八、性能与监控"><a href="#八、性能与监控" class="headerlink" title="八、性能与监控"></a>八、性能与监控</h2><ol start="24">
+<li><p><strong>性能优化建议</strong></p>
+<ul>
+<li>Master 节点避免持久化，Slave 节点开启 AOF。</li>
+<li>主从节点部署在同一局域网。</li>
+</ul>
+</li>
+<li><p><strong>监控命令</strong></p>
+<ul>
+<li><code>INFO memory</code>：查看内存使用情况。</li>
+<li><code>MONITOR</code>：实时监听所有请求。</li>
+<li><code>CONFIG GET/SET</code>：动态调整配置。</li>
+</ul>
+</li>
+</ol>
+<h2 id="九、其他"><a href="#九、其他" class="headerlink" title="九、其他"></a>九、其他</h2><ol start="26">
+<li><p><strong>LRU 算法实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LRUCache</span>&lt;K, V&gt; <span class="keyword">extends</span> <span class="title class_">LinkedHashMap</span>&lt;K, V&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> CACHE_SIZE;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LRUCache</span><span class="params">(<span class="type">int</span> cacheSize)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>((<span class="type">int</span>) Math.ceil(cacheSize / <span class="number">0.75</span>) + <span class="number">1</span>, <span class="number">0.75f</span>, <span class="literal">true</span>);</span><br><span class="line">        CACHE_SIZE = cacheSize;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">boolean</span> <span class="title function_">removeEldestEntry</span><span class="params">(Map.Entry&lt;K, V&gt; eldest)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> size() &gt; CACHE_SIZE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Redis 通讯协议</strong></p>
+<ul>
+<li>RESP（Redis Serialization Protocol），简单高效，可读性好。</li>
+</ul>
+</li>
+<li><p><strong>如何保证 Redis 中数据均为热点数据？</strong></p>
+<ul>
+<li>Redis 通过 <strong>内存淘汰策略</strong> 自动清理非热点数据。当内存达到上限时，根据配置的策略淘汰数据：<ul>
+<li><strong>volatile-lru</strong>：从已设置过期的 Key 中删除最近最少使用的。</li>
+<li><strong>allkeys-lru</strong>：全体 Key 中删除最近最少使用的（推荐用于热点数据场景）。</li>
+<li><strong>volatile-ttl</strong>：优先删除即将过期的 Key。</li>
+</ul>
+</li>
+<li><strong>操作建议</strong>：<ul>
+<li>对高频访问数据设置合理的过期时间。</li>
+<li>结合业务监控，动态调整淘汰策略。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Redis 最适合的场景</strong></p>
+<ol>
+<li><strong>缓存</strong>：加速热点数据访问，减轻数据库压力。</li>
+<li><strong>会话存储（Session）</strong>：分布式系统共享会话信息。</li>
+<li><strong>排行榜&#x2F;计数器</strong>：利用 Sorted Set 实现实时排名。</li>
+<li><strong>消息队列</strong>：通过 List 或 Stream 支持异步任务处理。</li>
+<li><strong>分布式锁</strong>：基于 <code>SETNX</code> 或 Redlock 实现跨服务锁机制。</li>
+<li><strong>实时数据分析</strong>：如 HyperLogLog 统计 UV，Bitmaps 记录用户行为。</li>
+</ol>
+</li>
+<li><p><strong>Redis 的同步机制</strong></p>
+<ul>
+<li><strong>全量同步</strong>（首次同步）：<ol>
+<li>Master 执行 <code>BGSAVE</code> 生成 RDB 快照。</li>
+<li>将 RDB 文件发送给 Slave，Slave 加载到内存。</li>
+<li>Master 将同步期间的写命令存入缓冲区，Slave 加载 RDB 后重放这些命令。</li>
+</ol>
+</li>
+<li><strong>增量同步</strong>（断线重连）：<ul>
+<li>Slave 通过 <code>PSYNC</code> 命令发送偏移量（offset），Master 根据偏移量发送未同步的命令。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Redis 集群原理与一致性保证</strong></p>
+<ol>
+<li><strong>集群类型</strong>：<ul>
+<li><strong>Sentinel 集群</strong>：高可用方案，监控 Master&#x2F;Slave，自动故障转移。</li>
+<li><strong>Cluster 集群</strong>：分布式数据分片，支持水平扩展（默认 16384 个槽）。</li>
+</ul>
+</li>
+<li><strong>数据一致性保证</strong>：<ul>
+<li><strong>异步复制</strong>：默认同步机制，可能丢失部分数据（强一致性需额外配置）。</li>
+<li><strong>WAIT 命令</strong>：强制等待指定数量的 Slave 同步完成，实现强一致性（牺牲性能）。</li>
+<li><strong>Redis Cluster 的 Gossip 协议</strong>：节点间通过 Gossip 协议交换状态信息，维护集群拓扑。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><strong>Redis 常见性能问题与优化</strong></p>
+<ol>
+<li><strong>持久化阻塞</strong>：<ul>
+<li><strong>避免 Master 持久化</strong>：由 Slave 执行 <code>BGSAVE</code> 或 <code>BGREWRITEAOF</code>。</li>
+<li><strong>AOF 重写优化</strong>：控制重写频率，避免 CPU 和内存峰值。</li>
+</ul>
+</li>
+<li><strong>主从复制延迟</strong>：<ul>
+<li>Master 和 Slave 部署在同一局域网。</li>
+<li>使用高带宽网络，限制单 Master 的 Slave 数量。</li>
+</ul>
+</li>
+<li><strong>内存碎片</strong>：<ul>
+<li>启用 <code>activedefrag</code> 自动整理碎片。</li>
+<li>监控 <code>mem_fragmentation_ratio</code>，过高时重启实例。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<p><strong>总结</strong>：本文档涵盖 Redis 核心概念、数据管理、持久化、高可用架构、缓存问题解决方案及高级功能，适合系统化复习和面试准备。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/08/python/cgi/" rel="prev" title="列表生成式、生成器、迭代器">
+                  <i class="fa fa-angle-left"></i> 列表生成式、生成器、迭代器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/03/08/linux/install/" rel="next" title="系统安装">
+                  系统安装 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">miracle</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/my0521" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -9,8 +9,29 @@
 
 
     <url>
+        <loc>http://example.com/categories/CentosStream/</loc>
+        <lastmod>2025-03-15T09:34:18.348Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://example.com/categories/Redis/</loc>
+        <lastmod>2025-03-09T14:11:20.501Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://example.com/categories/python/</loc>
-        <lastmod>2025-03-09T10:54:51.082Z</lastmod>
+        <lastmod>2025-03-09T12:37:10.950Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://example.com/categories/java/</loc>
+        <lastmod>2025-03-09T12:15:45.473Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -39,13 +60,6 @@
     <url>
         <loc>http://example.com/categories/Go/</loc>
         <lastmod>2025-03-09T08:48:46.795Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://example.com/categories/java/</loc>
-        <lastmod>2025-03-09T07:31:55.992Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
