@@ -17,14 +17,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":null},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="在 Python 中，闭包（Closure） 是指一个函数（称为内部函数）捕获并“记住”了其外层作用域中的变量（即使外层函数已经执行完毕）。闭包允许函数访问并操作其定义时的上下文环境中的变量，即使这个上下文已经不再活跃。 闭包的核心概念 嵌套函数：闭包基于嵌套函数（函数内部定义另一个函数）。 引用外部变量：内部函数引用了外层函数作用域中的变量。 保持变量状态：即使外层函数执行完毕，内部函数仍能访问">
+    <meta name="description" content="在 Python 中，闭包（Closure） 是指一个函数（称为内部函数）捕获并“记住”了其外层作用域中的变量（即使外层函数已经执行完毕）。闭包允许函数访问并操作其定义时的上下文环境中的变量，即使这个上下文已经不再活跃。 闭包的核心概念  嵌套函数：闭包基于嵌套函数（函数内部定义另一个函数）。 引用外部变量：内部函数引用了外层函数作用域中的变量。 保持变量状态：即使外层函数执行完毕，内部函数仍能访">
 <meta property="og:type" content="article">
 <meta property="og:title" content="闭包">
 <meta property="og:url" content="http://example.com/2025/03/08/python/closure/index.html">
 <meta property="og:site_name" content="疏影种月">
-<meta property="og:description" content="在 Python 中，闭包（Closure） 是指一个函数（称为内部函数）捕获并“记住”了其外层作用域中的变量（即使外层函数已经执行完毕）。闭包允许函数访问并操作其定义时的上下文环境中的变量，即使这个上下文已经不再活跃。 闭包的核心概念 嵌套函数：闭包基于嵌套函数（函数内部定义另一个函数）。 引用外部变量：内部函数引用了外层函数作用域中的变量。 保持变量状态：即使外层函数执行完毕，内部函数仍能访问">
+<meta property="og:description" content="在 Python 中，闭包（Closure） 是指一个函数（称为内部函数）捕获并“记住”了其外层作用域中的变量（即使外层函数已经执行完毕）。闭包允许函数访问并操作其定义时的上下文环境中的变量，即使这个上下文已经不再活跃。 闭包的核心概念  嵌套函数：闭包基于嵌套函数（函数内部定义另一个函数）。 引用外部变量：内部函数引用了外层函数作用域中的变量。 保持变量状态：即使外层函数执行完毕，内部函数仍能访">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-03-08T08:40:35.000Z">
 <meta property="article:modified_time" content="2025-03-09T10:53:04.185Z">
@@ -88,7 +88,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-book fa-fw"></i>书籍</a></li><li class="menu-item menu-item-design"><a href="/design/" rel="section"><i class="fa fa-book fa-fw"></i>架构设计</a></li><li class="menu-item menu-item-algorithm"><a href="/algorithm/" rel="section"><i class="fa fa-chain fa-fw"></i>数据结构</a></li><li class="menu-item menu-item-ai"><a href="/ai/" rel="section"><i class="fa fa-user fa-fw"></i>人工智能</a></li><li class="menu-item menu-item-blockchain"><a href="/blockchain/" rel="section"><i class="fa fa-sitemap fa-fw"></i>区块链</a></li><li class="menu-item menu-item-database"><a href="/database/" rel="section"><i class="fa fa-sitemap fa-fw"></i>数据库</a></li><li class="menu-item menu-item-k8s"><a href="/k8s/" rel="section"><i class="fa fa-bus fa-fw"></i>云原生</a></li><li class="menu-item menu-item-front"><a href="/front/" rel="section"><i class="fa fa-chain fa-fw"></i>前端</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-zookeeper"><a href="/zk/" rel="section"><i class="fa fa-chain fa-fw"></i>zookeeper</a></li><li class="menu-item menu-item-kafka"><a href="/kafka/" rel="section"><i class="fa fa-chain fa-fw"></i>kafka</a></li><li class="menu-item menu-item-redis"><a href="/redis/" rel="section"><i class="fa fa-chain fa-fw"></i>redis</a></li><li class="menu-item menu-item-python"><a href="/python/" rel="section"><i class="fa fa-chain fa-fw"></i>python</a></li><li class="menu-item menu-item-java"><a href="/java/" rel="section"><i class="fa fa-chain fa-fw"></i>java</a></li><li class="menu-item menu-item-golang"><a href="/go/" rel="section"><i class="fa fa-chain fa-fw"></i>golang</a></li><li class="menu-item menu-item-rust"><a href="/rust/" rel="section"><i class="fa fa-chain fa-fw"></i>rust</a></li><li class="menu-item menu-item-c"><a href="/c/" rel="section"><i class="fa fa-chain fa-fw"></i>c</a></li><li class="menu-item menu-item-bookmark"><a href="/bookmark/" rel="section"><i class="fa fa-chain fa-fw"></i>收藏</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-book fa-fw"></i>书籍</a></li><li class="menu-item menu-item-design"><a href="/design/" rel="section"><i class="fa fa-book fa-fw"></i>架构设计</a></li><li class="menu-item menu-item-algorithm"><a href="/algorithm/" rel="section"><i class="fa fa-chain fa-fw"></i>数据结构</a></li><li class="menu-item menu-item-ai"><a href="/ai/" rel="section"><i class="fa fa-user fa-fw"></i>人工智能</a></li><li class="menu-item menu-item-blockchain"><a href="/blockchain/" rel="section"><i class="fa fa-sitemap fa-fw"></i>区块链</a></li><li class="menu-item menu-item-database"><a href="/database/" rel="section"><i class="fa fa-sitemap fa-fw"></i>数据库</a></li><li class="menu-item menu-item-k8s"><a href="/k8s/" rel="section"><i class="fa fa-bus fa-fw"></i>云原生</a></li><li class="menu-item menu-item-front"><a href="/front/" rel="section"><i class="fa fa-chain fa-fw"></i>前端</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-zookeeper"><a href="/zk/" rel="section"><i class="fa fa-chain fa-fw"></i>zookeeper</a></li><li class="menu-item menu-item-kafka"><a href="/kafka/" rel="section"><i class="fa fa-chain fa-fw"></i>kafka</a></li><li class="menu-item menu-item-redis"><a href="/redis/" rel="section"><i class="fa fa-chain fa-fw"></i>redis</a></li><li class="menu-item menu-item-python"><a href="/python/" rel="section"><i class="fa fa-chain fa-fw"></i>python</a></li><li class="menu-item menu-item-java"><a href="/java/" rel="section"><i class="fa fa-chain fa-fw"></i>java</a></li><li class="menu-item menu-item-golang"><a href="/go/" rel="section"><i class="fa fa-chain fa-fw"></i>golang</a></li><li class="menu-item menu-item-rust"><a href="/rust/" rel="section"><i class="fa fa-chain fa-fw"></i>rust</a></li><li class="menu-item menu-item-c"><a href="/c/" rel="section"><i class="fa fa-chain fa-fw"></i>c</a></li><li class="menu-item menu-item-bookmark"><a href="/bookmark/" rel="section"><i class="fa fa-chain fa-fw"></i>收藏</a></li><li class="menu-item menu-item-math"><a href="/math/" rel="section"><i class="fa fa-chain fa-fw"></i>math</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -152,16 +152,16 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -257,61 +257,68 @@
     
     
     <div class="post-body" itemprop="articleBody"><p>在 Python 中，<strong>闭包（Closure）</strong> 是指一个函数（称为内部函数）捕获并“记住”了其外层作用域中的变量（即使外层函数已经执行完毕）。闭包允许函数访问并操作其定义时的上下文环境中的变量，即使这个上下文已经不再活跃。</p>
-<h3 id="闭包的核心概念"><a href="#闭包的核心概念" class="headerlink" title="闭包的核心概念"></a><strong>闭包的核心概念</strong></h3><ol>
+<h3 id="闭包的核心概念"><strong>闭包的核心概念</strong></h3>
+<ol>
 <li><strong>嵌套函数</strong>：闭包基于嵌套函数（函数内部定义另一个函数）。</li>
 <li><strong>引用外部变量</strong>：内部函数引用了外层函数作用域中的变量。</li>
 <li><strong>保持变量状态</strong>：即使外层函数执行完毕，内部函数仍能访问外层函数的变量。</li>
 </ol>
-<h3 id="闭包的简单示例"><a href="#闭包的简单示例" class="headerlink" title="闭包的简单示例"></a><strong>闭包的简单示例</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">outer_func</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner_func</span>(<span class="params">y</span>):</span><br><span class="line">        <span class="keyword">return</span> x + y  <span class="comment"># inner_func 捕获了外层作用域中的 x</span></span><br><span class="line">    <span class="keyword">return</span> inner_func</span><br><span class="line"></span><br><span class="line">closure = outer_func(<span class="number">10</span>)  <span class="comment"># outer_func 执行完毕，但 x=10 被保留</span></span><br><span class="line"><span class="built_in">print</span>(closure(<span class="number">5</span>))  <span class="comment"># 输出 15</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="闭包的简单示例"><strong>闭包的简单示例</strong></h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">outer_func</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner_func</span>(<span class="params">y</span>):</span><br><span class="line">        <span class="keyword">return</span> x + y  <span class="comment"># inner_func 捕获了外层作用域中的 x</span></span><br><span class="line">    <span class="keyword">return</span> inner_func</span><br><span class="line"></span><br><span class="line">closure = outer_func(<span class="number">10</span>)  <span class="comment"># outer_func 执行完毕，但 x=10 被保留</span></span><br><span class="line"><span class="built_in">print</span>(closure(<span class="number">5</span>))  <span class="comment"># 输出 15</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>inner_func</code> 是一个闭包，因为它引用了外层函数 <code>outer_func</code> 的参数 <code>x</code>。</li>
 <li>即使 <code>outer_func</code> 执行结束，<code>closure</code> 仍然能访问 <code>x=10</code>。</li>
 </ul>
-<h3 id="闭包的关键特性"><a href="#闭包的关键特性" class="headerlink" title="闭包的关键特性"></a><strong>闭包的关键特性</strong></h3><h4 id="1-捕获变量的生命周期延长"><a href="#1-捕获变量的生命周期延长" class="headerlink" title="1. 捕获变量的生命周期延长"></a>1. <strong>捕获变量的生命周期延长</strong></h4><p>闭包会延长外层函数变量的生命周期：</p>
+<h3 id="闭包的关键特性"><strong>闭包的关键特性</strong></h3>
+<h4 id="1-捕获变量的生命周期延长">1. <strong>捕获变量的生命周期延长</strong></h4>
+<p>闭包会延长外层函数变量的生命周期：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">counter</span>():</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">increment</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> count  <span class="comment"># 声明修改外层变量</span></span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    <span class="keyword">return</span> increment</span><br><span class="line"></span><br><span class="line">c = counter()</span><br><span class="line"><span class="built_in">print</span>(c())  <span class="comment"># 1</span></span><br><span class="line"><span class="built_in">print</span>(c())  <span class="comment"># 2 (闭包保持了 count 的状态)</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-闭包与变量绑定"><a href="#2-闭包与变量绑定" class="headerlink" title="2. 闭包与变量绑定"></a>2. <strong>闭包与变量绑定</strong></h4><p>闭包捕获的是变量的引用，而非变量当前的值。在循环中需注意：</p>
+<h4 id="2-闭包与变量绑定">2. <strong>闭包与变量绑定</strong></h4>
+<p>闭包捕获的是变量的引用，而非变量当前的值。在循环中需注意：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">funcs = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        <span class="keyword">return</span> i</span><br><span class="line">    funcs.append(inner)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>([f() <span class="keyword">for</span> f <span class="keyword">in</span> funcs])  <span class="comment"># 输出 [2, 2, 2]（所有闭包共享最终的 i 值）</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>解决方法</strong>：通过参数传递立即绑定：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">funcs = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>(<span class="params">x=i</span>):  <span class="comment"># 立即绑定当前 i 的值到 x</span></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    funcs.append(inner)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>([f() <span class="keyword">for</span> f <span class="keyword">in</span> funcs])  <span class="comment"># 输出 [0, 1, 2]</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="闭包的常见应用场景"><a href="#闭包的常见应用场景" class="headerlink" title="闭包的常见应用场景"></a><strong>闭包的常见应用场景</strong></h3><h4 id="1-装饰器（Decorators）"><a href="#1-装饰器（Decorators）" class="headerlink" title="1. 装饰器（Decorators）"></a>1. <strong>装饰器（Decorators）</strong></h4><p>装饰器本质上是闭包的应用：</p>
+<h3 id="闭包的常见应用场景"><strong>闭包的常见应用场景</strong></h3>
+<h4 id="1-装饰器（Decorators）">1. <strong>装饰器（Decorators）</strong></h4>
+<p>装饰器本质上是闭包的应用：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">logger</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Calling <span class="subst">&#123;func.__name__&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@logger</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line">add(<span class="number">3</span>, <span class="number">5</span>)  <span class="comment"># 输出 &quot;Calling add&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-延迟计算"><a href="#2-延迟计算" class="headerlink" title="2. 延迟计算"></a>2. <strong>延迟计算</strong></h4><p>闭包可以用于延迟执行或记忆化（Memoization）：</p>
+<h4 id="2-延迟计算">2. <strong>延迟计算</strong></h4>
+<p>闭包可以用于延迟执行或记忆化（Memoization）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">lazy_sum</span>(<span class="params">a, b</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calculate</span>():</span><br><span class="line">        <span class="keyword">return</span> a + b</span><br><span class="line">    <span class="keyword">return</span> calculate</span><br><span class="line"></span><br><span class="line">sum_func = lazy_sum(<span class="number">3</span>, <span class="number">5</span>)</span><br><span class="line"><span class="built_in">print</span>(sum_func())  <span class="comment"># 输出 8（实际计算在调用时执行）</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-封装私有变量"><a href="#3-封装私有变量" class="headerlink" title="3. 封装私有变量"></a>3. <strong>封装私有变量</strong></h4><p>闭包可以模拟私有变量：</p>
+<h4 id="3-封装私有变量">3. <strong>封装私有变量</strong></h4>
+<p>闭包可以模拟私有变量：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">create_counter</span>():</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">increment</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> count</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">reset</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> count</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> increment, reset</span><br><span class="line"></span><br><span class="line">inc, reset = create_counter()</span><br><span class="line"><span class="built_in">print</span>(inc())  <span class="comment"># 1</span></span><br><span class="line"><span class="built_in">print</span>(inc())  <span class="comment"># 2</span></span><br><span class="line">reset()</span><br><span class="line"><span class="built_in">print</span>(inc())  <span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="闭包的注意事项"><a href="#闭包的注意事项" class="headerlink" title="闭包的注意事项"></a><strong>闭包的注意事项</strong></h3><ol>
-<li><p><strong>变量修改</strong>：</p>
+<h3 id="闭包的注意事项"><strong>闭包的注意事项</strong></h3>
+<ol>
+<li>
+<p><strong>变量修改</strong>：</p>
 <ul>
 <li>默认情况下，闭包只能读取外部变量，不能修改。</li>
 <li>使用 <code>nonlocal</code> 关键字（Python 3+）可以修改外层函数的变量。</li>
 <li>对于全局变量，使用 <code>global</code> 关键字。</li>
 </ul>
 </li>
-<li><p><strong>内存泄漏</strong>：</p>
+<li>
+<p><strong>内存泄漏</strong>：</p>
 <ul>
 <li>闭包会保留外层作用域的变量引用，可能导致内存无法释放。</li>
 </ul>
 </li>
-<li><p><strong>性能优化</strong>：</p>
+<li>
+<p><strong>性能优化</strong>：</p>
 <ul>
 <li>闭包访问外部变量比访问局部变量稍慢（需通过作用域链查找）。</li>
 </ul>
 </li>
 </ol>
-<h3 id="闭包-vs-类"><a href="#闭包-vs-类" class="headerlink" title="闭包 vs 类"></a><strong>闭包 vs 类</strong></h3><ul>
+<h3 id="闭包-vs-类"><strong>闭包 vs 类</strong></h3>
+<ul>
 <li><strong>闭包</strong>：轻量级，适合简单的状态保持。</li>
 <li><strong>类</strong>：适合复杂的状态和行为管理。</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 闭包实现</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">make_counter</span>():</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">counter</span>():</span><br><span class="line">        <span class="keyword">nonlocal</span> count</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    <span class="keyword">return</span> counter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 类实现</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Counter</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.count += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.count</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用方式相同</span></span><br><span class="line">c1 = make_counter()</span><br><span class="line">c2 = Counter()</span><br><span class="line"><span class="built_in">print</span>(c1(), c2())  <span class="comment"># 1 1</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>闭包是 Python 中强大的特性，用于：</p>
+<h3 id="总结"><strong>总结</strong></h3>
+<p>闭包是 Python 中强大的特性，用于：</p>
 <ul>
 <li><strong>保持状态</strong>：在函数调用间保留上下文。</li>
 <li><strong>实现装饰器</strong>：增强函数行为。</li>
@@ -334,13 +341,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2025/03/08/python/decorator/" rel="prev" title="装饰器">
-                  <i class="fa fa-angle-left"></i> 装饰器
+                <a href="/2025/03/08/python/crotine/" rel="prev" title="协程">
+                  <i class="fa fa-angle-left"></i> 协程
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/03/08/kafka/install/" rel="next" title="kafka 安装使用">
-                  kafka 安装使用 <i class="fa fa-angle-right"></i>
+                <a href="/2025/03/08/python/cgi/" rel="next" title="列表生成式、生成器、迭代器">
+                  列表生成式、生成器、迭代器 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -409,6 +416,12 @@
   
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 

@@ -4,7 +4,21 @@
 
     <url>
         <loc>http://example.com/tags/CentosStream/</loc>
-        <lastmod>2025-03-15T09:34:18.348Z</lastmod>
+        <lastmod>2025-03-23T13:53:50.370Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://example.com/tags/DNS/</loc>
+        <lastmod>2025-03-23T13:53:50.354Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://example.com/tags/Go/</loc>
+        <lastmod>2025-03-23T13:53:50.341Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -47,13 +61,6 @@
     <url>
         <loc>http://example.com/tags/Node/</loc>
         <lastmod>2025-03-09T09:11:02.758Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://example.com/tags/Go/</loc>
-        <lastmod>2025-03-09T08:48:46.795Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
